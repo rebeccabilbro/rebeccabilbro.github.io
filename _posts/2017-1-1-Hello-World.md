@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Hello World
-date: 2017-01-01 11:43
+title:  Hello World
+date:   2017-01-01 11:43
 ---
 
 Welcome to Capsicum, my development journal.
