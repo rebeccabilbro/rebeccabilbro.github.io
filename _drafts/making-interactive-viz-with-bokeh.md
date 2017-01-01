@@ -28,7 +28,6 @@ To use widgets, you must add them to your document and define their functionalit
 
 ### Imports
 
-
 ```python
 import numpy as np
 import pandas as pd
@@ -55,23 +54,19 @@ from bokeh.models import SingleIntervalTicker
 from bokeh.palettes import Spectral6
 ```
 
-To display Bokeh plots inline in a Jupyter notebook, use the `output_notebook()` function from bokeh.io. When `show()` is called, the plot will be displayed inline in the next notebook output cell. To save your Bokeh plots, you can use the `output_file()` function instead (or in addition).
-
-
-```python
-output_notebook()
-```
+If you're doing this in a Jupyter notebook, use the `output_notebook()` function from bokeh.io to display Bokeh plots inline. When `show()` is called, the plot will be displayed inline in the next notebook output cell. To save your Bokeh plots, you can use the `output_file()` function instead (or in addition).
 
 
 ### Get the data
 
-Some of Bokeh examples rely on sample data that is not included in the Bokeh GitHub repository or released packages, due to their size. Once Bokeh is installed, the sample data can be obtained by executing the command in the next cell. The location that the sample data is stored can be configured. By default, data is downloaded and stored to a directory `$HOME/.bokeh/data` (e.g. `$/Users/rebeccabilbro/.bokeh/data`. The directory is created if it does not already exist.)
-
+Some of Bokeh examples rely on sample data that is not included in the Bokeh GitHub repository or released packages, due to their size. Once Bokeh is installed, the sample data can be obtained by executing:
 
 ```python
 import bokeh.sampledata
 bokeh.sampledata.download()
 ```
+
+The location that the sample data is stored can be configured. By default, data is downloaded and stored to a directory `$HOME/.bokeh/data`, which is created if it does not already exist (e.g. `$/Users/rebeccabilbro/.bokeh/data`). It will take a couple minutes for the data to download.
 
 ### Prepare the data    
 
@@ -221,12 +216,7 @@ plot.add_layout(xaxis, 'below')
 plot.add_layout(yaxis, 'left')
 ```
 
-What do you expect to see when we call `show()` on the plot that we have created so far? Experiment with running the below cell, modifying some of the parameters above, and then re-running the cell below:
-
-
-```python
-show(plot)
-```
+![axes](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-01-01-axes.png)
 
 
 ### Add the background year text
@@ -240,13 +230,7 @@ text = Text(x=2, y=35, text='year', text_font_size='150pt', text_color='#EEEEEE'
 plot.add_glyph(text_source, text)
 ```
 
-
-Test out different versions of the background text and see how it changes the plot:
-
-
-```python
-show(plot)
-```
+![background dates](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-01-01-backdate.png)
 
 
 ### Add the bubbles and hover
@@ -273,12 +257,7 @@ tooltips = "@index"
 plot.add_tools(HoverTool(tooltips=tooltips, renderers=[circle_renderer]))
 ```
 
-Test out different parameters for the `Circle` glyph and see how it changes the plot:
-
-
-```python
-show(plot)
-```
+![circle glyph](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-01-01-circleglyph.png)
 
 ### Add the legend
 
@@ -294,12 +273,7 @@ for i, region in enumerate(regions):
     text_y = text_y - 5
 ```
 
-Experiment with different parameters, and test it out by running the below cell:
-
-
-```python
-show(plot)
-```
+![legend](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-01-01-legend.png)
 
 
 ### Add the slider and callback
@@ -325,22 +299,13 @@ callback.args["slider"] = slider
 callback.args["text_source"] = text_source
 ```
 
-Check out what our slider looks like by itself:
-
-
-```python
-show(widgetbox(slider))
-```
+![slider](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-01-01-slider.png)
 
 ### Putting all the pieces together
 
 Last but not least, we put the chart and the slider together in a layout and display it inline in the notebook.
 
-
-```python
-show(layout([[plot], [slider]], sizing_mode='scale_width'))
-```
-
+![gapminder](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-01-01-gapminder.png)
 
 Nice work!
 
