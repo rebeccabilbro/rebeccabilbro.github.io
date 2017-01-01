@@ -34,3 +34,5 @@ version:        1.0
 
 github:
     repo:       https://github.com/rebeccabilbro/rebeccabilbro.github.io
+
+theme: jekyll-theme-minimal
