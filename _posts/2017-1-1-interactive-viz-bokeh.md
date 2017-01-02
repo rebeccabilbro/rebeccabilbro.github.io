@@ -107,7 +107,9 @@ def process_data():
     scaling  = 200
     pop_size = np.sqrt(population / np.pi) / scaling
     min_size = 3
-    pop_size = pop_size.where(pop_size >= min_size).fillna(min_size)
+    pop_size = pop_size.where(
+                  pop_size >= min_size
+                  ).fillna(min_size)
 
     # Use pandas categories and categorize & color the regions
     regions.Group = regions.Group.astype('category')
@@ -157,7 +159,10 @@ We can also create a corresponding `dict_of_sources` object, where the keys are 
 
 
 ```python
-dict_of_sources = dict(zip([x for x in years], ['_%s' % x for x in years]))
+dict_of_sources = dict(
+                      zip([x for x in years],
+                      ['_%s' % x for x in years])
+                      )
 
 js_source_array = str(dict_of_sources).replace("'", "")
 ```
@@ -274,7 +279,7 @@ In the above, `plot.add_glyph` returns the renderer, which we can then pass to t
 
 
 ```python
-# Add the hover (only against the circle and not other plot elements)
+# Add hover for the circle (not other plot elements)
 tooltips = "@index"
 plot.add_tools(HoverTool(
                   tooltips=tooltips,
