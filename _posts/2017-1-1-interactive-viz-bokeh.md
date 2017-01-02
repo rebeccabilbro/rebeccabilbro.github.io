@@ -17,7 +17,7 @@ The following notebook is intended to illustrate some of Bokeh's interactive uti
 
 Gapminder started as a spin-off from Professor Hans Rosling’s teaching at the Karolinska Institute in Stockholm. Having encountered broad ignorance about the rapid health improvement in Asia, he wanted to measure that lack of awareness among students and professors. He presented the surprising results from his so-called “Chimpanzee Test” in [his first TED-talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen) in 2006.
 
-[![The Best Stats You've Never Seen](http://img.youtube.com/vi/hVimVzgtD6w/0.jpg)](http://www.youtube.com/watch?v=hVimVzgtD6w "The best stats you've ever seen | Hans Rosling")
+![The Best Stats You've Never Seen](http://img.youtube.com/vi/hVimVzgtD6w/0.jpg)]
 
 Rosling's interactive ["Health and Wealth of Nations" visualization](http://www.gapminder.org/world) has since become an iconic  illustration of how our assumptions about ‘first world’ and ‘third world’ countries can betray us. Mike Bostock has [recreated the visualization using D3.js](https://bost.ocks.org/mike/nations/), and it's also be recreated using [R with GoogleVis](http://www.datasciencecentral.com/profiles/blogs/gapminder-data-visualization-using-googlevis-and-r) and even [SAS](http://robslink.com/SAS/democd27/gapminder_info.htm). In this post, we will see that it is also possible to use Bokeh to recreate the interactive visualization in Python.
 
@@ -90,23 +90,24 @@ def process_data():
     from bokeh.sampledata.gapminder import regions
     from bokeh.sampledata.gapminder import fertility
     from bokeh.sampledata.gapminder import population
-    from bokeh.sampledata.gapminder import life_expectancy
+    from bokeh.sampledata.gapminder import life_expect
 
     # Make the column names ints not strings for handling
     columns     = list(fertility.columns)
     years       = list(range(int(columns[0]), int(columns[-1])))
     rename_dict = dict(zip(columns, years))
 
-    fertility       = fertility.rename(columns=rename_dict)
-    life_expectancy = life_expectancy.rename(columns=rename_dict)
-    population      = population.rename(columns=rename_dict)
-    regions         = regions.rename(columns=rename_dict)
+    fertility   = fertility.rename(columns=rename_dict)
+    life_expect = life_expect.rename(columns=rename_dict)
+    population  = population.rename(columns=rename_dict)
+    regions     = regions.rename(columns=rename_dict)
 
-    # Turn population into bubble sizes. Use min_size and factor to tweak.
-    scale_factor = 200
-    pop_size     = np.sqrt(population / np.pi) / scale_factor
-    min_size     = 3
-    pop_size     = pop_size.where(pop_size >= min_size).fillna(min_size)
+    # Turn population into bubble sizes.
+    # Use min_size and factor to tweak.
+    scaling  = 200
+    pop_size = np.sqrt(population / np.pi) / scaling
+    min_size = 3
+    pop_size = pop_size.where(pop_size >= min_size).fillna(min_size)
 
     # Use pandas categories and categorize & color the regions
     regions.Group = regions.Group.astype('category')
@@ -117,7 +118,8 @@ def process_data():
 
     regions['region_color'] = regions.apply(get_color, axis=1)
 
-    return fertility, life_expectancy, pop_size, regions, years, regions_list
+    return (fertility, life_expect, pop_size,
+        regions, years, regions_list)
 ```
 
 Next we will add each of our sources to the `sources` dictionary, where each key is the name of the year (prefaced with an underscore) and each value is a dataframe with the aggregated values for that year.
@@ -126,21 +128,26 @@ _Note that we needed the prefixing as JavaScript objects cannot begin with a num
 
 
 ```python
-fert_df, life_exp_df, pop_df_size, regions_df, years, regions = process_data()
+(fertility_df, life_expect_df,
+pop_size_df, regions_df, years, regions) = process_data()
 
 sources = {}
 
-region_color = regions_df['region_color']
+region_color      = regions_df['region_color']
 region_color.name = 'region_color'
 
 for year in years:
-    fertility = fert_df[year]
-    fertility.name = 'fertility'
-    life = life_exp_df[year]
-    life.name = 'life'
-    population = pop_df_size[year]
+    fertility       = fertility_df[year]
+    fertility.name  = 'fertility'
+    life            = life_expect_df[year]
+    life.name       = 'life'
+    population      = pop_size_df[year]
     population.name = 'population'
-    new_df = pd.concat([fertility, life, population, region_color], axis=1)
+
+    new_df = pd.concat(
+                [fertility, life, population, region_color],
+                axis=1
+    )
     sources['_' + str(year)] = ColumnDataSource(new_df)
 ```
 
@@ -230,10 +237,10 @@ One of the features of Rosling's animation is that the year appears as the text 
 ```python
 text_source = ColumnDataSource({'year': ['%s' % years[0]]})
 text        = Text(
-                x = 2, y = 35, text = 'year',
-                text_font_size = '150pt',
-                text_color = '#EEEEEE'
-                )
+                  x=2, y=35, text='year',
+                  text_font_size='150pt',
+                  text_color='#EEEEEE'
+                  )
 plot.add_glyph(text_source, text)
 ```
 
@@ -250,9 +257,11 @@ Next we will add the bubbles using Bokeh's [`Circle`](http://bokeh.pydata.org/en
 # Add the circle
 renderer_source = sources['_%s' % years[0]]
 circle_glyph    = Circle(
-                    x = 'fertility', y = 'life', size = 'population',
-                    fill_color = 'region_color', fill_alpha = 0.8,
-                    line_color = '#7c7e71', line_width = 0.5, line_alpha = 0.5
+                    x='fertility', y='life',
+                    size='population', fill_alpha=0.8,
+                    fill_color='region_color',
+                    line_color='#7c7e71',
+                    line_width=0.5, line_alpha=0.5
                     )
 
 circle_renderer = plot.add_glyph(renderer_source, circle_glyph)
@@ -283,14 +292,19 @@ text_x = 7
 text_y = 95
 for i, region in enumerate(regions):
     plot.add_glyph(Text(
-                      x = text_x, y = text_y, text = [region],
-                      text_font_size='10pt', text_color='#666666'
+                      x=text_x, y=text_y,
+                      text=[region],
+                      text_font_size='10pt',
+                      text_color='#666666'
                       )
                   )
     plot.add_glyph(Circle(
-                      x = text_x - 0.1, y = text_y + 2,
-                      fill_color = Spectral6[i], size = 10,
-                      line_color = None, fill_alpha = 0.8
+                      x=text_x - 0.1,
+                      y=text_y + 2,
+                      fill_color=Spectral6[i],
+                      line_color=None,
+                      fill_alpha=0.8,
+                      size=10,
                       )
                   )
     text_y = text_y - 5
@@ -316,11 +330,11 @@ code = """
     text_source.set('data', {'year': [String(year)]});
 """ % js_source_array
 
-callback = CustomJS(args = sources, code = code)
+callback = CustomJS(args=sources, code=code)
 slider   = Slider(
-              start = years[0], end = years[-1],
-              value = 1, step = 1, title = "Year",
-              callback = callback
+              start=years[0], end=years[-1],
+              value=1, step=1, title="Year",
+              callback=callback
               )
 callback.args["renderer_source"] = renderer_source
 callback.args["text_source"] = text_source
@@ -333,7 +347,7 @@ In order to see what our slider widget looks like by itself, we can call `show(w
 
 ### Putting all the pieces together
 
-Last but not least, we put the chart and the slider together in a layout, which we can display inline in a notebook by calling `show(layout([[plot], [slider]], sizing_mode = 'scale_width'))`:
+Last but not least, we put the chart and the slider together in a layout, which we can display inline in a notebook by calling `show(layout([[plot], [slider]], sizing_mode='scale_width'))`:
 
 ![gapminder](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-01-01-gapminder.png)
 
