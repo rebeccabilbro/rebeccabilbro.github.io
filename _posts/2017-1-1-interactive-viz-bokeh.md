@@ -159,8 +159,8 @@ We can also create a corresponding `dict_of_sources` object, where the keys are 
 
 
 ```python
-dict_of_sources = dict(
-                      zip([x for x in years],
+dict_of_sources = dict(zip(
+                      [x for x in years],
                       ['_%s' % x for x in years])
                       )
 
