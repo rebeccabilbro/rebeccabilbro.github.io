@@ -216,11 +216,9 @@ from sklearn.ensemble import BaggingClassifier, ExtraTreesClassifier, RandomFore
 model_selection(X, y, LinearSVC())
 ```
 
-
-
-
-    0.65846308387744845
-
+```bash
+>>> 0.65846308387744845
+```
 
 
 
@@ -228,11 +226,9 @@ model_selection(X, y, LinearSVC())
 model_selection(X, y, NuSVC())
 ```
 
-
-
-
-    0.63838842388991346
-
+```bash
+>>> 0.63838842388991346
+```
 
 
 
@@ -240,11 +236,9 @@ model_selection(X, y, NuSVC())
 model_selection(X, y, SVC())
 ```
 
-
-
-
-    0.66251459711950167
-
+```bash
+>>> 0.66251459711950167
+```
 
 
 
@@ -252,11 +246,9 @@ model_selection(X, y, SVC())
 model_selection(X, y, SGDClassifier())
 ```
 
-
-
-
-    0.663893146485658
-
+```bash
+>>> 0.663893146485658
+```
 
 
 
@@ -264,11 +256,9 @@ model_selection(X, y, SGDClassifier())
 model_selection(X, y, KNeighborsClassifier())
 ```
 
-
-
-
-    0.65802139037433149
-
+```bash
+>>> 0.65802139037433149
+```
 
 
 
@@ -276,11 +266,9 @@ model_selection(X, y, KNeighborsClassifier())
 model_selection(X, y, LogisticRegressionCV())
 ```
 
-
-
-
-    0.65846308387744845
-
+```bash
+>>> 0.65846308387744845
+```
 
 
 
@@ -288,11 +276,9 @@ model_selection(X, y, LogisticRegressionCV())
 model_selection(X, y, LogisticRegression())
 ```
 
-
-
-
-    0.65812609897010799
-
+```bash
+>>> 0.65812609897010799
+```
 
 
 
@@ -300,11 +286,9 @@ model_selection(X, y, LogisticRegression())
 model_selection(X, y, BaggingClassifier())
 ```
 
-
-
-
-    0.69881710646041861
-
+```bash
+>>> 0.69881710646041861
+```
 
 
 
@@ -312,11 +296,9 @@ model_selection(X, y, BaggingClassifier())
 model_selection(X, y, ExtraTreesClassifier())
 ```
 
-
-
-
-    0.68713648045448383
-
+```bash
+>>> 0.68713648045448383
+```
 
 
 
@@ -324,11 +306,9 @@ model_selection(X, y, ExtraTreesClassifier())
 model_selection(X, y, RandomForestClassifier())
 ```
 
-
-
-
-    0.69957248348231649
-
+```bash
+>>> 0.69957248348231649
+```
 
 
 Which model performs best?
@@ -373,7 +353,7 @@ visual_model_selection(X, y, LinearSVC())
 ```
 
 
-![png](images/2017-02-01-linear-svc.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-linear-svc.png)
 
 
 
@@ -382,7 +362,7 @@ visual_model_selection(X, y, SVC())
 ```
 
 
-![png](images/2017-02-01-svc.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-svc.png)
 
 
 
@@ -391,7 +371,7 @@ visual_model_selection(X, y, NuSVC())
 ```
 
 
-![png](images/2017-02-01-nu-svc.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-nu-svc.png)
 
 
 
@@ -400,7 +380,7 @@ visual_model_selection(X, y, SGDClassifier())
 ```
 
 
-![png](images/2017-02-01-sgd-classifier.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-sgd-classifier.png)
 
 
 
@@ -409,7 +389,7 @@ visual_model_selection(X, y, BaggingClassifier())
 ```
 
 
-![png](images/2017-02-01-bagging-classifier.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-bagging-classifier.png)
 
 
 
@@ -418,7 +398,7 @@ visual_model_selection(X, y, ExtraTreesClassifier())
 ```
 
 
-![png](images/2017-02-01-extra-trees-classifier.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-extra-trees-classifier.png)
 
 
 
@@ -427,7 +407,7 @@ visual_model_selection(X, y, KNeighborsClassifier())
 ```
 
 
-![png](images/2017-02-01-k-neighbors-classifier.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-k-neighbors-classifier.png)
 
 
 
@@ -436,7 +416,7 @@ visual_model_selection(X, y, RandomForestClassifier())
 ```
 
 
-![png](images/2017-02-01-random-forest-classifier.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-random-forest-classifier.png)
 
 
 
@@ -445,7 +425,7 @@ visual_model_selection(X, y, LogisticRegression())
 ```
 
 
-![png](images/2017-02-01-logistic-regression.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-logistic-regression.png)
 
 
 
@@ -454,7 +434,7 @@ visual_model_selection(X, y, LogisticRegressionCV())
 ```
 
 
-![png](images/2017-02-01-logistic-regression-cv.png)
+![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-logistic-regression-cv.png)
 
 
 Which model seems best now? Why?
