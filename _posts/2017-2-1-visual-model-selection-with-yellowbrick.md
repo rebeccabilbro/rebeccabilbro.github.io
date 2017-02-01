@@ -13,7 +13,7 @@ Yellowbrick is a new Python library that extends the Scikit-Learn API to incorpo
 
 The Yellowbrick library is a diagnostic visualization platform for machine learning that allows data scientists to steer the model selection process. Yellowbrick extends the Scikit-Learn API with a new core object: the Visualizer. Visualizers allow visual models to be fit and transformed as part of the Scikit-Learn Pipeline process, providing visual diagnostics throughout the transformation of high dimensional data.
 
-To learn more about Yellowbrick, visit http://www.scikit-yb.org.
+To learn more about Yellowbrick, visit [http://www.scikit-yb.org](http://www.scikit-yb.org).
 
 
 ## About the Data
@@ -41,67 +41,7 @@ names = [
 mushrooms = os.path.join('data','agaricus-lepiota.txt')
 dataset   = pd.read_csv(mushrooms)
 dataset.columns = names
-dataset.head()
-```
 
-
-
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>class</th>
-      <th>cap-shape</th>
-      <th>cap-surface</th>
-      <th>cap-color</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>edible</td>
-      <td>bell</td>
-      <td>smooth</td>
-      <td>white</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>poisonous</td>
-      <td>convex</td>
-      <td>scaly</td>
-      <td>white</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>edible</td>
-      <td>convex</td>
-      <td>smooth</td>
-      <td>gray</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>edible</td>
-      <td>convex</td>
-      <td>scaly</td>
-      <td>yellow</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>edible</td>
-      <td>bell</td>
-      <td>smooth</td>
-      <td>white</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
 features = ['cap-shape', 'cap-surface', 'cap-color']
 target   = ['class']
 
