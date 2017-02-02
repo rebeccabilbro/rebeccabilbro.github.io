@@ -160,8 +160,6 @@ model_selection(X, y, LinearSVC())
 >>> 0.65846308387744845
 ```
 
-
-
 ```python
 model_selection(X, y, NuSVC())
 ```
@@ -169,8 +167,6 @@ model_selection(X, y, NuSVC())
 ```bash
 >>> 0.63838842388991346
 ```
-
-
 
 ```python
 model_selection(X, y, SVC())
@@ -180,8 +176,6 @@ model_selection(X, y, SVC())
 >>> 0.66251459711950167
 ```
 
-
-
 ```python
 model_selection(X, y, SGDClassifier())
 ```
@@ -189,8 +183,6 @@ model_selection(X, y, SGDClassifier())
 ```bash
 >>> 0.663893146485658
 ```
-
-
 
 ```python
 model_selection(X, y, KNeighborsClassifier())
@@ -200,8 +192,6 @@ model_selection(X, y, KNeighborsClassifier())
 >>> 0.65802139037433149
 ```
 
-
-
 ```python
 model_selection(X, y, LogisticRegressionCV())
 ```
@@ -209,8 +199,6 @@ model_selection(X, y, LogisticRegressionCV())
 ```bash
 >>> 0.65846308387744845
 ```
-
-
 
 ```python
 model_selection(X, y, LogisticRegression())
@@ -220,8 +208,6 @@ model_selection(X, y, LogisticRegression())
 >>> 0.65812609897010799
 ```
 
-
-
 ```python
 model_selection(X, y, BaggingClassifier())
 ```
@@ -230,8 +216,6 @@ model_selection(X, y, BaggingClassifier())
 >>> 0.69881710646041861
 ```
 
-
-
 ```python
 model_selection(X, y, ExtraTreesClassifier())
 ```
@@ -239,8 +223,6 @@ model_selection(X, y, ExtraTreesClassifier())
 ```bash
 >>> 0.68713648045448383
 ```
-
-
 
 ```python
 model_selection(X, y, RandomForestClassifier())
@@ -252,6 +234,7 @@ model_selection(X, y, RandomForestClassifier())
 
 
 Which model performs best?
+
 
 ## Visual Model Evaluation
 
@@ -292,90 +275,74 @@ def visual_model_selection(X, y, estimator):
 visual_model_selection(X, y, LinearSVC())
 ```
 
-
 ![LinearSVC](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-linear-svc.png)
-
-
-
-```python
-visual_model_selection(X, y, SVC())
-```
-
-
-![SVC](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-svc.png)
-
 
 
 ```python
 visual_model_selection(X, y, NuSVC())
 ```
 
-
 ![NuSVC](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-nu-svc.png)
 
+
+```python
+visual_model_selection(X, y, SVC())
+```
+
+![SVC](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-svc.png)
 
 
 ```python
 visual_model_selection(X, y, SGDClassifier())
 ```
 
-
 ![SGDClassifier](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-sgd-classifier.png)
-
-
-
-```python
-visual_model_selection(X, y, BaggingClassifier())
-```
-
-
-![BaggingClassifier](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-bagging-classifier.png)
-
-
-
-```python
-visual_model_selection(X, y, ExtraTreesClassifier())
-```
-
-
-![ExtraTreesClassifier](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-extra-trees-classifier.png)
-
 
 
 ```python
 visual_model_selection(X, y, KNeighborsClassifier())
 ```
 
-
 ![KNeighborsClassifier](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-k-neighbors-classifier.png)
 
-
-
 ```python
-visual_model_selection(X, y, RandomForestClassifier())
+visual_model_selection(X, y, LogisticRegressionCV())
 ```
 
-
-![RandomForestClassifier](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-random-forest-classifier.png)
-
+![LogisticRegressionCV](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-logistic-regression-cv.png)
 
 
 ```python
 visual_model_selection(X, y, LogisticRegression())
 ```
 
-
 ![LogisticRegression](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-logistic-regression.png)
 
 
-
 ```python
-visual_model_selection(X, y, LogisticRegressionCV())
+visual_model_selection(X, y, BaggingClassifier())
 ```
 
+![BaggingClassifier](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-bagging-classifier.png)
 
-![LogisticRegressionCV](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-logistic-regression-cv.png)
 
+```python
+visual_model_selection(X, y, ExtraTreesClassifier())
+```
+
+![ExtraTreesClassifier](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-extra-trees-classifier.png)
+
+
+```python
+visual_model_selection(X, y, RandomForestClassifier())
+```
+
+![RandomForestClassifier](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-02-01-random-forest-classifier.png)
+
+
+
+
+## Conclusions
 
 Which model seems best now? Why?
 
