@@ -79,7 +79,7 @@ print("\033[0;31mi love chili peppers\033[0m")
 
 ... should print out
 
-<span style="color:darkred;">i love chili peppers</span>
+<span style="color:red;">i love chili peppers</span>
 
 Ultimately, I decided to use Python string formatting brackets and hard code the rest into my colormap.
 
@@ -149,9 +149,11 @@ tag_map = {
 }
 ```
 
+Ultimately, this mapping could use some tuning, but in practice it was good enough to be able to visually detect some different parts of speech, so I proceeded.
 
 ### A function to colorize the text
 
+Now we need a way to retrieve the appropriate color code from our colormap and substitute in our token text into the string that the function returns:
 
 ```python
 def colored(text, color=None):
@@ -164,7 +166,13 @@ def colored(text, color=None):
     return text
 ```
 
+Nothing too fancy here, but it works.
+
 ### Now in the if-main statement
+
+One of the decisions I made early on was that none of my package functions should perform any kind of tokenization or tagging. My reason for this was simple; the purpose of the package is not to actually perform the tokenization and part-of-speech tagging, it's to visually evaluate the results of tokenization and pos-tagging. Also, since I ultimately wanted to be able to integrate this as a utility into Yellowbrick, I wanted to make sure that I would give as much control over things like data wrangling, normalization, standardization, vectorization, etc. over to the user as possible, which is pretty consistent with the API that we've conceived for the project. This will prevent us from having to add something like NLTK as a dependency for Yellowbrick.
+
+For this reason, the word tokenization and part-of-speech tagging for my text happen inside the if-main statement, as do the requisite import statements:
 
 ```python
 
@@ -206,12 +214,40 @@ print(' '.join(
   for color, token in tagged)))
 ```
 
+Here's the result when I run that in my terminal:
+
+![french silk pie in the terminal](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-03-07-terminal-french-silk.png)
+
+It works! My next question was whether I could get it to work in a Jupyter Notebook, since the user tests and tutorials we're adding to the Yellowbrick [examples directory](https://github.com/DistrictDataLabs/yellowbrick/tree/develop/examples) are in the form of `.ipynb` files.
+
+Here's what it looks like when I run the code in a Jupyter notebook:
 
 ![french silk pie](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-03-07-french-silk.png)
 
+Now, just for comparison's sake, here's what a few other texts look like:
 
+```python
+algebra = '''Algebra (from Arabic "al-jabr" meaning
+             "reunion of broken parts") is one of the
+             broad parts of mathematics, together with
+             number theory, geometry and analysis. In
+             its most general form, algebra is the study
+             of mathematical symbols and the rules for
+             manipulating these symbols; it is a unifying
+             thread of almost all of mathematics.'''
+```
 ![algebra from wikipedia](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-03-07-algebra.png)
 
+```python
+nursery_rhyme = '''Baa, baa, black sheep,
+                   Have you any wool?
+                   Yes, sir, yes, sir,
+                   Three bags full;
+                   One for the master,
+                   And one for the dame,
+                   And one for the little boy
+                   Who lives down the lane.'''
+```
 
 ![nursery rhyme](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-03-07-nursery-rhyme.png)
 
