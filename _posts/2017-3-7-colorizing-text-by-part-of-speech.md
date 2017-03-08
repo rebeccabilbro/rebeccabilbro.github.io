@@ -17,7 +17,7 @@ Once you have broken the documents down in to paragraphs, the paragraphs into se
 
 Parts of speech (e.g. verbs, nouns, prepositions, adjectives) indicate how a word is functioning within the context of a sentence. In English as in many other languages, a single word can function in multiple ways, and we would like to be able to distinguish those uses (for example the words "ship" and "shop" can be either a verb, or a noun, depending on the context). Part-of-speech tagging lets us encode information not only about a word's definition, but also its use in context.
 
-If you're using NLTK, the off-the-shelf part-of-speech tagger, [`pos_tag`](https://github.com/nltk/nltk/blob/develop/nltk/tag/__init__.py), uses the +PerceptronTagger()+ and the Penn Treebank tagset (at least it does at the time of this writing).
+If you're using NLTK, the off-the-shelf part-of-speech tagger, [`pos_tag`](https://github.com/nltk/nltk/blob/develop/nltk/tag/__init__.py), uses the +PerceptronTagger()+ (which you can read more about [here](https://explosion.ai/blog/part-of-speech-pos-tagger-in-python)) and the Penn Treebank tagset (at least it does at the time of this writing).
 
 The [Penn Treebank tagset](https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html) consists of 36 parts of speech, structural tags, and indicators of tense (+NN+ for singular nouns, +NNS+ for plural nouns, +JJ+ for adjectives, +RB+ for adverbs, +PRP+ for personal pronouns, etc.).
 
@@ -56,7 +56,6 @@ At first, I looked around to see if there was already something implemented that
 One challenge that all of these resources address is the problem of dealing with ANSI colors, which can feel a bit limiting when you are spoiled by things like [colorbrewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) and the already-implemented-in-Python [Matplotlib colormaps](http://matplotlib.org/users/colormaps.html) and [Yellowbrick palettes](http://www.scikit-yb.org/en/latest/examples/palettes.html). There are either 8 or 16 ANSI colors, depending on whether you count the "normal" and "bright" intensity variants. The colors are black, red, green, yellow, blue, magenta, cyan, and white.
 
 However, the issue is that for the most part, all the resources I found treat colorization as akin to flipping a switch on or off using ANSI escape sequences. This works okay if the goal is to colorize blocks of text or other terminal output; the challenge is in adapting the switches for the within-sentence-level token colorization that is needed to illustrate parts-of-speech in a visual fashion.
-
 
 
 ## The components of a part-of-speech colorizer
@@ -251,8 +250,13 @@ nursery_rhyme = '''Baa, baa, black sheep,
 
 ![nursery rhyme](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-03-07-nursery-rhyme.png)
 
+Cool!
 
 ### Conforming to the Yellowbrick API
+
+Okay, so the next step is tricky. We need to decide what the best way is to integrate these little standalone functions into a class, and in particular, one that will conform to the existing Yellowbrick API, which has pre-defined methods like `fit()`, `score()`, `draw()`, `transform()`, `finalize()`, and `poof()`, depending on what type of Visualizer you have.
+
+I was pretty sure that I wanted to subclass the `TextVisualizer` object, mainly because I imagined that the [`yellowbrick.text` module](https://github.com/DistrictDataLabs/yellowbrick/tree/develop/yellowbrick/text) would be the most natural place for people to look for visualization tools related to text data.
 
 ```python
 from yellowbrick.text.base import TextVisualizer
@@ -261,9 +265,9 @@ class PosTagVisualizer(TextVisualizer):
     """
     A part-of-speech tag visualizer colorizes text to enable
     the user to visualize the proportions of nouns, verbs, etc.
-    and to use this information to make decisions about text
-    normalization (e.g. stemming vs lemmatization) and
-    vectorization.
+    and to use this information to make decisions about token tagging,
+    text normalization (e.g. stemming vs lemmatization),
+    vectorization, and modeling.
 
     Parameters
     ----------
@@ -283,7 +287,7 @@ class PosTagVisualizer(TextVisualizer):
         """
         super(PosTagVisualizer, self).__init__(ax=ax, **kwargs)
 
-        # TODO: hard-coding in the ANSII colormap for now.
+        # TODO: hard-coding in the ANSI colormap for now.
         # Can we let the user reset the colors here?
         self.COLORS = {
             'white'      : "\033[0;37m{}\033[0m",
@@ -378,5 +382,7 @@ class PosTagVisualizer(TextVisualizer):
 
 ```
 
+The main decision I had to make was the one to not implement a `poof()` method for the `PosTagVisualizer`. Under the hood, `poof()` calls `finalize()`, an internal method that creates a matplotlib plot object if the plot has not already been created. I decided that it would look weird to have an empty plot tacked on, so I made `transform()` do the bulk of the work in calling the `colorize()` method.  
+
 ## Conclusion
-So, this works pretty well in the console. It also works in a _live_ Jupyter Notebook, however I noticed that when I saved it as an [.ipynb file](https://github.com/DistrictDataLabs/yellowbrick/blob/develop/examples/rebeccabilbro/postag.ipynb) and pushed to GitHub, it converted all the text to black and I lost the colorization.
+So, this works ok in the console and in a _live_ Jupyter Notebook. I noticed that when I saved it as an [.ipynb file](https://github.com/DistrictDataLabs/yellowbrick/blob/develop/examples/rebeccabilbro/postag.ipynb) and pushed to GitHub, it converted all the text to black and I lost the colorization. There are definitely something that I'd like to go back to tweak eventually.
