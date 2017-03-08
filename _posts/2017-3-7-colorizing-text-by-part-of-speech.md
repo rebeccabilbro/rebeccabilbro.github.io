@@ -155,6 +155,16 @@ print(' '.join(
   for color, token in tagged)))
 ```
 
+
+![french silk pie](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-03-07-french-silk.png)
+
+
+![algebra from wikipedia](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-03-07-algebra.png)
+
+
+![nursery rhyme](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2017-03-07-nursery-rhyme.png)
+
+
 ### Conforming to the Yellowbrick API
 
 ```python
