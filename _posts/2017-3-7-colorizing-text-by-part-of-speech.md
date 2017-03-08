@@ -51,18 +51,38 @@ At first, I looked around to see if there was already something implemented that
 - [Colorama](https://pypi.python.org/pypi/colorama), a cross-platform colored terminal text package on PyPI
 - [Clint](https://pypi.python.org/pypi/clint/), a module with tools for developing command line applications (including colored text).
 - [Stackoverflow question: "Print in terminal with colors using Python?"](http://stackoverflow.com/questions/287871/print-in-terminal-with-colors-using-python)
-- [Termcolor](https://github.com/Parallel-in-Time/PararealF90/tree/master/termcolor-1.1.0), a little utility for ANSII color formatting for terminal output
+- [Termcolor](https://github.com/Parallel-in-Time/PararealF90/tree/master/termcolor-1.1.0), a little utility for ANSI color formatting for terminal output
 
-One challenge that all of these resources succeed in addressing is the problem of dealing with ANSII colors, which can feel a bit limiting when you are spoiled by things like [colorbrewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) and the already-implemented-in-python [matplotlib colormaps](http://matplotlib.org/users/colormaps.html) and [yellowbrick palettes](http://www.scikit-yb.org/en/latest/examples/palettes.html).
+One challenge that all of these resources address is the problem of dealing with ANSI colors, which can feel a bit limiting when you are spoiled by things like [colorbrewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) and the already-implemented-in-Python [Matplotlib colormaps](http://matplotlib.org/users/colormaps.html) and [Yellowbrick palettes](http://www.scikit-yb.org/en/latest/examples/palettes.html). There are either 8 or 16 ANSI colors, depending on whether you count the "normal" and "bright" intensity variants. The colors are black, red, green, yellow, blue, magenta, cyan, and white.
+
+However, the issue is that for the most part, all the resources I found treat colorization as akin to flipping a switch on or off using ANSI escape sequences. This works okay if the goal is to colorize blocks of text or other terminal output; the challenge is in adapting the switches for the within-sentence-level token colorization that is needed to illustrate parts-of-speech in a visual fashion.
 
 
 
 ## The components of a part-of-speech colorizer
 
-The goal is to enable visual part-of-speech tagging. In particular, I envisioned the `PosTagVisualizer()` as a simple utility that would let Yellowbrick users visualize the proportions of nouns, verbs, etc. and to use this information to make decisions about text normalization (e.g. stemming vs lemmatization) and vectorization.
+The goal is to enable visual part-of-speech tagging. In particular, I envisioned the `PosTagVisualizer()` as a simple utility that would let Yellowbrick users visualize the proportions of nouns, verbs, etc. and to use this information to make decisions about part-of-speech tagging, text normalization (e.g. stemming vs lemmatization), vectorization, and modeling.
+
+We'll need three main things:
+ 1. A dictionary that will map human-interpretable color names to ANSI formatted color codes.
+ 2. A dictionary that will map human-interpretable color names to the Penn Treebank tag set.
+ 3. A function that will connect (1) and (2) within a sentence that has already been tokenized and tagged.
 
 
 ### Building a ANSI colormap
+
+In order to build the ANSI colormap, I had to make some decisions about how much hard-coding to do in advance. One option is to [reference the ANSI colors by their numeric codes](https://github.com/tartley/colorama/blob/master/colorama/ansi.py#L49), which basically correspond to the whole numbers between 30 and 39.  If we do this, we will later need to prepend and append the appropriate escape sequences (e.g. the `\033[0;` or `\033[1;` prefix depending on color intensity, and `\033[0m` for the suffix). These codes need to wrap the specific text we mean to colorize. For instance
+
+```python
+print("\033[0;31mi love chili peppers\033[0m")
+```
+
+... should print out
+
+<span style="color:darkred;">i love chili peppers</span>
+
+Ultimately, I decided to use Python string formatting brackets and hard code the rest into my colormap.
+
 ```python
 COLORS = {
     'white'      : "\033[0;37m{}\033[0m",
@@ -85,7 +105,9 @@ COLORS = {
 }
 ```
 
-### Mapping the ANSI colors to the Penn Treebank Tags
+### Mapping the colors to Penn Treebank tags
+
+The next step is to map the colors to the Penn Treebank tags. This was challenging mainly because there are a LOT of part-of-speech tags, and basically only 8 colors. If I was going to do this again, I might extend my options by using not only text colorization (e.g. foreground text coloring) but also text highlighting (e.g. background text coloring), just to give myself some more options for the colorization. What I've done for now is to group similar tags into color categories, so any kind of noun is green, whether it's singular, plural, proper, or otherwise:
 
 ```python
 tag_map = {
@@ -129,6 +151,7 @@ tag_map = {
 
 
 ### A function to colorize the text
+
 
 ```python
 def colored(text, color=None):
