@@ -27,26 +27,33 @@ So I am working on a project at work that involves extracting keyphrases from un
 
 > A brute-force method might consider all words and/or phrases in a document as candidate keyphrases. However, given computational costs and the fact that not all words and phrases in a document are equally likely to convey its content, heuristics are typically used to identify a smaller subset of better candidates. Common heuristics include removing stop words and punctuation; filtering for words with certain parts of speech or, for multi-word phrases, certain POS patterns; and using external knowledge bases like WordNet or Wikipedia as a reference source of good/bad keyphrases.
 
-> For example, rather than taking all of the n-grams (where 1 ≤ n ≤ 5) in this post’s first two paragraphs as candidates, we might limit ourselves to only noun phrases matching the POS pattern... that matches any number of adjectives followed by at least one noun that may be joined by a preposition to one other adjective(s)+noun(s) sequence...
+> For example, rather than taking all of the n-grams... we might limit ourselves to only noun phrases matching the POS pattern... that matches any number of adjectives followed by at least one noun that may be joined by a preposition to one other adjective(s)+noun(s) sequence...
 
-This brute force strategy actually works quite well with grammatical English text. But what if the text you are dealing with is not grammatical, or is rife with spelling and punctuation errors?  In these cases, your part-of-speech tagger could either failing to tag important tokens (e.g. in the case of misspellings and/or ungrammatical text).
+This brute force strategy actually works quite well with grammatical English text. But what if the text you are dealing with is not grammatical, or is rife with spelling and punctuation errors?  In these cases, your part-of-speech tagger could be completely failing to tag important tokens!
 
-What if the text you are using does not encode the meaningful keyphrases according to the adjective-noun pattern? For example, there are numerous cases where the salient information could be captured not in the adjective phrases but instead in verbal or adverbial phrases, or in the proper nouns (as with named entity recognition). In this case, while your part-of-speech tagger may be working properly, if your keyphrase chunker looks something like:
+Or what if the text you are using does not encode the meaningful keyphrases according to the adjective-noun pattern? For example, there are numerous cases where the salient information could be captured not in the adjective phrases but instead in verbal or adverbial phrases, or in the proper nouns (as with named entity recognition). In this case, while your part-of-speech tagger may be working properly, if your keyphrase chunker looks something like...
 
 ```python
 grammar=r'KT: {(<JJ>* <NN.*>+ <IN>)? <JJ>* <NN.*>+}'
 chunker = nltk.chunk.regexp.RegexpParser(grammar)
 ```
 
-you may indeed fail to capture the critical verbal, adverbial, and entity phrases from your corpus.
+...you might indeed fail to capture the most critical verbal, adverbial, and entity phrases from your corpus!
 
-And indeed, it was encountering these types of problems that led me to think that it would be helpful to be able to visually explore the parts-of-speech in a text before proceeding on to normalization, vectorization, and modeling (or perhaps as a diagnostic tool for understanding disappointing modeling results). Discovering that a large percentage of your text is not being labeled (or is being mislabeled) by your part-of-speech tagger might lead you to train your own regular expression based tagger using your particular corpus. Alternatively, it might impact the way in which you chose to normalize your text (e.g. if there were many meaningful variations in the ways a certain root word was appearing, it might lead you to choose lemmatization over stemming, in spite of the increased computation time).
+Encountering these types of problems led me to think that it would be helpful to be able to visually explore the parts-of-speech in a text before proceeding on to normalization, vectorization, and modeling (or perhaps as a diagnostic tool for understanding disappointing modeling results). Discovering that a large percentage of your text is not being labeled (or is being mislabeled) by your part-of-speech tagger might lead you to train your own regular expression based tagger using your particular corpus. Alternatively, it might impact the way in which you chose to normalize your text (e.g. if there were many meaningful variations in the ways a certain root word was appearing, it might lead you to choose lemmatization over stemming, in spite of the increased computation time).
 
 
 ## Existing tools
 
-Text colorizer, inspired by Termcolor
-https://github.com/Parallel-in-Time/PararealF90/tree/master/termcolor-1.1.0
+At first, I looked around to see if there was already something implemented that I could just `pip install` like a boss and move along. I didn't find anything that was quite what I was looking for, though I did find a few interesting leads:
+
+- ["Add Colour to Text in Python" by Mark Williams](http://ozzmaker.com/add-colour-to-text-in-python/)
+- [Colorama](https://pypi.python.org/pypi/colorama), a cross-platform colored terminal text package on PyPI
+- [Clint](https://pypi.python.org/pypi/clint/), a module with tools for developing command line applications (including colored text).
+- [Stackoverflow question: "Print in terminal with colors using Python?"](http://stackoverflow.com/questions/287871/print-in-terminal-with-colors-using-python)
+- [Termcolor](https://github.com/Parallel-in-Time/PararealF90/tree/master/termcolor-1.1.0), a little utility for ANSII color formatting for terminal output
+
+One challenge that all of these resources succeed in addressing is the problem of dealing with ANSII colors, which can feel a bit limiting when you are spoiled by things like [colorbrewer](http://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) and the already-implemented-in-python [matplotlib colormaps](http://matplotlib.org/users/colormaps.html) and [yellowbrick palettes](http://www.scikit-yb.org/en/latest/examples/palettes.html).
 
 
 
