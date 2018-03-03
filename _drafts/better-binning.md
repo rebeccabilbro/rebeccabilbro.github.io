@@ -13,12 +13,13 @@ I've been doing a lot of work on [text analysis](http://shop.oreilly.com/product
 
 Each review has a score between 0 and 10 (this one got a 4.8). I was curious about whether it might be possible to predict the score assigned to an album based on the bag-of-words of the text.
 
-There's a Kaggle dataset that includes about 18K  historic reviews, which I found [here](https://www.kaggle.com/nolanbconaway/pitchfork-data/data). The data is stored in a sqlite database that looks kind of like this:
+There's a Kaggle dataset that includes about 18K  historic reviews, which I found [here](https://www.kaggle.com/nolanbconaway/pitchfork-data/data). The data is stored in a sqlite database with the following schema:
 
-![LinearSVC](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-03-03-sqlite-db-schema.png)
+![Sqlite Schema](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/sqlite-db-schema.png)
+
+Since text is very high dimensional, I knew that it would be unlikely that I'd be able to use regression to predict the floating point score of the review. Instead I decided I'd attempt to bin the scores into 4 ranges roughly corresponding to sentiment (e.g.  "terrible", "okay", "great", and "amazing"). In the next section, I'll show the text preprocessing work I did in advance of classification, but if you aren't planning to run this code yourself, feel free to skip it and go straight to *Creating the Bins for the Pipeline*
 
 ### Preparing the Data
-_Note: if you aren't planning to run this code yourself, feel free to skip this section and go straight to *Creating the Bins for the Pipeline*._
 
 To prepare the data for sentiment analysis, I started by writing a custom corpus reader that would give me streaming access to each of the reviews, including the score, the album name, the artist, and the text:
 
@@ -289,8 +290,6 @@ def categorical(corpus):
     okay     : 3.0 < y <= 5.0
     great    : 5.0 < y <= 7.0
     amazing  : 7.0 < y <= 10.1
-    :param corpus:
-    :return:
     """
     return np.digitize(continuous(corpus), [0.0, 3.0, 5.0, 7.0, 10.1])
 ```
@@ -299,41 +298,124 @@ def categorical(corpus):
 - Build using Scikit-Learn Pipeline
 
 ```python
-def train_model(path, model, cv=12):
-    """
-    Trains model from corpus at specified path; constructing cross-validation
-    scores using the cv parameter and returning the scores.
-    """
-    corpus = PickledReviewsReader(path)
-    X = documents(corpus)
-    y = categorical(corpus)
-    scores = cross_val_score(model, X, y, cv=cv)
-
-    return scores
-
 if __name__ == '__main__':
     from sklearn.pipeline import Pipeline
+    from sklearn.model_selection import cross_val_score
     from sklearn.ensemble import GradientBoostingClassifier
     from sklearn.feature_extraction.text import TfidfVectorizer
 
     corpus_path = '../processed_review_corpus'
 
     pipeline = Pipeline([
-        ('norm', TextNormalizer()),
-        ('tfidf', TfidfVectorizer()),
-        ('ann', GradientBoostingClassifier())
+        ('normalize', TextNormalizer()),
+        ('vectorize', TfidfVectorizer()),
+        ('classify', GradientBoostingClassifier())
     ])
 
-    scores = train_model(corpus_path, pipeline)
+    corpus = PickledReviewsReader(corpus_path)
+    X = documents(corpus)
+    y = categorical(corpus)
+    scores = cross_val_score(pipeline, X, y, cv=cv)
 ```
 
 - use ConfusionMatrix to visually evaluate
+
+```python
+from yellowbrick.classifier import ConfusionMatrix
+from sklearn.model_selection import train_test_split as tts
+
+X_train, X_test, y_train, y_test = tts(X, y, test_size =0.2)
+cm = ConfusionMatrix(pipeline, classes=target_names)
+cm.fit(X_train, y_train)
+cm.score(X_test, y_test)
+cm.poof()
+```
+
 - use ClassBalance to visualize imbalance
+
+```python
+from yellowbrick.classifier import ClassBalance
+
+cb = ClassBalance(pipeline, classes=target_names)
+cb.fit(X_train, y_train)
+cb.score(X_test, y_test)  
+cb.poof()   
+```
+
 - talk through selection bias - why initial bins didn’t work
 
-## Tuning Bins with ClassBalance
+## Conclusion/Teaser for New ClassBalanceHeatmap Visualizer
 - redo with better distributed bins for target values
 - (hopefully) show better results
-
-## Conclusion/Teaser for New ClassBalanceHeatmap Visualizer
 - how to combine insight from ConfusionMatrix with interpretability of ClassBalance?
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+from matplotlib import cm
+from sklearn.utils.multiclass import unique_labels
+from sklearn.metrics.classification import _check_targets
+
+
+def plot_class_balance_preds(y_true, y_pred, labels=None, ax=None):
+    # Use Sklearn tools to validate the target
+    # Note y_true and y_pred should already be label encoded
+    y_type, y_true, y_pred = _check_targets(y_true, y_pred)
+    indices = unique_labels(y_true, y_pred)
+
+    # Create a 2D numpy array where each row is the count of
+    # the predicted classes and each column is the true class
+    data = np.array([
+        [(y_pred[y_true==label_t] == label_p).sum() for label_p in indices]
+        for label_t in indices
+    ])
+
+    # Ensure that the number of elements in data matches y_pred and y_true
+    # Not necessary but used as a sanity check
+    assert data.sum() == len(y_pred) == len(y_true)
+
+    # labels_present is the indices of the classes, labels is the string names
+    # Another sanity check, this will not prevent missing classes, which is bad
+    labels = labels if labels is not None else indices
+    assert len(labels) == len(indices)
+
+    # Create a matplotlib axis
+    if ax is None:
+        _, ax = plt.subplots()
+
+    # Create a unique color for each predict class
+    colors = [cm.spectral(x) for x in np.linspace(0, 1, len(indices))]
+
+    # Track the stack of the bar graph
+    prev = np.zeros(len(labels))
+
+    # Plot each row
+    for idx, row in enumerate(data):
+        ax.bar(indices, row, label=labels[idx], bottom=prev, color=colors[idx])
+        prev += row
+
+    # Make the graph pretty
+    ax.set_xticks(indices)
+    ax.set_xticklabels(labels)
+    ax.set_xlabel("actual class")
+    ax.set_ylabel("number of predicted class")
+
+    # Put the legend outside of the graph
+    plt.legend(bbox_to_anchor=(1.04,0.5), loc="center left")
+    plt.tight_layout(rect=[0,0,0.85,1])
+
+    return ax    
+```
+
+```python
+X_train, X_test, y_train, y_true = tts(X, y, test_size=0.33)
+pipeline.fit(X_train, y_train)
+y_pred = pipeline.predict(X_test)
+g = plot_class_balance_preds(y_true, y_pred, labels=target_names)
+plt.show()
+```
+
+![Sqlite Schema](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/class-imbalance-heatmap.png)
+
+When my classifier guesses an album is "amazing", it's usually right. The model also learns that if an album isn't "amazing", it's most likely "great". In terms of error, it equally gets "okay" and "amazing" wrong.
