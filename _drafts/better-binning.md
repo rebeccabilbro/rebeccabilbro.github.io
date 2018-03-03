@@ -4,25 +4,32 @@ title:  Better Binning for Classification Problems: Creating Categorical Values 
 date:   2018-03-03 13:05
 ---
 
-Ever had the problem of having to convert a continuously-valued target array into bins for classification? In this post, I'll walk through a case study, starting with a naive approach and moving to a more informed strategy using the visual diagnostics library [Yellowbrick](http://www.scikit-yb.org).
-
-
-## Premise
-- A lot of machine learning problems in the real world suffer from the curse of dimensionality; you have fewer training instances than you’d like, and predictive signal is distributed (often unpredictably!) across many different features.
-- One example is when your target is continuously-valued, but there aren’t enough instances to predict these values to the precision of regression.
-- What if we transform the regression problem into a classification problem? We can try to do this by binning the continuous values into buckets for classification. But how do we pick the bins?
+A lot of machine learning problems in the real world suffer from the curse of dimensionality; you've got fewer training instances than you’d like, and predictive signal is distributed (often unpredictably!) across many different features. Sometimes when your target is continuously-valued, there simply aren’t enough instances to predict these values to the precision of regression. In this case, we can sometimes transform the regression problem into a classification problem by binning the continuous values into makeshift classes. But how do we pick the bins? In this post, I'll walk through a case study, starting with a naive approach and moving to a more informed strategy using the visual diagnostics library [Yellowbrick](http://www.scikit-yb.org).
 
 ## Dataset Intro
-- About the Pitchfork album reviews corpus - funny! snarky! sentiment analysis??
-- Download the data from https://www.kaggle.com/nolanbconaway/pitchfork-data/data
-- Custom CorpusReader to access the text and scores
+I've been doing a lot of work on [text analysis](http://shop.oreilly.com/product/0636920052555.do) lately, and was looking for novel corpora that could be used for sentiment analysis. In college, I was lucky enough to be friends with a few cool people like [Jayson ](https://twitter.com/Jayson_Greene) who ended up working at the music review website https://pitchfork.com/. Pitchfork is kind of notorious for having incredibly detailed and often hilariously snarky reviews of newly released albums. For example, here's an excerpt from [Jayson's review](https://pitchfork.com/reviews/albums/maroon-5-red-pill-blues/) of Maroon 5's newest album:
+
+> "Adam Levine’s voice is one of the most benignly ubiquitous sounds in pop. It is air-conditioning, it is tap water, it is a thermostat set to 72 degrees...It’s this utter lack of libido that ends up making Red Pill Blues so difficult to even finish."
+
+Each review has a score between 0 and 10 (this one got a 4.8). I was curious about whether it might be possible to predict the score assigned to an album based on the bag-of-words of the text.
+
+There's a Kaggle dataset that includes about 18K  historic reviews, which I found [here](https://www.kaggle.com/nolanbconaway/pitchfork-data/data). The data is stored in a sqlite database that looks kind of like this:
+
+![LinearSVC](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-03-03-sqlite-db-schema.png)
+
+### Preparing the Data
+_Note: if you aren't planning to run this code yourself, feel free to skip this section and go straight to *Creating the Bins for the Pipeline*._
+
+To prepare the data for sentiment analysis, I started by writing a custom corpus reader that would give me streaming access to each of the reviews, including the score, the album name, the artist, and the text:
 
 ```python
-import nltk
 import sqlite3
 
-class SqliteCorpusReader(object):
 
+class SqliteCorpusReader(object):
+    """
+    Provides streaming access to sqlite database records
+    """
     def __init__(self, path):
         self._cur = sqlite3.connect(path).cursor()
 
@@ -43,6 +50,7 @@ class SqliteCorpusReader(object):
             yield (score,album,band,text)
 ```
 
+Next I created a custom preprocessor class to tokenize and part-of-speech tag the reviews, and store the transformed corpus to a new directory:
 
 ```python
 import os
@@ -169,17 +177,7 @@ class Preprocessor(object):
             yield self.process(score_album_artist_text)
 ```
 
-```python
-if __name__ == '__main__':
-
-    from reader import SqliteCorpusReader
-
-    corpus = SqliteCorpusReader('../database.sqlite')
-    transformer = Preprocessor(corpus, '../processed_review_corpus')
-    docs = transformer.transform()
-    print(len(list(docs)))
-```
-
+After using the `transform` method to convert the raw corpus into a preprocessed corpus, I added a second corpus reader that would be able to stream the processed documents:
 
 ```python
 import pickle
@@ -221,7 +219,7 @@ class PickledReviewsReader(CorpusReader):
             yield score
 ```
 
-- Custom TextNormalizer to lemmatize and remove stop words
+Next I added a custom class to lemmatize and remove stop words:
 
 ```python
 import unicodedata
@@ -271,6 +269,7 @@ class TextNormalizer(BaseEstimator, TransformerMixin):
         ]
 ```
 
+### Creating the Bins for the Pipeline
 
 - use Numpy digitize method to naively bin the continuous target values
 
@@ -314,7 +313,7 @@ def train_model(path, model, cv=12):
 
 if __name__ == '__main__':
     from sklearn.pipeline import Pipeline
-    from sklearn.neural_network import MLPClassifier
+    from sklearn.ensemble import GradientBoostingClassifier
     from sklearn.feature_extraction.text import TfidfVectorizer
 
     corpus_path = '../processed_review_corpus'
@@ -322,7 +321,7 @@ if __name__ == '__main__':
     pipeline = Pipeline([
         ('norm', TextNormalizer()),
         ('tfidf', TfidfVectorizer()),
-        ('ann', MLPClassifier(hidden_layer_sizes=[500,150], verbose=True))
+        ('ann', GradientBoostingClassifier())
     ])
 
     scores = train_model(corpus_path, pipeline)
