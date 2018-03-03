@@ -323,10 +323,14 @@ if __name__ == '__main__':
     X = documents(corpus)
     y = categorical(corpus)
     # Note this may take some time to finish (~30 min)
-    scores = cross_val_score(pipeline, X, y, cv=cv)
+    scores = cross_val_score(pipeline, X, y, cv=12)
 ```
 
-- use ConfusionMatrix to visually evaluate
+
+The mean score isn't great
+# todo: add in score
+
+Why not? Let's use Yellowbrick's [`ConfusionMatrix`](http://www.scikit-yb.org/en/latest/api/classifier/confusion_matrix.html) to visually evaluate:
 
 ```python
 from yellowbrick.classifier import ConfusionMatrix
@@ -339,7 +343,7 @@ cm.score(X_test, y_test)
 cm.poof()
 ```
 
-- use ClassBalance to visualize imbalance
+Now let's use Yellowbrick's [`ClassBalance`](http://www.scikit-yb.org/en/latest/api/classifier/class_balance.html) to see what the break down is between our four classes:
 
 ```python
 from yellowbrick.classifier import ClassBalance
@@ -350,7 +354,9 @@ cb.score(X_test, y_test)
 cb.poof()   
 ```
 
-- talk through selection bias - why initial bins didn’t work
+Ah - there's my problem. I have a massive class imbalance. Under the binning scheme I used, there simply aren't enough "terrible" and "okay" albums for our classifier to learn on. It's unlikely to ever really predict much other than "amazing".
+
+My binning strategy was admittedly a bit naive, and I made an assumption that the reviews would be pretty much evenly distributed across the four bins. Boy was I wrong! This is a clear case of selection bias -- I made my assumption based on my memory of all of the hilariously dissed and panned albums, but most Pitchfork reviewers are probably going to be listening to and reviewing good and very good albums. The low-scoring ones, while memorable, are relatively few. 
 
 ## Conclusion/Teaser for New ClassBalanceHeatmap Visualizer
 - redo with better distributed bins for target values
