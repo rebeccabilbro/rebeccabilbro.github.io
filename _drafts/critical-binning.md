@@ -17,7 +17,7 @@ There's a Kaggle dataset that includes about 18K  historic reviews, which I foun
 
 ![Sqlite Schema](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/sqlite-db-schema.png)
 
-Since text is very high dimensional, I knew that it would be unlikely that I'd be able to use regression to predict the floating point score of the review. Instead I decided I'd attempt to bin the scores into 4 ranges roughly corresponding to sentiment (e.g.  "terrible", "okay", "great", and "amazing"). In the next section, I'll show the text preprocessing work I did in advance of classification, but if you aren't planning to run this code yourself, feel free to skip it and go straight to [Creating the Bins for the Pipeline](### Creating the Bins for the Pipeline).
+Since text is very high dimensional, I knew that it would be unlikely that I'd be able to use regression to predict the floating point score of the review. Instead I decided I'd attempt to bin the scores into 4 ranges roughly corresponding to sentiment (e.g.  "terrible", "okay", "great", and "amazing"). In the next section, I'll show the text preprocessing work I did in advance of classification, but if you aren't planning to run this code yourself, feel free to skip it and go straight to [Creating the Bins for the Pipeline](#bins).
 
 ### Preparing the Data
 
@@ -270,7 +270,7 @@ class TextNormalizer(BaseEstimator, TransformerMixin):
         ]
 ```
 
-### Creating the Bins for the Pipeline
+### <a name="bins"></a>Creating the Bins for the Pipeline
 
 Ok, now it's time to bin the continuous target values of the reviews into buckets for classification. I did this using NumPy's `digitize` method, naively partitioning the score range into evenly spaced quartiles:
 
