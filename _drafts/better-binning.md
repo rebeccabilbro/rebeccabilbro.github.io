@@ -296,6 +296,9 @@ def categorical(corpus):
     return np.digitize(continuous(corpus), [0.0, 3.0, 5.0, 7.0, 10.1])
 ```
 
+## Preliminary Text Analytics Pipeline
+- Build using Scikit-Learn Pipeline
+
 ```python
 def train_model(path, model, cv=12):
     """
@@ -308,15 +311,13 @@ def train_model(path, model, cv=12):
     scores = cross_val_score(model, X, y, cv=cv)
 
     return scores
-```
 
-```python
 if __name__ == '__main__':
     from sklearn.pipeline import Pipeline
     from sklearn.neural_network import MLPClassifier
     from sklearn.feature_extraction.text import TfidfVectorizer
 
-    corpus_path = '../review_corpus_proc'
+    corpus_path = '../processed_review_corpus'
 
     pipeline = Pipeline([
         ('norm', TextNormalizer()),
@@ -327,10 +328,6 @@ if __name__ == '__main__':
     scores = train_model(corpus_path, pipeline)
 ```
 
-
-
-## Preliminary Text Analytics Pipeline
-- Build using Scikit-Learn Pipeline
 - use ConfusionMatrix to visually evaluate
 - use ClassBalance to visualize imbalance
 - talk through selection bias - why initial bins didn’t work
