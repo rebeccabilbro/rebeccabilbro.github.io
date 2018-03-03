@@ -7,7 +7,7 @@ date:   2018-03-03 13:05
 A lot of machine learning problems in the real world suffer from the curse of dimensionality; you've got fewer training instances than you’d like, and predictive signal is distributed (often unpredictably!) across many different features. Sometimes when your target is continuously-valued, there simply aren’t enough instances to predict these values to the precision of regression. In this case, we can sometimes transform the regression problem into a classification problem by binning the continuous values into makeshift classes. But how do we pick the bins? In this post, I'll walk through a case study, starting with a naive approach and moving to a more informed strategy using the visual diagnostics library [Yellowbrick](http://www.scikit-yb.org).
 
 ## Dataset Intro
-I've been doing a lot of work on [text analysis](http://shop.oreilly.com/product/0636920052555.do) lately, and was looking for novel corpora that could be used for sentiment analysis. In college, I was lucky enough to be friends with a few cool people like [Jayson ](https://twitter.com/Jayson_Greene) who ended up working at the music review website https://pitchfork.com/. Pitchfork is kind of notorious for having incredibly detailed and often hilariously snarky reviews of newly released albums. For example, here's an excerpt from [Jayson's review](https://pitchfork.com/reviews/albums/maroon-5-red-pill-blues/) of Maroon 5's newest album:
+I've been doing a lot of work on [text analysis](http://shop.oreilly.com/product/0636920052555.do) lately, and was looking for novel corpora that could be used for sentiment analysis. In college, I was lucky enough to be friends with a few cool people like [Jayson Greene](https://twitter.com/Jayson_Greene) who ended up working at the music review website https://pitchfork.com/. Pitchfork is kind of notorious for having incredibly detailed and often hilariously snarky reviews of newly released albums. For example, here's an excerpt from [Jayson's review](https://pitchfork.com/reviews/albums/maroon-5-red-pill-blues/) of Maroon 5's newest album:
 
 > "Adam Levine’s voice is one of the most benignly ubiquitous sounds in pop. It is air-conditioning, it is tap water, it is a thermostat set to 72 degrees...It’s this utter lack of libido that ends up making Red Pill Blues so difficult to even finish."
 
@@ -272,30 +272,37 @@ class TextNormalizer(BaseEstimator, TransformerMixin):
 
 ### Creating the Bins for the Pipeline
 
-- use Numpy digitize method to naively bin the continuous target values
-
+Ok, now it's time to bin the continuous target values of the reviews into buckets for classication. I did this using Numpy's `digitize` method, naively partitioning the score range into evenly spaced quartiles:
 
 ```python
 import numpy as np
 
 def documents(corpus):
+    """
+    This will give us access to our features (X)
+    """
     return list(corpus.reviews())
 
 def continuous(corpus):
+    """
+    This will give us access to our continuous targets (y)
+    """
     return list(corpus.scores())
 
 def categorical(corpus):
     """
+    This will give us access to our binned targets (y):
     terrible : 0.0 < y <= 3.0
     okay     : 3.0 < y <= 5.0
     great    : 5.0 < y <= 7.0
-    amazing  : 7.0 < y <= 10.1
+    amazing  : 7.0 < y < 10.1
     """
     return np.digitize(continuous(corpus), [0.0, 3.0, 5.0, 7.0, 10.1])
 ```
 
 ## Preliminary Text Analytics Pipeline
-- Build using Scikit-Learn Pipeline
+
+We can now use a Scikit-Learn `pipeline` to chain our transformation, vectorization, and classification steps together, as follows:
 
 ```python
 if __name__ == '__main__':
@@ -315,6 +322,7 @@ if __name__ == '__main__':
     corpus = PickledReviewsReader(corpus_path)
     X = documents(corpus)
     y = categorical(corpus)
+    # Note this may take some time to finish (~30 min)
     scores = cross_val_score(pipeline, X, y, cv=cv)
 ```
 
