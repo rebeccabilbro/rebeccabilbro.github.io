@@ -307,8 +307,8 @@ We can now use a Scikit-Learn `pipeline` to chain our transformation, vectorizat
 ```python
 if __name__ == '__main__':
     from sklearn.pipeline import Pipeline
+    from sklearn.neural_network import MLPClassifier
     from sklearn.model_selection import cross_val_score
-    from sklearn.ensemble import GradientBoostingClassifier
     from sklearn.feature_extraction.text import TfidfVectorizer
 
     corpus_path = '../processed_review_corpus'
@@ -316,61 +316,62 @@ if __name__ == '__main__':
     pipeline = Pipeline([
         ('normalize', TextNormalizer()),
         ('vectorize', TfidfVectorizer()),
-        ('classify', GradientBoostingClassifier())
+        ('classify', MLPClassifier(hidden_layer_sizes=[50,15], verbose=True))
     ])
 
     corpus = PickledReviewsReader(corpus_path)
     X = documents(corpus)
     y = categorical(corpus)
-    # Note this may take some time to finish (~30 min)
-    scores = cross_val_score(pipeline, X, y, cv=12)
+    scores = cross_val_score(pipeline, X, y, cv=12) #may take a while!
 ```
 
-The mean score isn't great...
-<!---todo: add in score--->
-
-
-Why not? Let's use Yellowbrick's [`ConfusionMatrix`](http://www.scikit-yb.org/en/latest/api/classifier/confusion_matrix.html) to visually evaluate:
+The mean score, 0.71, is ok, but nothing to write home about. So why isn't our score better? Let's use Yellowbrick's [`ConfusionMatrix`](http://www.scikit-yb.org/en/latest/api/classifier/confusion_matrix.html) to visually evaluate:
 
 ```python
 from yellowbrick.classifier import ConfusionMatrix
 from sklearn.model_selection import train_test_split as tts
 
-X_train, X_test, y_train, y_test = tts(X, y, test_size =0.2)
-cm = ConfusionMatrix(pipeline, classes=target_names)
+X_train, X_test, y_train, y_test = tts(X, y, test_size=0.4)
+cm = ConfusionMatrix(pipeline)
 cm.fit(X_train, y_train)
 cm.score(X_test, y_test)
 cm.poof()
 ```
 
-<!---todo: add plot--->
-<!---todo: add interpretation--->
+![Confusion Matrix](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/pitchfork-confusion-matrix.png)
 
-Now let's use Yellowbrick's [`ClassBalance`](http://www.scikit-yb.org/en/latest/api/classifier/class_balance.html) to see what the break down is between our four classes:
+The `ConfusionMatrix` takes a fitted Scikit-Learn classifier and a set of test X and y values and returns a report showing how the test values' predicted classes compare to their actual classes. The idea is that it's supposed to tell you where your classifier is getting mixed up. As such, they certainly provide more information than top-level scores, but I always find them a bit difficult to unpack, particularly the more classes I have.
+
+Yellowbrick's [`ClassBalance`](http://www.scikit-yb.org/en/latest/api/classifier/class_balance.html), which is a bit simpler, enables us to get the break down between the four classes:
 
 ```python
 from yellowbrick.classifier import ClassBalance
 
+target_names = ["terrible", "okay", "great", "amazing"]
 cb = ClassBalance(pipeline, classes=target_names)
 cb.fit(X_train, y_train)
 cb.score(X_test, y_test)  
 cb.poof()   
 ```
 
-<!---todo: add plot--->
+![Class Balance](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/pitchfork-class-balance.png)
 
-Ah - there's my problem. I have a massive class imbalance. Under the binning scheme I used, there simply aren't enough "terrible" and "okay" albums for our classifier to learn on. It's unlikely to ever really predict much other than "amazing".
+Ah - there's my problem. I have a massive class imbalance. Under the binning scheme I used, there simply aren't enough "terrible" and "okay" albums for my classifier to learn on. It's unlikely to ever really predict much other than "amazing".
 
-My binning strategy was admittedly a bit naive, and I made an assumption that the reviews would be pretty much evenly distributed across the four bins. Boy was I wrong! This is a clear case of selection bias -- I made my assumption based on my memory of all of the hilariously dissed and panned albums, but most Pitchfork reviewers are probably going to be listening to and reviewing good or very good albums. The low-scoring ones, while memorable, are relatively few.
+My binning strategy was admittedly a bit naive, and I made an assumption that the reviews would be pretty much evenly distributed across the four bins. Boy was I wrong! This is a clear case of selection bias -- my assumption was based on my vivid memories of all of the hilariously dissed and panned albums, when of course most Pitchfork reviewers are probably going to be listening to and reviewing good or very good albums. The low-scoring ones, while memorable, are relatively few.
 
 <!---todo: add histogram of scores --->
 
 <!---todo: add plot of scores over time --->
 
-- redo with better distributed bins for target values
-- (hopefully) show better results
+<!---todo: redo with better distributed bins for target values --->
+
+<!---todo: (hopefully) show better results --->
+
+
 ## Conclusion
-<!---todo: discuss how to combine insight from ConfusionMatrix with interpretability of ClassBalance? talk about code below--->
+
+What if there was a way to combine the insight from `ConfusionMatrix` with the interpretability of `ClassBalance`? My [friend](https://github.com/bbengfort/) recently sent me some prototype code that looks very promising!
 
 ```python
 import numpy as np
@@ -431,6 +432,8 @@ def plot_class_balance_preds(y_true, y_pred, labels=None, ax=None):
     return ax    
 ```
 
+So now, when we use the `plot_class_balance_preds` method:
+
 ```python
 X_train, X_test, y_train, y_true = tts(X, y, test_size=0.33)
 pipeline.fit(X_train, y_train)
@@ -439,8 +442,10 @@ g = plot_class_balance_preds(y_true, y_pred, labels=target_names)
 plt.show()
 ```
 
-![Sqlite Schema](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/class-imbalance-heatmap.png)
+We get this:
 
-When my classifier guesses an album is "amazing", it's usually right. The model also learns that if an album isn't "amazing", it's most likely "great". In terms of error, it equally gets "okay" and "amazing" wrong.
+![Class Imbalance Heatmap](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/class-imbalance-heatmap.png)
 
-<!---todo: It would be awesome if someone would pull this into Yellowbrick -- a ClassBalanceHeatmap Visualizer!--->
+How fascinating! I find this bar chart incredibly easy to read. It's essentially telling me that when my classifier guesses an album is "amazing", it's usually right. The model also learns that if an album isn't "amazing", it's most likely "great". In terms of error, it equally gets "okay" and "amazing" wrong.
+
+It would be awesome if someone would pull this into Yellowbrick -- a `ClassBalanceHeatmap` visualizer! Hint hint...
