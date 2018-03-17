@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  Critical Binning for Classification Problems: Creating Categorical Values from Continuous Values
-date:   2018-03-03 13:05
+title:  Better Binning for Classification Problems: Creating Categorical Values from Continuous Values
+date:   2018-03-17 11:51
 ---
 
 A lot of machine learning problems in the real world suffer from the curse of dimensionality; you've got fewer training instances than you’d like, and predictive signal is distributed (often unpredictably!) across many different features. Sometimes when your target is continuously-valued, there simply aren’t enough instances to predict these values to the precision of regression. In this case, we can sometimes transform the regression problem into a classification problem by binning the continuous values into makeshift classes. But how do we pick the bins? In this post, I'll walk through a case study, starting with a naive approach and moving to a more informed strategy using the visual diagnostics library [Yellowbrick](http://www.scikit-yb.org).
@@ -325,7 +325,18 @@ if __name__ == '__main__':
     scores = cross_val_score(pipeline, X, y, cv=12) #may take a while!
 ```
 
-The mean score, 0.71, is ok, but nothing to write home about. So why isn't our score better? Let's use Yellowbrick's [`ConfusionMatrix`](http://www.scikit-yb.org/en/latest/api/classifier/confusion_matrix.html) to visually evaluate:
+```text
+0.71
+```
+
+A mean score of 0.71 is _ok_, but nothing to write home about. The next step is to try to figure out why the score isn't great -- it could be a number of things, including:
+
+ - the hyperparameters we've selected for our model, `MLPClassifier`, are the optimal ones
+ - `MLPClassifier` isn't the best choice of model for the job
+ - our `TextNormalizer`, which performs dimensionality reduction through lemmatization, is not reducing the dimensionality enough
+ - there simply isn't enough signal in the data
+
+Let's use Yellowbrick's [`ConfusionMatrix`](http://www.scikit-yb.org/en/latest/api/classifier/confusion_matrix.html) to visually evaluate to see if we can diagnose what's happening when our classifier tries to predict which reviews correspond to the four different bins of scores:
 
 ```python
 from yellowbrick.classifier import ConfusionMatrix
@@ -448,4 +459,4 @@ We get this:
 
 How fascinating! I find this bar chart incredibly easy to read. It's essentially telling me that when my classifier guesses an album is "amazing", it's usually right. The model also learns that if an album isn't "amazing", it's most likely "great". In terms of error, it equally gets "okay" and "amazing" wrong.
 
-It would be awesome if someone would pull this into Yellowbrick -- a `ClassBalanceHeatmap` visualizer! Hint hint...
+I thought it would be awesome if someone would pull this into Yellowbrick, and it looks like [it's already in the works](https://github.com/DistrictDataLabs/yellowbrick/blob/develop/yellowbrick/classifier/class_balance.py#L184). There's even a prototype for a [balanced binning visualizer](https://github.com/Juan0001/yellowbrick-balanced-bin-reference/blob/master/balanced_binning.ipynb)!
