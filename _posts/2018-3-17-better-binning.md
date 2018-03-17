@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Better Binning for Classification Problems: Creating Categorical Values from Continuous Values
+title:  Creating Categorical Values from Continuous Values
 date:   2018-03-17 11:51
 ---
 
