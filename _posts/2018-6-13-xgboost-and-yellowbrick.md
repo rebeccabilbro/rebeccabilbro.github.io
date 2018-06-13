@@ -7,6 +7,7 @@ date:   2018-06-13 09:40
 In this post we'll explore how to evaluate the performance of a gradient boosting classifier from the [`xgboost` library](https://github.com/dmlc/xgboost) on the [poker hand dataset](http://archive.ics.uci.edu/ml/datasets/Poker+Hand) using visual diagnostic tools from [`Yellowbrick`](http://www.scikit-yb.org/en/latest/). Even though Yellowbrick is designed to work with [`scikit-learn`](http://scikit-learn.org/stable/index.html), it turns out that it works well with any machine learning library that provides a sklearn wrapper module.
 
 ![poker_deck](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-06-13-poker-deck.jpg)     
+
 Image credit: ["cards"](https://flic.kr/p/62xpc7) by bl0ndeeo2, Creative Commons License
 
 
