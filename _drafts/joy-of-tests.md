@@ -18,7 +18,7 @@ Tradeoffs between test-driven development and hypothesis-driven development.
 
 - what you get with unittests from the standard library
 - PyTest basics
-- why not Nose? Last year we discovered that [Nose wasn't being maintained anymore](https://twitter.com/llanga/status/826144101833732097) and started converting all the tests to PyTest.
+- why not Nose? Last year we discovered that [Nose wasn't being maintained anymore](https://pypi.org/project/nose/1.3.7/#history) and started converting all the tests to PyTest.
 
 ## Yellowbrick
 

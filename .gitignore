@@ -1,3 +1,6 @@
 .jekyll-metadata
 *.DS_store
 *.ipynb_checkpoints
+.idea/
+
+*/data
