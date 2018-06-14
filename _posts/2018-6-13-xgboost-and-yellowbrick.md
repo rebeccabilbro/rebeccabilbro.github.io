@@ -17,7 +17,7 @@ In supervised machine learning, [gradient boosting](https://en.wikipedia.org/wik
 
 Here's how it works: A preliminary, naive model is fit, its error is computed, and the error is used to train the next model, and so on. In this way, the algorithm aims to optimize the loss function over function space by iteratively fitting models that point in the negative gradient direction. Gradient boosting models are also invariant to scaling inputs, meaning that they do not require careful feature normalization, as do some models (like k-nearest neighbors and support vector machines).
 
-In general, when I am prototyping a machine learning application, I leverage the Scikit-Learn API to compare many estimators and a few different hyperparameters. Because I work in a biweekly scrum cycle context, I'm less concerned with optimatization (at least at the outset), and more focused on proving out whether or not a new dataset is well-suited to prediction. Scikit-Learn does have [an implementation of gradient boosting](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html), but in this post, I'll be using [`xgboost`](https://github.com/dmlc/xgboost), which provides implementations of parallel tree boosting and also has a sklearn wrapper.
+In general, when I am prototyping a machine learning application, I leverage the Scikit-Learn API to compare many estimators and a few different hyperparameters. Because I work on a biweekly sprint cycle, I'm less concerned with optimatization (at least at the outset), and more focused on proving out whether or not a new dataset is well-suited to prediction. Scikit-Learn does have [an implementation of gradient boosting](http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html), but in this post, I'll be using [`xgboost`](https://github.com/dmlc/xgboost), which provides implementations of parallel tree boosting and also has a sklearn wrapper.
 
 Conveniently, there are an increasing number of Python libraries that expose convenient Scikit-Learn wrappers for custom estimators (e.g. Gensim, Keras, etc). This means that they can be used inside Scikit-Learn [pipelines](http://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html) (if you've never experimented with pipelines or feature unions, here's [great post](http://zacstewart.com/2014/08/05/pipelines-of-featureunions-of-pipelines.html) by Zac Stewart on leveraging them in your ML workflow).   
 
@@ -109,7 +109,7 @@ Now that the data is downloaded and has been read into a dataframe, I'm going to
 
 ## Class Balance Plot
 
-First we instantiate the `ClassBalance` visualizer, passing in the xgboost estimator, desired figure size in pixels, and class names. We then call `fit` on the visualizer, which will also call the xgboost (or sklearn) model's internal fit method. The Yellowbrick `score` method calls Scikit-Learn classification scoring means to evaluate the internal model, and `poof` shows the plot.
+First we instantiate the `ClassBalance` visualizer, passing in the xgboost estimator, desired figure size in pixels, and class names. We then call `fit` on the visualizer, which will also call the xgboost (or sklearn) model's internal fit method. The Yellowbrick `score` method calls Scikit-Learn classification scorers to evaluate the internal model, and `poof` shows the plot.
 
 
 ```python
@@ -130,13 +130,13 @@ b = balance.poof()
 ![class balance](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-06-13-class-balance.png)
 
 
-One issue we can observe from the above `ClassBalance` report is that several of our classes - such as the Royal Flush and Straight Flush - are so rare that Scikit-Learn raises a warning that "Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples." This is means that our classifier will be unlikely to successfully predict those hands, no matter how much we try to scale complexity. 
+One issue we can observe from the above `ClassBalance` report is that several of our classes - such as the Royal Flush and Straight Flush - are so rare that Scikit-Learn raises a warning that "Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples." This means that our classifier will be unlikely to successfully predict those hands, no matter how much we try to scale complexity. 
 
 As a result we'll use Pandas to convert these rare classes into a single class that includes Flush or better.
 
 
 ```python
-poker_df.loc[poker_df['hand'] >= 5, 'hand'] = 8
+poker_df.loc[poker_df['hand'] >= 5, 'hand'] = 5
 y = poker_df['hand']
 
 classes = ['zilch', 'one_pair', 'two_pair', 'three_of_a_kind', 'straight', 'flush_or_better']
@@ -212,7 +212,7 @@ c = report.poof()
 
 ## Class Prediction Error
 
-The Yellowbrick [Class Prediction Error chart](http://www.scikit-yb.org/en/latest/api/classifier/class_prediction_error.html) that shows the support for each class in the fitted classification model displayed as a stacked bar. Each bar is segmented to show the distribution of predicted classes for each class. It is initialized with a fitted model and generates a class prediction error chart on draw. For my part, I find `ClassPredictionError` a convenient and easier-to-interpret alternative to the standard [confusion matrix (which Yellowbrick also has a visualizer for)](http://www.scikit-yb.org/en/latest/api/classifier/confusion_matrix.html).
+The Yellowbrick [Class Prediction Error chart](http://www.scikit-yb.org/en/latest/api/classifier/class_prediction_error.html) shows the support for each class in the fitted classification model displayed as a stacked bar. Each bar is segmented to show the distribution of predicted classes for each class. It is initialized with a fitted model and generates a class prediction error chart on draw. For my part, I find `ClassPredictionError` a convenient and easier-to-interpret alternative to the standard [confusion matrix (which Yellowbrick also has a visualizer for)](http://www.scikit-yb.org/en/latest/api/classifier/confusion_matrix.html).
 
 
 ```python
@@ -234,4 +234,6 @@ e = error.poof()
 
 Clearly we still have some class imbalance issues with our particular dataset, even after binning the rare hands together into a single 'flush or better' class. But hopefully we've seen an effective and efficient workflow for testing out the efficacy of a prototype model and using Yellowbrick to visualize the results. 
 
-I was really impressed when I discovered that Yellowbrick worked with `xgboost` out-of-the-box thanks to Tianqi's sklearn wrapper. If you know of other machine learning libraries that have sklearn wrappers (I'm thinking of Keras and Gensim, but I'm sure there are others), I would love to see whether Yellowbrick can be used with them for evaluation as well!
+I was really impressed when I discovered that Yellowbrick worked with `xgboost` out-of-the-box thanks to Tianqi's sklearn wrapper (thanks also to my colleagues [Carlo Mazzaferro](https://github.com/carlomazzaferro) and [Ian Ozsvald](https://github.com/ianozsvald) for sharing their experimentations with Yellowbrick). If you know of other machine learning libraries that have sklearn wrappers (I'm thinking of Keras and Gensim, but I'm sure there are others), I would love to see whether Yellowbrick can be used with them for evaluation as well!
+
+
