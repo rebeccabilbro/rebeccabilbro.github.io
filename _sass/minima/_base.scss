@@ -99,11 +99,16 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .site-avatar {
+  float: left;
   width: 70px;
   height: 70px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+  margin-right: 50px;
+
+  //@include mobile {
+  //  float: none;
+  //  display: block;
+  //  margin: 0 auto;
+  //}
 
   img {
     border-radius: 5px;
