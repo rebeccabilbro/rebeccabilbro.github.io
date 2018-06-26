@@ -1,13 +1,15 @@
-<header class="masthead clearfix">
-  <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
-
-  <div class="site-info">
-    <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
-    <p class="site-description">{{ site.description }}</p>
-  </div>
-
-  <nav>
-    <a href="{{ site.baseurl }}/">Blog</a>
-    <a href="{{ site.baseurl }}/about">About</a>
-  </nav>
-</header>
+ <div class="header">
+     <div class="container">
+         <h1 class="logo"><a href="{{ site.baseurl }}/">{{ site.title }}</a></h1>
+         <nav class="nav-collapse">
+             <ul class="noList">
+                 {% for link in site.navigation %}{% assign current = nil %}{% if page.url contains link.url or forloop.first and page.url == '/' or page.url == 'index.html' %}{% assign current = 'current' %}{% endif %}
+                 <li class="element {% if forloop.first %}first{% endif %} {{ current }} {% if forloop.last %}last{% endif %}">
+                     <a href="{{ link.url | prepend: site.baseurl }}">{{ link.title }}</a>
+                 </li> 
+                 {% endfor %}
+                 <li> <a href="https://github.com/rebeccabilbro" target="_blank">GitHub</a></li>
+             </ul>
+         </nav>
+     </div>
+ </div><!-- end .header -->

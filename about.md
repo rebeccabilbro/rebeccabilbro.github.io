@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: post
 title: About
 permalink: /about/
 ---
@@ -22,4 +22,5 @@ The quote I'm using as the tagline for this journal is from a book by Paulo Coel
 
 I'm a data scientist, Python programmer, and author who lives in Washington, DC. If I'm not at work or here, I'm either cooking, practicing ukulele, or riding bikes with my family.
 
-![me](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/rebeccabilbro.jpg)
+![me](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/assets/img/rebeccabilbro.jpg)
+
