@@ -17,7 +17,9 @@ Essentially, to represent the distance between documents, we need two things: fi
 
 For more about vector encoding, you can check out Chapter 4 of [our book](https://www.amazon.com/Applied-Text-Analysis-Python-Language-Aware/dp/1491963042), and for more about different distance metrics check out Chapter 6. In Chapter 10, we prototype a kitchen chatbot that, among other things, uses a [nearest neigbor](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) search to recommend recipes that are similar to the ingredients listed by the user. You can also poke around in the code for the book [here](https://github.com/foxbook/atap).
 
-One of my observations during the prototyping phase for that chapter is how slow vanilla nearest neighbor search is. This led me to think about different ways to optimize the search, from using variations like [ball tree](https://en.wikipedia.org/wiki/Ball_tree), to using other Python libraries like [Spotify's Annoy](https://github.com/spotify/annoy), and also to other kind of tools altogether that attempt to deliver a similar results as quickly as possible. Enter Elasticsearch...
+One of my observations during the prototyping phase for that chapter is how slow vanilla nearest neighbor search is. This led me to think about different ways to optimize the search, from using variations like [ball tree](https://en.wikipedia.org/wiki/Ball_tree), to using other Python libraries like [Spotify's Annoy](https://github.com/spotify/annoy), and also to other kind of tools altogether that attempt to deliver a similar results as quickly as possible. 
+
+I tend to come at new text analytics problems non-deterministically (e.g. a __machine learning perspective__), where the assumption is that similarity is something that will (at least in part) be _learned_ through the training process. However, this assumption often requires a not insignificant amount of data to begin with to support that training. In an application context where little training data may be available to begin with, Elasticsearch's similarity algorithms (e.g. an __engineering approach__)seem like a potentially valuable alternative.
 
 ## What is Elasticsearch
 [Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html) is a open source text search engine that leverages the information retrieval library Lucene together with a key-value store to expose deep and rapid search functionalities. It combines the features of a NoSQL document store database, an analytics engine, and RESTful API, and is particularly useful for indexing and searching text documents.
@@ -1389,9 +1391,8 @@ pprint(result['hits']['hits'][0])
 
 From these simple experiments, we can clearly see that document similarity is not one-size-fits-all, but also that Elasticsearch offers quite a few options for relevance scoring that attempt to take into account the nuances of real-world documents, from variations in length and grammar, to vocabulary and style!  
 
-## Next up...
+## TODOs ...
 
-TODO: 
  - custom plugins for Elasticsearch
  - SPARQL + ES
  - Comparing & contrasting results for ES similarity algorithms on large datasets
