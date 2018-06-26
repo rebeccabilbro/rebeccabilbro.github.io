@@ -393,7 +393,7 @@ print(food_stories[23])
 
 ## Elasticsearch and Python
 
-We can use the `elasticsearch` library in Python to hop out of the command line and interact with our Elasticsearch instance a bit more systematically. Here we'll create a class that goes through each of the hobbies categories in the corpus and indexes each to a new index appropriately named after it's category:
+We can use the [`elasticsearch` library](https://elasticsearch-py.readthedocs.io/en/master/) in Python (which you can install via `pip`) to hop out of the command line and interact with our Elasticsearch instance a bit more systematically. Here we'll create a class that goes through each of the hobbies categories in the corpus and indexes each to a new index appropriately named after it's category:
 
 
 ```python
@@ -1389,14 +1389,22 @@ pprint(result['hits']['hits'][0])
 
 From these simple experiments, we can clearly see that document similarity is not one-size-fits-all, but also that Elasticsearch offers quite a few options for relevance scoring that attempt to take into account the nuances of real-world documents, from variations in length and grammar, to vocabulary and style!  
 
+## Next up...
+
+TODO: 
+ - custom plugins for Elasticsearch
+ - SPARQL + ES
+ - Comparing & contrasting results for ES similarity algorithms on large datasets
+ - ES sharding & similarity search (in the case of very large datasets)
+
 
 ### Further Reading:
 
- - https://www.elastic.co/guide/en/elasticsearch/guide/current/practical-scoring-function.html
- - https://www.compose.com/articles/how-scoring-works-in-elasticsearch/
- - https://compose.com/articles/elasticsearch-query-time-strategies-and-techniques-for-relevance-part-i/
- - https://compose.com/articles/elasticsearch-query-time-strategies-and-techniques-for-relevance-part-ii/
- - https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-similarity.html
- - https://www.elastic.co/guide/en/elasticsearch/guide/current/changing-similarities.html
- - http://stefansavev.com/blog/custom-similarity-for-elasticsearch/
+ - [The Practical Scoring Function](https://www.elastic.co/guide/en/elasticsearch/guide/current/practical-scoring-function.html)
+ - [How Scoring Works in Elasticsearch](https://www.compose.com/articles/how-scoring-works-in-elasticsearch/)
+ - [Elasticsearch Query Efficiency, Part 1](https://compose.com/articles/elasticsearch-query-time-strategies-and-techniques-for-relevance-part-i/)
+ - [Elasticsearch Query Efficiency, Part 2](https://compose.com/articles/elasticsearch-query-time-strategies-and-techniques-for-relevance-part-ii/)
+ - [Similarity Algorithms Implemented in Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-similarity.html)
+ - [How to Change Similarity Algorithm in Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/guide/current/changing-similarities.html)
+ - [Writing a Custom Similarity Measure for Elasticsearch](http://stefansavev.com/blog/custom-similarity-for-elasticsearch/)
  
