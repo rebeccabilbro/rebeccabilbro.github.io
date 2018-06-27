@@ -246,82 +246,9 @@ Yellowbrick hosts several datasets wrangled from the UCI Machine Learning Reposi
     
 This should create a folder named data in your current working directory that contains all of the datasets. You can load a specified dataset as follows:
 
-
-```python
-import os
-
-from sklearn.datasets.base import Bunch
-from yellowbrick.download import download_all
-
-## The path to the test data sets
-FIXTURES  = os.path.join(os.getcwd(), "data")
-
-## Dataset loading mechanisms
-datasets = {
-    "hobbies": os.path.join(FIXTURES, "hobbies")
-}
-
-
-def load_data(name, download=True):
-    """
-    Loads and wrangles the passed in text corpus by name.
-    If download is specified, this method will download any missing files. 
-    """
-    
-    # Get the path from the datasets 
-    path = datasets[name]
-    
-    # Check if the data exists, otherwise download or raise 
-    if not os.path.exists(path):
-        if download:
-            download_all() 
-        else:
-            raise ValueError((
-                "'{}' dataset has not been downloaded, "
-                "use the download.py module to fetch datasets"
-            ).format(name))
-    
-    # Read the directories in the directory as the categories. 
-    categories = [
-        cat for cat in os.listdir(path) 
-        if os.path.isdir(os.path.join(path, cat))
-    ]
-    
-    files  = [] # holds the file names relative to the root 
-    data   = [] # holds the text read from the file 
-    target = [] # holds the string of the category 
-        
-    # Load the data from the files in the corpus 
-    for cat in categories:
-        for name in os.listdir(os.path.join(path, cat)):
-            files.append(os.path.join(path, cat, name))
-            target.append(cat)
-            
-            with open(os.path.join(path, cat, name), 'r') as f:
-                data.append(f.read())
-        
-    
-    # Return the data bunch for use similar to the newsgroups example
-    return Bunch(
-        categories=categories,
-        files=files,
-        data=data,
-        target=target,
-    )
-
-corpus = load_data('hobbies')
-hobby_types  = {}
-
-for category in corpus.categories:
-    texts = []
-    for idx in range(len(corpus.data)):
-        if corpus['target'][idx] == category:
-            texts.append(' '.join(corpus.data[idx].split()))
-    hobby_types[category] = texts
-```
+<script src="https://gist.github.com/rebeccabilbro/a9a3143ff0b20a51f17b65de6284890e.js"></script>
 
 The categories in the hobbies corpus include: "cinema", "books", "cooking", "sports", and "gaming". We can explore them like this:
-
 
 ```python
 food_stories = [text for text in hobby_types['cooking']]
@@ -345,30 +272,9 @@ print(food_stories[23])
 
 We can use the [`elasticsearch` library](https://elasticsearch-py.readthedocs.io/en/master/) in Python (which you can install via `pip`) to hop out of the command line and interact with our Elasticsearch instance a bit more systematically. Here we'll create a class that goes through each of the hobbies categories in the corpus and indexes each to a new index appropriately named after it's category:
 
+<script src="https://gist.github.com/rebeccabilbro/5eae62bd85a8e270309d34e75047320b.js"></script>
 
 ```python
-from elasticsearch.helpers import bulk
-from elasticsearch import Elasticsearch
-
-class ElasticIndexer(object):
-    """
-    Create an ElasticSearch instance, and given a list of documents, 
-    index the documents into ElasticSearch.
-    """
-    def __init__(self):
-        self.elastic_search = Elasticsearch()
-        
-    def make_documents(self, textdict):        
-        for category, docs in textdict:
-            for document in docs:
-                yield {
-                    "_index": category,
-                    "_type": "_doc",
-                    "description": document
-                }        
-    def index(self, textdict):
-        bulk(self.elastic_search, self.make_documents(textdict))
-        
 indexer = ElasticIndexer()
 indexer.index(hobby_types.items())
 ```
