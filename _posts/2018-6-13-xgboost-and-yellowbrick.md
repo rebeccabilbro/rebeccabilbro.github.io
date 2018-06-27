@@ -46,7 +46,7 @@ Each record in the dataset is an example of a hand consisting of five playing ca
     7: Four of a kind; four equal ranks within five cards     
     8: Straight flush; straight + flush     
     9: Royal flush; {Ace, King, Queen, Jack, Ten} + flush     
-    
+
 The order of cards is important, which is why there are 480 possible Royal Flush hands as compared to 4 (one for each suit).
 
 
@@ -70,7 +70,7 @@ from yellowbrick.classifier import ClassBalance, ROCAUC, ClassificationReport, C
 ```python
 def download_data(data_url, dir_path):
     """
-    Convenience function that uses the requests library to retrieve data 
+    Convenience function that uses the requests library to retrieve data
     given a url to the dataset and a directory folder on your computer.
     """
     if not os.path.exists(dir_path):
@@ -80,7 +80,7 @@ def download_data(data_url, dir_path):
     name = os.path.basename(data_url)
     with open(os.path.join(dir_path, name), 'wb') as f:
         f.write(response.content)
-    
+
     return name
 ```
 
@@ -130,7 +130,7 @@ b = balance.poof()
 ![class balance](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-06-13-class-balance.png)
 
 
-One issue we can observe from the above `ClassBalance` report is that several of our classes - such as the Royal Flush and Straight Flush - are so rare that Scikit-Learn raises a warning that "Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples." This means that our classifier will be unlikely to successfully predict those hands, no matter how much we try to scale complexity. 
+One issue we can observe from the above `ClassBalance` report is that several of our classes - such as the Royal Flush and Straight Flush - are so rare that Scikit-Learn raises a warning that "Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples." This means that our classifier will be unlikely to successfully predict those hands, no matter how much we try to scale complexity.
 
 As a result we'll use Pandas to convert these rare classes into a single class that includes Flush or better.
 
@@ -166,7 +166,7 @@ clf.fit(X_train, y_train)
 
 Now that our model is fitted, let's evaluate its performance using some of Yellowbrick's visualizers for classification.
 
-## ROCAUC 
+## ROCAUC
 
 Receiver Operating Characteristic (ROC) curves are a measure of a classifier’s predictive quality that compares and visualizes the tradeoff between the models’ sensitivity and specificity. The ROC curve displays the true positive rate on the Y axis and the false positive rate on the X axis on both a global average and per-class basis. The ideal point is therefore the top-left corner of the plot: false positives are zero and true positives are one.
 
@@ -188,7 +188,7 @@ r = rocauc.poof()
 
 ## Classification Report Heatmap
 
-The classification report displays the precision, recall, and F1 scores for the model. In order to support easier interpretation and problem detection, Yellowbrick's implementation of [ClassificationReport](http://www.scikit-yb.org/en/latest/api/classifier/classification_report.html) integrates numerical scores with a color-coded heatmap. 
+The classification report displays the precision, recall, and F1 scores for the model. In order to support easier interpretation and problem detection, Yellowbrick's implementation of [ClassificationReport](http://www.scikit-yb.org/en/latest/api/classifier/classification_report.html) integrates numerical scores with a color-coded heatmap.
 
 The classification report shows a representation of the main classification metrics on a per-class basis. This gives a deeper intuition of the classifier behavior over global accuracy which can mask functional weaknesses in one class of a multiclass problem. Visual classification reports are used to compare classification models to select models that are “redder”, e.g. have stronger classification metrics or that are more balanced. (Note that Yellowbrick also makes it pretty easy to [change the colormap](https://stackoverflow.com/questions/48580031/changing-yellowbrick-visiualization-colors) if needed.)
 
@@ -232,8 +232,6 @@ e = error.poof()
 
 ## Conclusion
 
-Clearly we still have some class imbalance issues with our particular dataset, even after binning the rare hands together into a single 'flush or better' class. But hopefully we've seen an effective and efficient workflow for testing out the efficacy of a prototype model and using Yellowbrick to visualize the results. 
+Clearly we still have some class imbalance issues with our particular dataset, even after binning the rare hands together into a single 'flush or better' class. But hopefully we've seen an effective and efficient workflow for testing out the efficacy of a prototype model and using Yellowbrick to visualize the results.
 
 I was really impressed when I discovered that Yellowbrick worked with `xgboost` out-of-the-box thanks to Tianqi's sklearn wrapper (thanks also to my colleagues [Carlo Mazzaferro](https://github.com/carlomazzaferro) and [Ian Ozsvald](https://github.com/ianozsvald) for sharing their experimentations with Yellowbrick). If you know of other machine learning libraries that have sklearn wrappers (I'm thinking of Keras and Gensim, but I'm sure there are others), I would love to see whether Yellowbrick can be used with them for evaluation as well!
-
-
