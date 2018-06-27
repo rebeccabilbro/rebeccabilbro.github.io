@@ -238,7 +238,7 @@ With the following results:
 
 ## Searching a Real Corpus
 
-In order to really appreciate the differences and nuances of different similarity measures, we need more than three documents! For convenience, we'll use the sample text corpus that comes with the machine learning visualization library [Yellowbrick](http://www.scikit-yb.org/en/latest/). 
+In order to really appreciate the differences and nuances of different similarity measures, we need more than three documents! For convenience, we'll use the sample text corpus that comes with the machine learning visualization library [Yellowbrick](http://www.scikit-yb.org/en/latest/) (which you can install via `pip`). 
 
 Yellowbrick hosts several datasets wrangled from the UCI Machine Learning Repository or built by District Data Labs to present the examples used throughout this documentation, one of which is a text corpus of news documents collected from different domain area RSS feeds. If you haven't downloaded the data, you can do so by running:
 
