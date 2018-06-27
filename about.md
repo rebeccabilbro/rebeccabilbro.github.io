@@ -4,6 +4,8 @@ title: About
 permalink: /about/
 ---
 
+Welcome to my development journal! This is where I come to keep track of the things I'm doing and learning.
+
 ### What is capsicum?
 
 Capsicum is a genus of flowering plants in the nightshade family *Solanaceae*. Native to the Americas for thousands of years, Capsicum species are now cultivated worldwide, used in food, medicine, and in lachrymatory agents like sleeping gas, riot control, and mace.
@@ -23,4 +25,3 @@ The quote I'm using as the tagline for this journal is from a book by Paulo Coel
 I'm a data scientist, Python programmer, and author who lives in Washington, DC. If I'm not at work or here, I'm either cooking, practicing ukulele, or riding bikes with my family.
 
 ![me](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/assets/img/rebeccabilbro.jpg)
-
