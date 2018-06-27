@@ -14,3 +14,4 @@ node_modules
 *.idea/
 *.DS_Store
 _sample_posts/
+.DS_Store
