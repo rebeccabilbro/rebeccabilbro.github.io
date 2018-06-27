@@ -3,8 +3,8 @@ description: If pain must come, may it come quickly.
 
 url: https://rebeccabilbro.github.io/
 baseurl: ""
-paginate_path: "blog/page:num/"
-permalink: blog/:title/
+paginate_path: "page:num/"
+permalink: :title/
 
 markdown: kramdown
 highlighter: rouge
