@@ -236,58 +236,6 @@ With the following results:
 }
 ```
 
-We can work around this by using a fuzzy search, which will return both the first and second documents:
-
-```bash
-curl -XGET "localhost:9200/cooking/_search?pretty=true" -H 'Content-Type: application/json' -d'
-{
-    "query": {
-       "fuzzy" : { "description" : "smoothie" }
-    }
-}
-'
-```
-
-With the following results:
-
-```bash
-{
-  "took" : 2,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : 2,
-    "max_score" : 0.9331132,
-    "hits" : [
-      {
-        "_index" : "cooking",
-        "_type" : "_doc",
-        "_id" : "2",
-        "_score" : 0.9331132,
-        "_source" : {
-          "description" : "A smoothie is a thick, cold beverage made from pureed raw fruit."
-        }
-      },
-      {
-        "_index" : "cooking",
-        "_type" : "_doc",
-        "_id" : "1",
-        "_score" : 0.8807446,
-        "_source" : {
-          "description" : "Smoothies are one of our favorite breakfast options year-round."
-        }
-      }
-    ]
-  }
-}
-```
-
-
 ## Searching a Real Corpus
 
 In order to really appreciate the differences and nuances of different similarity measures, we need more than three documents! For convenience, we'll use the sample text corpus that comes with the machine learning visualization library [Yellowbrick](http://www.scikit-yb.org/en/latest/). 
