@@ -1,14 +1,9 @@
 # Getting Started with Go
 
-## GOPATH, GOROOT, Go Workspace, Layout
+## GOPATH
 
-## Syntax and Types
+## GOROOT
 
-## Arrays & Iteration
+## Go Workspace
 
-## Slices
-
-## Maps
-
-## Pointers
-test
+## Package Layout
