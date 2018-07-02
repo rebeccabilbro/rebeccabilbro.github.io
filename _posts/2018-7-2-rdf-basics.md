@@ -90,14 +90,7 @@ def make_graph_from_nquads(input_data):
 g = make_graph_from_nquads(os.path.join(base_folder, product_path))
 ```
 
-The result is a [`ConjunctiveGraph`](http://rdflib.readthedocs.io/en/3.4.0/modules/graphs/conjunctive_graph.html), an aggregation of all the named graphs that can be extracted from our sample RDF document, whose length is equal to the number of nodes in the graph.
-
-```python
-len(g)
-```
-
-    4983
-
+The result is a [`ConjunctiveGraph`](http://rdflib.readthedocs.io/en/3.4.0/modules/graphs/conjunctive_graph.html), an aggregation of all the named graphs that can be extracted from our sample RDF document, whose length (`len(g)`) is equal to the number of nodes in the graph (in our case, 4983).
 
 Now let's take a look at what's in our graph. We can traverse the graph using the `graph.quads()` method, which returns a generator. We can explore just first few like this:
 
@@ -117,7 +110,7 @@ Let's break down an example nquad, a small graph of an anonymous resource (`'N6a
 
 ![brainstorming_photo](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-07-02-brainstorming-stock-photo.jpg)
 
-(from Deposit Photos http://dep.ph/v/3slyo5)
+(from [Deposit Photos](http://dep.ph/v/3slyo5))
 
 Suppose we wanted to search our graph to see if the photo has any other keywords? We can do so using the classes `BNode` and `URIRef`. A `BNode` is an anonymous or blank node, and a `URIRef` is a URI reference within the RDF graph.
 
@@ -136,7 +129,15 @@ keywords = [
 print(list(keywords))
 ```
 
-    ['paperwork', 'brainstorm', 'laptop', 'stylish', 'people', 'technology', 'male', 'colleagues', 'partnership', 'documents', 'businessman', 'workplace', 'office', 'desk', 'showing', 'diary', 'adult', 'coworkers', 'well', 'shirt', 'strategy', 'working', 'together', 'team', 'corporate', 'caucasian', '20s', 'indoors', 'wireless', 'partners', 'young', '40s', 'computer', 'elegant', 'smart', 'explaining', 'teamwork', 'business', 'brainstorming', 'classy', 'dressed', 'pointing', 'communication', 'interaction', 'mature', 'sophisticated', 'meeting', 'man', 'bureau', 'staff']
+    ['paperwork', 'brainstorm', 'laptop', 'stylish', 'people', 'technology',
+    'male', 'colleagues', 'partnership', 'documents', 'businessman',
+    'workplace', 'office', 'desk', 'showing', 'diary', 'adult', 'coworkers',
+    'well', 'shirt', 'strategy', 'working', 'together', 'team', 'corporate',
+    'caucasian', '20s', 'indoors', 'wireless', 'partners', 'young', '40s',
+    'computer', 'elegant', 'smart', 'explaining', 'teamwork', 'business',
+    'brainstorming', 'classy', 'dressed', 'pointing', 'communication',
+    'interaction', 'mature', 'sophisticated', 'meeting', 'man', 'bureau',
+    'staff']
 
 
 Similarly, we might traverse through quads to find only those that have images associated with them:
@@ -149,11 +150,7 @@ images = [
     image for bnode, linkage, image, product_uri
     in g.quads((None, image_ref, None, None))
 ]
-
-print(len(images))
 ```
-
-    189
 
 
 ### Find the Products
@@ -168,11 +165,7 @@ from rdflib import URIRef
 
 # get all the unique products
 product_list = list(set(g.subjects(object=URIRef("http://schema.org/Product"))))
-len(product_list)
 ```
-
-    216
-
 
 This leaves us with 216 unique products.
 
