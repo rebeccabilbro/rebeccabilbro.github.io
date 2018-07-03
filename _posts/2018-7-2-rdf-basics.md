@@ -202,34 +202,34 @@ Next, we'll loop over each unique product id, and for each related quad in the g
 ```python
 product_dict = dict()
 
+# Seed each product node's value dict with the necessary fields
 for product in product_list:
-    for bnode, linkage, detail, product_uri in g.quads( (product, None, None, None) ):
-        if str(linkage) in PRODUCT_FIELDS.values():
-            if bnode not in product_dict.keys():
-                product_dict[str(bnode)] = {'bnode':str(bnode)}
-                bnode_data = {"name"    : None,
-                              "image"   : None,
-                              "url"     : None,
-                              "desc"    : None,
-                              "sku"     : None,
-                              "review"  : None,
-                              "manu"    : None,
-                              "reviews" : None,
-                              "prod_id" : None,
-                              "mod_date": None,
-                              "rel_date": None,
-                              "brand"   : None,
-                              "model"   : None,
-                              "offers"  : None,
-                              "thumb"   : None,
-                              "logo"    : None,
-                              "rating"  : None}
-                product_dict[str(bnode)].update(bnode_data)
-                for field_type, schema in PRODUCT_FIELDS.items():
-                    if str(linkage) == schema:
-                        bnode_data[field_type] = str(detail)
+    product_dict[str(product)] = {"name"    : None,
+                                  "image"   : None,
+                                  "url"     : None,
+                                  "desc"    : None,
+                                  "sku"     : None,
+                                  "review"  : None,
+                                  "manu"    : None,
+                                  "reviews" : None,
+                                  "prod_id" : None,
+                                  "mod_date": None,
+                                  "rel_date": None,
+                                  "brand"   : None,
+                                  "model"   : None,
+                                  "offers"  : None,
+                                  "thumb"   : None,
+                                  "logo"    : None,
+                                  "rating"  : None}
 
-                    product_dict[str(bnode)].update(bnode_data)
+    # for each node in the graph that describes a product relationship
+    for bnode, linkage, detail, product_uri in g.quads( (product, None, None, None) ):
+        # for each mapping in our PRODUCT_FIELDS dictionary
+        for field_type, schema in PRODUCT_FIELDS.items():
+            # if the node's linkage matches the schema
+            if str(linkage) == schema:
+                # update the appropriate dict value for the key in our product_dict
+                product_dict[str(bnode)][field_type] = str(detail)
 ```
 
 Now we can examine our (admittedly sparse) results!
@@ -244,21 +244,20 @@ for key, val in product_dict.items():
     break
 ```
 
-    N4e1bd4624ffe4b93a9bef8164cd139f6
-    {'bnode': 'N4e1bd4624ffe4b93a9bef8164cd139f6',
-     'brand': None,
+    N63ea7a2c39334851ab268c516d1a5b38
+    {'brand': None,
      'desc': None,
-     'image': None,
+     'image': 'http://ii.alatest.com/product/190x190/3/9/DeLonghi-4-10-D091549EFS-0.jpg',
      'logo': None,
      'manu': None,
      'mod_date': None,
      'model': None,
-     'name': None,
+     'name': 'DeLonghi 4 Slice Toaster Oven Stainless',
      'offers': None,
      'prod_id': None,
      'rating': None,
      'rel_date': None,
-     'review': 'N8717bf6252d64d74acf056ca08fdef2d',
+     'review': 'Nd40751819df24bf1901c01be603abc61',
      'reviews': None,
      'sku': None,
      'thumb': None,
