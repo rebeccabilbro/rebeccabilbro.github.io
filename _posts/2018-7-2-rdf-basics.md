@@ -263,6 +263,45 @@ for key, val in product_dict.items():
      'thumb': None,
      'url': None}
 
+Now let's say we wanted to update our product dictionary to include data from the review nodes in the RDF graph. We can do so by find the nodes that correspond to the values in the `review` field in the dictionary values of each entry in the `product_dict` (e.g. `'Nd40751819df24bf1901c01be603abc61'` above):
+
+```python
+review_text = URIRef("http://schema.org/Review/description")
+
+for product, val_dict in product_dict.items():
+    for bnode, linkage, detail, product_uri in g.quads( (None, review_text, None, None) ):
+        if val_dict['review'] == str(bnode):
+            val_dict['review'] = str(detail)
+
+for key, val in product_dict.items():
+    print(key)
+    pprint(val)
+    break
+```
+
+    N63ea7a2c39334851ab268c516d1a5b38
+    {'brand': None,
+    'desc': None,
+    'image': 'http://ii.alatest.com/product/190x190/3/9/DeLonghi-4-10-D091549EFS-0.jpg',
+    'logo': None,
+    'manu': None,
+    'mod_date': None,
+    'model': None,
+    'name': 'DeLonghi 4 Slice Toaster Oven Stainless',
+    'offers': None,
+    'prod_id': None,
+    'rating': None,
+    'rel_date': None,
+    'review': 'Substantial modern toaster that works well and is a great value. '
+              'We needed a 4 slicer since my husband has 2 waffles and I have 1 '
+              "our old toaster was only 2 slices so we couldn't have hot waffles "
+              "at the same time.Don't know what took me so long to get...",
+    'reviews': None,
+    'sku': None,
+    'thumb': None,
+    'url': None}
+
+
 That's all for now!
 
-Next up I'll do a post on using the Python [`SPARQLWrapper`](https://rdflib.github.io/sparqlwrapper/) to query RDF documents using the SPARQL query language. SPARQL can be used to express queries across diverse data sources, whether the data is stored natively as RDF or viewed as RDF via middleware. SPARQL contains capabilities for querying required and optional graph patterns along with their conjunctions and disjunctions. SPARQL also supports extensible value testing and constraining queries by source RDF graph. The results of SPARQL queries can be results sets or RDF graphs.
+Next up maybe I'll do a post on using the Python [`SPARQLWrapper`](https://rdflib.github.io/sparqlwrapper/) to query RDF documents using the SPARQL query language. SPARQL can be used to express queries across diverse data sources, whether the data is stored natively as RDF or viewed as RDF via middleware. SPARQL contains capabilities for querying required and optional graph patterns along with their conjunctions and disjunctions. SPARQL also supports extensible value testing and constraining queries by source RDF graph. The results of SPARQL queries can be results sets or RDF graphs.
