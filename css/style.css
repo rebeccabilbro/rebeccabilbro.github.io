@@ -119,7 +119,18 @@ strong {
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
  */
-code,
+pre,
+code {
+  font-size: 15px;
+  border: 1px solid $grey-color-light;
+  border-radius: 3px;
+  background-color: #fdf6e3;
+}
+
+code {
+  padding: 1px 5px;
+}
+
 kbd,
 samp {
   font-family: monospace, monospace;
