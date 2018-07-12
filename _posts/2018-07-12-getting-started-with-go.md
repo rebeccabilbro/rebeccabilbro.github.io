@@ -39,13 +39,13 @@ Some commands include (in the below examples, imagine that `add.go` is an exampl
 
 Next you have to set your GOPATH, aka your Go "workspace". A workspace is a directory hierarchy to house the Go source code for a project. It will also end up containing the package objects and command binaries that the compiler produces from your source code. Workspaces can live anywhere.
 
-Here's an example, where we create a workspace called `goplaces` inside our `Projects` directory:
+Let's create a workspace called `goplaces` inside my `Projects` directory:
 
 ```bash
 ~$ cd ~
 ~$ cd Projects
-~$ mkdir goplaces               # create workspace dir
-~$ export GOPATH=/Users/rebeccabilbro/Projects/goplaces             # make Go tool aware of workspace
+~$ mkdir goplaces                                           # create workspace dir
+~$ export GOPATH=/Users/rebeccabilbro/Projects/goplaces     # make Go tool aware of workspace
 ```
  
 Now let's create a folder to store the source code (`src`) for my Go projects. By convention, we create a subfolder for the remote version control system we will be using to host the code, which theoretically for me might include both personal projects hosted on GitHub and work projects hosted on Gitlab, e.g.: 
@@ -83,28 +83,29 @@ So here's an example of what a workspace might look like:
 ```
 goplaces
 └── bin
- |   └── ballast                    # example executable, resulting from having installed the local ballast package
+ |   └── ballast              # example executable, result of installing ballast from src
 └── pkg                            
  |   └── darwin_amd64
  |    |   └── github.com
- |    |    |   └── bbengfort    # package objects resulting from `go get`-ing another user's source code
+ |    |    |   └── bbengfort  # package objects from `go get`-ing bbengfort's source code
  |    |    |        └── capillary.a
 └── src                              
  |   └── github.com
  |    |   └── rebeccabilbro
- |    |    |   └── axiomatic     # a sample project, still in development, only tested with `go run`, thus no corresponding `/bin` executables
+ |    |    |   └── axiomatic  # in dev mode (`go run` only, so no `/bin` executables)
  |    |    |    |   └── raise.go
  |    |    |    |   └── resolve.go
- |    |    |   └── ballast          # a finished project, which has been installed via `go install`
+ |    |    |   └── ballast    # a finished project, installed via `go install`
  |    |    |    |   └── add.go
  |    |    |    |   └── add_test.go
- |    |   └── bbengfort          # another user's source code retrieved via `go get`
+ |    |   └── bbengfort       # another user's source code retrieved via `go get`
  |    |    |   └── capillary
  |    |    |    |   └── pump.go
  |    |    |    |   └── ...
  |   └── gitlab.com
  |    |   └── rbilbro
- |    |    |    |   └── dumbledore
+ |    |    |   └── dumbledore # project made for work
+ | ...
 ```
 
 ### What About GOROOT?
