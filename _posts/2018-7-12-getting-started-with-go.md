@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Getting Started with Go: Installation, go tool, and GOPATH
+title:  Getting Started with Go
 date:   2018-07-12 11:09
 ---
 
