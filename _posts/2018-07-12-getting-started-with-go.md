@@ -37,7 +37,7 @@ Some commands include (in the below examples, imagine that `add.go` is an exampl
 
 ## Code Organization in Go
 
-Next you have to set your GOPATH, aka your Go "workspace". But... what's a workspace? The idea of a workspace is one of the things that makes the practice of writing Go code a bit different than with other languages. When I'm writing Python code, it can go anywhere. 
+The next step is to establish your Go "workspace". But... what's a workspace? The idea of a workspace is one of the things that makes the practice of writing Go code a bit different than with other languages. When I'm writing Python code, it can go anywhere. 
 
 So maybe I'll have something like:
 
@@ -69,7 +69,7 @@ Go imagines a different approach to code organization, the workspace.
 
 ### Your Go Workspace (GOPATH)
 
-A workspace is a directory hierarchy to house the Go source code for a project. It will also end up containing the package objects and command binaries that the compiler produces from your source code. Workspaces can live anywhere.
+A Go workspace is a directory hierarchy to house the Go source code for a project. It will also end up containing the package objects and command binaries that the compiler produces from your source code. Technically, workspaces can live anywhere, and you *could* even have multiple ones, but that's not considered a [best practice](https://golang.org/doc/code.html#Workspaces) in the Go community.
 
 Let's create a workspace called `goplaces` inside my `Projects` directory:
 
