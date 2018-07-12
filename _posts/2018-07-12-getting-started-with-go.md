@@ -80,7 +80,7 @@ _Note: the workplace subdirectories `src`, `pkg`, and `bin` will be created auto
 
 So here's an example of what a workspace might look like:
 
-```
+```bash
 goplaces
 └── bin
  |   └── ballast              # example executable, result of installing ballast from src
