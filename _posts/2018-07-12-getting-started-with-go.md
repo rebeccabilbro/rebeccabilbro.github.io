@@ -35,9 +35,41 @@ Some commands include (in the below examples, imagine that `add.go` is an exampl
  - **`go fmt`**: `go fmt src/github.com/rebeccabilbro/ballast` automatically reformats code (e.g. spacing, line breaks, etc) in all the files in the hypothetical `ballast` package to conform with current idiomatic practice.
  - **`go help`**: `go help` will list out all the go tool commands, while `go help <command>` will provide more information about that command, as well as any optional flags.
 
-## Your Go Workspace (GOPATH)
+## Code Organization in Go
 
-Next you have to set your GOPATH, aka your Go "workspace". A workspace is a directory hierarchy to house the Go source code for a project. It will also end up containing the package objects and command binaries that the compiler produces from your source code. Workspaces can live anywhere.
+Next you have to set your GOPATH, aka your Go "workspace". But... what's a workspace? The idea of a workspace is one of the things that makes the practice of writing Go code a bit different than with other languages. When I'm writing Python code, it can go anywhere. 
+
+So maybe I'll have something like:
+
+```bash
+~
+└─ random_python_script.py
+└── Desktop
+ |   └── another_random_script.py
+└── stuff                            
+ |   └── yellowbrick
+ |    |   └── yellowbrick
+ |    |    |   └── __init__.py
+ |    |    |   └── anscombe.py
+ |    |    |   └── base.py	
+ |    |    |   └── bestfit.py	
+ |    |    |   └── classifier	
+ |    |    |    |   └── __init__.py	
+ |    |    |    |   └── base.py	
+ |    |    |    |   └── boundaries.py	
+ |    |    |   └── ...
+ |    |   └── ...
+ |   └── ... 
+ | ...
+```
+
+My `.py` files are all over the place - some in standalone scripts and others in packages with `__init__.py` files, and everything still runs fine!
+
+Go imagines a different approach to code organization, the workspace. 
+
+### Your Go Workspace (GOPATH)
+
+A workspace is a directory hierarchy to house the Go source code for a project. It will also end up containing the package objects and command binaries that the compiler produces from your source code. Workspaces can live anywhere.
 
 Let's create a workspace called `goplaces` inside my `Projects` directory:
 
@@ -48,6 +80,8 @@ Let's create a workspace called `goplaces` inside my `Projects` directory:
 ~$ export GOPATH=/Users/rebeccabilbro/Projects/goplaces     # make Go tool aware of workspace
 ```
  
+ ### Where to Put Your Source Code
+ 
 Now let's create a folder to store the source code (`src`) for my Go projects. By convention, we create a subfolder for the remote version control system we will be using to host the code, which theoretically for me might include both personal projects hosted on GitHub and work projects hosted on Gitlab, e.g.: 
 
 ```bash
@@ -57,6 +91,8 @@ Now let's create a folder to store the source code (`src`) for my Go projects. B
 ```
 
 We create folders with the same names as my Github and Gitlab usernames because when I `go get` packages from other developers that are publicly hosted, the go tool will create subfolders named after _their_ usernames to store those packages in.
+
+### Where Go Puts Things
 
 Remember in the part above where we were talking about `go install`? Assuming the package we're installing is package `main`, `go install` compiles it and produces an executable that it will put in  $GOPATH/bin. So let's create a directory to store those executable commands: 
 
@@ -76,7 +112,9 @@ Lastly, we'll create a directory to store package objects
 ~$ mkdir pkg   
 ```
 
-_Note: the workplace subdirectories `src`, `pkg`, and `bin` will be created automatically by the go tool when they are needed, but it's useful to create them explicitly so that we understand their purposes and have all our paths set correctly._
+_Note: the workplace subdirectories `pkg` and `bin` will be created automatically by the go tool when they are needed, but it's useful to create them explicitly so that we understand their purposes and have all our paths set correctly._
+
+### An Example Workspace
 
 So here's an example of what a workspace might look like:
 
