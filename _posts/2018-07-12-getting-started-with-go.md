@@ -45,22 +45,22 @@ So maybe I'll have something like:
 ~
 └─ random_python_script.py
 └── Desktop
- |   └── another_random_script.py
+|    └── another_random_script.py
 └── stuff                            
- |   └── yellowbrick
- |    |   └── yellowbrick
- |    |    |   └── __init__.py
- |    |    |   └── anscombe.py
- |    |    |   └── base.py	
- |    |    |   └── bestfit.py	
- |    |    |   └── classifier	
- |    |    |    |   └── __init__.py	
- |    |    |    |   └── base.py	
- |    |    |    |   └── boundaries.py	
- |    |    |   └── ...
- |    |   └── ...
- |   └── ... 
- | ...
+|    └── yellowbrick
+|    |    └── yellowbrick
+|    |    |    └── __init__.py
+|    |    |    └── anscombe.py
+|    |    |    └── base.py	
+|    |    |    └── bestfit.py	
+|    |    |    └── classifier	
+|    |    |    |    └── __init__.py	
+|    |    |    |    └── base.py	
+|    |    |    |    └── boundaries.py	
+|    |    |    └── ...
+|    |    └── ...
+|    └── ... 
+| ...
 ```
 
 My `.py` files are all over the place - some in standalone scripts and others in packages with `__init__.py` files, and everything still runs fine!
@@ -121,29 +121,29 @@ So here's an example of what a workspace might look like:
 ```bash
 goplaces
 └── bin
- |   └── ballast              # example executable, result of installing ballast from src
+|   └── ballast              # example executable, result of installing ballast from src
 └── pkg                            
- |   └── darwin_amd64
- |    |   └── github.com
- |    |    |   └── bbengfort  # package objects from `go get`-ing bbengfort's source code
- |    |    |        └── capillary.a
+|   └── darwin_amd64
+|    |   └── github.com
+|    |    |   └── bbengfort  # package objects from `go get`-ing bbengfort's source code
+|    |    |        └── capillary.a
 └── src                              
- |   └── github.com
- |    |   └── rebeccabilbro
- |    |    |   └── axiomatic  # in dev mode (`go run` only, so no `/bin` executables)
- |    |    |    |   └── raise.go
- |    |    |    |   └── resolve.go
- |    |    |   └── ballast    # a finished project, installed via `go install`
- |    |    |    |   └── add.go
- |    |    |    |   └── add_test.go
- |    |   └── bbengfort       # another user's source code retrieved via `go get`
- |    |    |   └── capillary
- |    |    |    |   └── pump.go
- |    |    |    |   └── ...
- |   └── gitlab.com
- |    |   └── rbilbro
- |    |    |   └── dumbledore # project made for work
- | ...
+|    └── github.com
+|    |    └── rebeccabilbro
+|    |    |    └── axiomatic  # in dev mode (`go run` only, so no `/bin` executables)
+|    |    |    |    └── raise.go
+|    |    |    |    └── resolve.go
+|    |    |   └── ballast    # a finished project, installed via `go install`
+|    |    |    |    └── add.go
+|    |    |    |    └── add_test.go
+|    |    └── bbengfort       # another user's source code retrieved via `go get`
+|    |    |    └── capillary
+|    |    |    |    └── pump.go
+|    |    |    |    └── ...
+|    └── gitlab.com
+|    |    └── rbilbro
+|    |    |    └── dumbledore # project made for work
+| ...
 ```
 
 ### What About GOROOT?
