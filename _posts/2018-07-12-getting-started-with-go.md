@@ -80,7 +80,7 @@ Let's create a workspace called `goplaces` inside my `Projects` directory:
 ~$ export GOPATH=/Users/rebeccabilbro/Projects/goplaces     # make Go tool aware of workspace
 ```
  
- ### Where to Put Your Source Code
+### Where to Put Your Source Code
  
 Now let's create a folder to store the source code (`src`) for my Go projects. By convention, we create a subfolder for the remote version control system we will be using to host the code, which theoretically for me might include both personal projects hosted on GitHub and work projects hosted on Gitlab, e.g.: 
 
