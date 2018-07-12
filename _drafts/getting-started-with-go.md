@@ -1,6 +1,6 @@
 # Getting Started with Go
 
-Over the last year, I've been slowly teaching myself Go. As a Python programmer who previously studied Java and Perl only very briefly, I was mostly interested to know what learning Go would teach me about programming and problem solving in general (à la the [Blub Paradox](http://www.paulgraham.com/avg.html)). However, as I've continued learning Go, I've become increasingly curious about some of the unique features of the language (e.g. automatic memory management and Goroutines), and how they might help me to solve certain kinds of problems I haven't yet encountered. BUT, before we get to that, this is a quick post that goes over some of the basics of getting started with Go, including notes on installation, the go tool, and workspaces.
+Over the last year, I've been slowly teaching myself Go. As a Python programmer who previously studied Java and Perl only very briefly, I was mostly interested to know what learning Go would teach me about programming and problem solving in general (à la the [Blub Paradox](http://www.paulgraham.com/avg.html)). However, as I've continued learning Go, I've become increasingly curious about some of the unique features of the language (e.g. automatic memory management and Goroutines), and how they might help me to solve certain kinds of problems I haven't yet encountered. BUT, before we get to all THAT, this is just a quick post that goes over some of the basics of getting started with Go, including notes on installation, the go tool, and workspaces.
 
 ## Notes on Installing Go (Assuming OSX)
 
@@ -50,83 +50,77 @@ Here's an example, where we create a workspace called `goplaces` inside our `Pro
 ~$ export GOPATH=/Users/rebeccabilbro/Projects/goplaces       # make Go tool aware of workspace
 ```
  
-Now let's create a folder to store the source code (`src`) for my Go projects. By convention, we place this 
+Now let's create a folder to store the source code (`src`) for my Go projects. By convention, we create a subfolder for the remote version control system we will be using to host the code, which theoretically for me might include both personal projects hosted on GitHub and work projects hosted on Gitlab, e.g.: 
 
 ```bash
+~$ cd goplaces
 ~$ mkdir src/github.com/rebeccabilbro     
+~$ mkdir src/gitlab.com/rbilbro     
 ```
 
+We create folders with the same names as my Github and Gitlab usernames because when I `go get` packages from other developers that are publicly hosted, the go tool will create subfolders named after _their_ usernames to store those packages in.
 
-
-Create a directory to store executable commands: 
+Remember in the part above where we were talking about `go install`? Assuming the package we're installing is package `main`, `go install` compiles it and produces an executable that it will put in  $GOPATH/bin. So let's create a directory to store those executable commands: 
 
 ```bash
 ~$ mkdir bin 
 ```
 
-Tell Go where to put the results of `go install`
+And also add the GOBIN to our path, which will tell Go explicitly where to put the results of `go install`:
 
 ```bash
 ~$ export GOBIN=/Users/rebeccabilbro/Projects/goplaces/bin      
 ```
 
+Lastly, we'll create a directory to store package objects 
 
-Create a directory to store public packages to be used internally by your projects
 ```bash
 ~$ mkdir pkg   
 ```
 
+_Note: the workplace subdirectories `src`, `pkg`, and `bin` will be created automatically by the go tool when they are needed, but it's useful to create them explicitly so that we understand their purposes and have all our paths set correctly.
 
-text
+So here's an example of what a workspace might look like:
 
 ----
 goplaces
 └── bin
  |   └── ballast                    # example executable, resulting from having installed the local ballast package
 └── pkg                            
- |   └── 
+ |   └── darwin_amd64
+ |    |   └── github.com
+ |    |    |   └── bbengfort    # package objects resulting from `go get`-ing another user's source code
+ |    |    |        └── capillary.a
 └── src                              
  |   └── github.com
  |    |   └── rebeccabilbro
- |    |    |   └── axiomatic     # a sample project, still in development, thus no corresponding `/bin` executables
+ |    |    |   └── axiomatic     # a sample project, still in development, only tested with `go run`, thus no corresponding `/bin` executables
  |    |    |    |   └── raise.go
  |    |    |    |   └── resolve.go
  |    |    |   └── ballast          # a finished project, which has been installed via `go install`
  |    |    |    |   └── add.go
  |    |    |    |   └── add_test.go
- |    |    |    |   └── remove.go
- |    |    |    |   └── remove_test.go
+ |    |   └── bbengfort          # another user's source code retrieved via `go get`
  |    |    |   └── capillary
- |     |    |    |   └── ...
+ |    |    |    |   └── pump.go
+ |    |    |    |   └── ...
+ |   └── gitlab.com
+ |    |   └── rbilbro
+ |    |    |    |   └── dumbledore
 ----
 
-text
-----
-gocode
-└── rebeccabilbro
-|   └── bin
-|    |   └──hello
-|    |   └── rocketlauncher
-|   └── pkg
-|   └── src
-|        └── hello
-|            └── hello.go
-└── primetime
-    └── bin
-    |   └── rocketlauncher
-    └── pkg
-    └── src
-        └── rocketlauncher
-            └── rocketlauncher.go
-----
-
-## Package Layout
-
+That's all for now!
 
 ## Further Reading
 
+ - [Getting Started](https://golang.org/doc/install) (from the official docs)
+ - [How to Write Go Code](https://golang.org/doc/code.html) (from the official docs)
  - [Go Start](https://github.com/alco/gostart)
  - Writing, building, installing, and testing Go Code [screencast](https://youtu.be/XCsL89YtqCs)
+ - [Organizing Go Code](https://talks.golang.org/2014/organizeio.slide#1)
  - [Organizing Go Code to Support Go Get](https://www.ardanlabs.com/blog/2013/08/organizing-code-to-support-go-get.html)
+ - [Setting up a Go Development Environment](https://skife.org/golang/2013/03/24/go_dev_env.html)
+ - [Filesystem Structure of a Go Project](https://flaviocopes.com/go-filesystem-structure/)
+ - [Go Project Layout](https://medium.com/golang-learn/go-project-layout-e5213cdcfaa2)
  - [go install vs go build](https://pocketgophers.com/go-install-vs-go-build/)
  - [Go Programming](https://youtu.be/CF9S4QZuV30)
