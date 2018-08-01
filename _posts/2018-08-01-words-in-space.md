@@ -437,3 +437,5 @@ Hehe.
 
  - [A Survey of Binary Similarity and Distance Measures](http://www.iiisci.org/journal/CV$/sci/pdfs/GS315JG.pdf)
  - [Similarity and Difference](https://cs.nju.edu.cn/zlj/Course/DM_16_Lecture/Lecture_3.pdf)
+ - [
+To normalize or not and other distance considerations](https://www.coursera.org/lecture/ml-clustering-and-retrieval/to-normalize-or-not-and-other-distance-considerations-ozHef)
