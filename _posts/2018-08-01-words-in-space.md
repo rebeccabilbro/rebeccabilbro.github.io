@@ -4,7 +4,7 @@ title:  Words in Space
 date:   2018-08-01 17:32
 ---
 
-Text analysis tasks like vectorization, document classification, and topic modeling require us to define what it means for any two documents to be similar. There are a number of different measures you can use to determine similarity for text (e.g. Minkowski, Cosine, Levenstein, Jaccard, etc.). In this post, we'll take a look a couple of these ways of measuring distance between documents in a specific corpus, and then visualize the result of our decisions on the distribution of the data.
+Text analysis tasks like vectorization, document classification, and topic modeling require us to define what it means for any two documents to be similar. There are a number of different measures you can use to determine similarity for text (e.g. Minkowski, Cosine, Levenstein, Jaccard, etc.). In this post, we'll take a look a couple of these ways of measuring distance between documents in a specific corpus, and then visualize the result of our decisions on the distribution of the data using Yellowbrick.
 
 ### Document Similarity
 
@@ -21,6 +21,7 @@ Why? Because text data:
 
 So... in this post we'll experiment with a few different distance measures and visualize the results with t-distributed stochastic neighbor embedding, or t-SNE. Later on (or in a separate post) we'll also visualize feature importances and explore some feature distributions with dispersion plots.
 
+Note: we'll be using tools from the [Yellowbrick](http://www.scikit-yb.org/en/latest/) library, which you can `pip install`.
 
 
 ### Load the corpus
