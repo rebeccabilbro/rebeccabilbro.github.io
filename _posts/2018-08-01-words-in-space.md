@@ -97,7 +97,6 @@ corpus = load_data('hobbies')
 
 ```python
 import matplotlib.pyplot as plt
-from yellowbrick.text import TSNEVisualizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
@@ -110,13 +109,16 @@ labels     = corpus.target
 
 Scikit-learn implements this decomposition method as the `sklearn.manifold.TSNE` transformer. By decomposing high-dimensional document vectors into 2 dimensions using probability distributions from both the original dimensionality and the decomposed dimensionality, t-SNE is able to effectively cluster similar documents. By decomposing to 2 or 3 dimensions, the documents can be visualized with a scatter plot.
 
-Unfortunately, TSNE is very expensive, so typically a simpler decomposition method such as SVD or PCA is applied ahead of time. In Yellowbrick, the `TSNEVisualizer` creates an inner transformer pipeline that applies such a decomposition first (SVD with 50 components by default), then performs the t-SNE embedding. The visualizer then plots the scatter plot, coloring by cluster or by class, or neither if a structural analysis is required.
+Unfortunately, TSNE is very expensive, so typically a simpler decomposition method such as SVD or PCA is applied ahead of time. In Yellowbrick, the [`TSNEVisualizer`](http://www.scikit-yb.org/en/latest/api/text/tsne.html) creates an inner transformer pipeline that applies such a decomposition first (SVD with 50 components by default), then performs the t-SNE embedding. The visualizer then plots the scatter plot, coloring by cluster or by class, or neither if a structural analysis is required.
 
 ### Squared Euclidean Distance
 By default, `sklearn.manifold.TSNE` (and therefore also `TSNEVisualizer`) uses Euclidean distance, interpreted as squared Euclidean distance (in Scipy, this is "sqeuclidean").
 
 
 ```python
+from yellowbrick.text import TSNEVisualizer
+
+
 tsne = TSNEVisualizer()
 tsne.fit(docs, labels)
 tsne.poof()
