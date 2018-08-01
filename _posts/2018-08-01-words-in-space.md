@@ -414,10 +414,10 @@ tsne.poof()
 
 ### Hamming
 
-![Edit Distance](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-edit-distance-illustration.png)
-
 [Hamming distance](https://en.wikipedia.org/wiki/Hamming_distance) between two strings of equal length is the number of positions at which the corresponding symbols are different. In other words, it measures the minimum number of substitutions required to change one string into the other, or the minimum number of errors that could have transformed one string into the other. In a more general context, the Hamming distance is one of several string metrics for measuring the edit distance between two sequences.
 
+
+![Edit Distance](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-edit-distance-illustration.png)
 
 ```python
 tsne = TSNEVisualizer(metric="hamming")
