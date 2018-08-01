@@ -6,7 +6,7 @@ date:   2018-08-01 17:32
 
 Text analysis tasks like vectorization, document classification, and topic modeling require us to define what it means for any two documents to be similar. There are a number of different measures you can use to determine similarity for text (e.g. Minkowski, Cosine, Levenstein, Jaccard, etc.). In this post, we'll take a look a couple of these ways of measuring distance between documents in a specific corpus, and then visualize the result of our decisions on the distribution of the data.
 
-## Words in Space: Introduction to Document Similarity for Text Analysis
+### Document Similarity
 
 While there are a number of different ways to quantify "distance" between documents (e.g. Minkowski, Cosine, Levenstein, Jaccard, etc.), fundamentally, each relies on our ability to imagine documents as points in space, where the relative closeness of any two is a measure of their similarity.
 
@@ -23,7 +23,7 @@ So... in this post we'll experiment with a few different distance measures and v
 
 
 
-## Load the corpus
+### Load the corpus
 
 
 ```python
@@ -91,7 +91,7 @@ def load_data(name, download=True):
 corpus = load_data('hobbies')
 ```
 
-# Vectorize the Documents
+### Vectorize the Documents
 
 
 ```python
@@ -105,7 +105,7 @@ docs       = vectorizer.fit_transform(corpus.data)
 labels     = corpus.target
 ```
 
-## About t-SNE
+### About t-SNE
 
 Scikit-learn implements this decomposition method as the `sklearn.manifold.TSNE` transformer. By decomposing high-dimensional document vectors into 2 dimensions using probability distributions from both the original dimensionality and the decomposed dimensionality, t-SNE is able to effectively cluster similar documents. By decomposing to 2 or 3 dimensions, the documents can be visualized with a scatter plot.
 
@@ -177,6 +177,8 @@ for metric in distance_functions:
 We'll start to see pretty quickly that there are several that just don't make sense at all in the context of text data.
 
 ### Manhattan (aka "Taxicab" or "City Block") Distance
+
+![Mahattan Variations](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-manhattan-variations.png)
 
 [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry) between two points is computed as the sum of the absolute differences of their Cartesian coordinates.
 
@@ -266,6 +268,9 @@ Chebyshev does seem to produce a beauty mark also, but it's less distinct from t
 
 ### Cosine Distance
 
+
+![Cosine Distance](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-cosine-illustration.png)
+
 We can also measure vector similarity with [cosine distance](https://en.wikipedia.org/wiki/Cosine_similarity), using the cosine of the angle between the two vectors to assess the degree to which they share the same orientation. In effect, the more parallel any two vectors are, the more similar the documents will be (regardless of their magnitude). Cosine distance is not *technically* a distance measure because it doesn't satisfy the [triangle inequality](https://en.wikipedia.org/wiki/Triangle_inequality). Nevertheless, cosine distance is often an excellent option for text data because it corrects for an variations in the length of the documents (since we're measuring the angle between vectors rather than their magnitudes). Moreover, it can be a very efficient way to compute distance with sparse vectors because it considers only the non-zero elements.
 
 
@@ -289,6 +294,8 @@ Let's take a look!
 ### Jaccard Distance
 
 [Jaccard distance](https://en.wikipedia.org/wiki/Jaccard_index) defines similarity between finite sets as the quotient of their intersection and their union. For instance, we could measure the Jaccard distance between two documents A and B by dividing the number of unique words that appear in both A and B by the total number of unique words that appear in A and B. A value of 0 would indicate that the two documents have nothing in common, a 1 that they were the same document, and values between 0 and 1 indicating their relative degree of similarity.
+
+![Jaccard Distance](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-jaccard-illustration.png)
 
 Jaccard distance is actually *not* a bad metric for text distance, but it's much more effective for detecting things like [document duplication](https://moz.com/devblog/near-duplicate-detection/). It's much less helpful for finding more nuanced similarities and patterns.
 
@@ -406,6 +413,8 @@ tsne.poof()
 
 
 ### Hamming
+
+![Edit Distance](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-edit-distance-illustration.png)
 
 [Hamming distance](https://en.wikipedia.org/wiki/Hamming_distance) between two strings of equal length is the number of positions at which the corresponding symbols are different. In other words, it measures the minimum number of substitutions required to change one string into the other, or the minimum number of errors that could have transformed one string into the other. In a more general context, the Hamming distance is one of several string metrics for measuring the edit distance between two sequences.
 
