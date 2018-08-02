@@ -17,7 +17,7 @@ Why? Because text data:
  - is very high dimensional
  - is often sparsely distributed
  - has some features that are more important than others
- - has some feature variations matter more than others
+ - has some feature variations that matter more than others
 
 So... in this post we'll experiment with a few different distance measures and visualize the results with t-distributed stochastic neighbor embedding, or t-SNE. Later on (or in a separate post) we'll also visualize feature importances and explore some feature distributions with dispersion plots.
 
@@ -45,42 +45,42 @@ datasets = {
 def load_data(name, download=True):
     """
     Loads and wrangles the passed in text corpus by name.
-    If download is specified, this method will download any missing files. 
+    If download is specified, this method will download any missing files.
     """
-    
-    # Get the path from the datasets 
+
+    # Get the path from the datasets
     path = datasets[name]
-    
-    # Check if the data exists, otherwise download or raise 
+
+    # Check if the data exists, otherwise download or raise
     if not os.path.exists(path):
         if download:
-            download_all() 
+            download_all()
         else:
             raise ValueError((
                 "'{}' dataset has not been downloaded, "
                 "use the download.py module to fetch datasets"
             ).format(name))
-    
-    # Read the directories in the directory as the categories. 
+
+    # Read the directories in the directory as the categories.
     categories = [
-        cat for cat in os.listdir(path) 
+        cat for cat in os.listdir(path)
         if os.path.isdir(os.path.join(path, cat))
     ]
-    
-    files  = [] # holds the file names relative to the root 
-    data   = [] # holds the text read from the file 
-    target = [] # holds the string of the category 
-        
-    # Load the data from the files in the corpus 
+
+    files  = [] # holds the file names relative to the root
+    data   = [] # holds the text read from the file
+    target = [] # holds the string of the category
+
+    # Load the data from the files in the corpus
     for cat in categories:
         for name in os.listdir(os.path.join(path, cat)):
             files.append(os.path.join(path, cat, name))
             target.append(cat)
-            
+
             with open(os.path.join(path, cat, name), 'r') as f:
                 data.append(f.read())
-        
-    
+
+
     # Return the data bunch for use similar to the newsgroups example
     return Bunch(
         categories=categories,
@@ -162,9 +162,9 @@ We could try them all!
 
 ```
 distance_functions = [
-    "braycurtis", "canberra", "chebyshev", "cityblock", "correlation", "cosine", 
-    "dice", "euclidean", "hamming", "jaccard", "kulsinski", "mahalanobis", 
-    "matching", "minkowski", "rogerstanimoto", "russellrao", "seuclidean", 
+    "braycurtis", "canberra", "chebyshev", "cityblock", "correlation", "cosine",
+    "dice", "euclidean", "hamming", "jaccard", "kulsinski", "mahalanobis",
+    "matching", "minkowski", "rogerstanimoto", "russellrao", "seuclidean",
     "sokalmichener", "sokalsneath", "sqeuclidean", "yule"
 ]
 
@@ -172,10 +172,10 @@ for metric in distance_functions:
     tsne = TSNEVisualizer(metric=metric)
     tsne.fit(docs, labels)
     tsne.poof()
-   
+
 ```
 
-... but some are a bit finicky, so let's walk through them all individually. 
+... but some are a bit finicky, so let's walk through them all individually.
 
 We'll start to see pretty quickly that there are several that just don't make sense at all in the context of text data.
 
@@ -233,7 +233,7 @@ Note the weird beauty mark in the plot above. We'll see this in several of the p
 
 ### Canberra Distance
 
-[Canberra distance](https://en.wikipedia.org/wiki/Canberra_distance) is a numerical measure of the distance between pairs of points in a vector space. It is a weighted version of [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry) and is sometimes used as a metric for comparing ranked lists and for intrusion detection in computer security. 
+[Canberra distance](https://en.wikipedia.org/wiki/Canberra_distance) is a numerical measure of the distance between pairs of points in a vector space. It is a weighted version of [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry) and is sometimes used as a metric for comparing ranked lists and for intrusion detection in computer security.
 
 
 ```python
@@ -252,7 +252,7 @@ Another beauty mark!
 
 ### Chebyshev Distance
 
-[Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance) between two n-vectors u and v is the maximum norm-1 distance between their respective elements. 
+[Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance) between two n-vectors u and v is the maximum norm-1 distance between their respective elements.
 
 
 ```python
@@ -287,9 +287,9 @@ tsne.poof()
 ![Cosine](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-cosine.png)
 
 
-## Danger! 
+## Danger!
 
-There are also a *boatload* of distance metrics that make no sense at all for sparse, non-numeric data. 
+There are also a *boatload* of distance metrics that make no sense at all for sparse, non-numeric data.
 
 Let's take a look!
 
