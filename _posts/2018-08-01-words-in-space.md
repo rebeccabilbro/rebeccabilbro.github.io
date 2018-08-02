@@ -26,7 +26,7 @@ Note: we'll be using tools from the [Yellowbrick](http://www.scikit-yb.org/en/la
 
 ### Load the corpus
 
-First, make sure you know [how to get the data]http://www.scikit-yb.org/en/latest/api/datasets.html).
+First, make sure you know [how to get the data](http://www.scikit-yb.org/en/latest/api/datasets.html).
 
 ```python
 import os
