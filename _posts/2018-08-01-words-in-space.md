@@ -26,6 +26,7 @@ Note: we'll be using tools from the [Yellowbrick](http://www.scikit-yb.org/en/la
 
 ### Load the corpus
 
+First, make sure you know [how to get the data]http://www.scikit-yb.org/en/latest/api/datasets.html).
 
 ```python
 import os
@@ -145,14 +146,14 @@ tsne.poof()
 
 As you've probably heard, [Euclidean distance is not an ideal choice for any sparse data](https://stats.stackexchange.com/questions/29627/euclidean-distance-is-usually-not-good-for-sparse-data/29647) (also [this](https://stats.stackexchange.com/questions/99171/why-is-euclidean-distance-not-a-good-metric-in-high-dimensions)). That's because when we vectorize a corpus, we end up with huge, sparse vectors. That means that it's sort of a crapshoot as to whether the most informative features (e.g. words) will vary in a way that will be captured by Euclidean distance. We can see in the above that Euclidean distance hasn't done a terrible job of spacially differentiating the different categories of documents; the "sports" and "cooking" clusters look pretty clear. However there's a lot of overlap and muddling of the other categories.
 
-This makes more sense when we think in terms of informative features, which in the case of text are words. Some of the most informative features in the cooking category might occur only in a chunk of the corpus, others (maybe words from the "cinema" and "gaming" categories) might be spread out through the whole corpus, but more frequently in some documents than others. Some of our documents might be really long, while others are short, which means they'll be hard to compare; the short one will have a _much_ more sparse vector representation.
+This makes more sense when we think in terms of informative features, which in the case of text are words. Some of the most informative features in the cooking category might occur only in a chunk of the corpus, others (maybe words from the "cinema" and "gaming" categories) might be spread out through the whole corpus, but more frequently in some documents than others. Worse still, some of our documents might be really long, while others are short, which means they'll be hard to compare; the short one will have a _much_ more sparse vector representation.
 
 What to do?
 
 
-## Distance Metrics for Non-numerical Inputs
+### Distance Metrics for Non-Numerical Inputs
 
-Per [sklearn](http://scikit-learn.org/stable/faq.html#how-do-i-deal-with-string-data-or-trees-graphs):
+Per the [scikit-learn FAQ](http://scikit-learn.org/stable/faq.html#how-do-i-deal-with-string-data-or-trees-graphs):
 
 "scikit-learn estimators assume you’ll feed them real-valued feature vectors. This assumption is hard-coded in pretty much all of the library. However, you can feed non-numerical inputs to estimators in several ways."
 
@@ -274,7 +275,7 @@ Chebyshev does seem to produce a beauty mark also, but it's less distinct from t
 
 ![Cosine Distance](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-cosine-illustration.png)
 
-We can also measure vector similarity with [cosine distance](https://en.wikipedia.org/wiki/Cosine_similarity), using the cosine of the angle between the two vectors to assess the degree to which they share the same orientation. In effect, the more parallel any two vectors are, the more similar the documents will be (regardless of their magnitude). Cosine distance is not *technically* a distance measure because it doesn't satisfy the [triangle inequality](https://en.wikipedia.org/wiki/Triangle_inequality). Nevertheless, cosine distance is often an excellent option for text data because it corrects for an variations in the length of the documents (since we're measuring the angle between vectors rather than their magnitudes). Moreover, it can be a very efficient way to compute distance with sparse vectors because it considers only the non-zero elements.
+We can also measure vector similarity with [cosine distance](https://en.wikipedia.org/wiki/Cosine_similarity), using the cosine of the angle between the two vectors to assess the degree to which they share the same orientation. In effect, the more parallel any two vectors are, the more similar the documents will be (regardless of their magnitude). Cosine distance is also not *technically* a distance measure because it doesn't satisfy the [triangle inequality](https://en.wikipedia.org/wiki/Triangle_inequality). Nevertheless, cosine distance is often an excellent option for text data because it corrects for any variations in the length of the documents (since we're measuring the angle between vectors rather than their magnitudes). Moreover, it can be a very efficient way to compute distance with sparse vectors because it considers only the non-zero elements.
 
 
 ```python
@@ -353,14 +354,14 @@ tsne.poof()
 Another crescent!
 
 
+### More Crescents
 
-### Russell-Rao Dissimilarity
+#### Russell-Rao Dissimilarity
 
 Like the last few examples, [Russell-Rao dissimilarity](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.russellrao.html) quantifies the difference between two boolean 1-D arrays.
 
 
 ```python
-# russellrao
 tsne = TSNEVisualizer(metric="russellrao")
 tsne.fit(docs, labels)
 tsne.poof()
@@ -370,11 +371,9 @@ tsne.poof()
 ![Russell Rao](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-russellrao.png)
 
 
-Another crescent!
 
 
-
-### Sokal Sneath Distance
+#### Sokal Sneath Distance
 
 Computes the [Sokal-Sneath distance](https://docs.scipy.org/doc/scipy-0.16.1/reference/generated/scipy.spatial.distance.sokalsneath.html) between each pair of boolean vectors.
 
@@ -388,8 +387,9 @@ tsne.poof()
 
 ![Sokal Sneath](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-sokalsneath.png)
 
+### Concentric Circles?
 
-### Sokal Michener
+#### Sokal Michener
 
 
 ```python
@@ -402,7 +402,7 @@ tsne.poof()
 ![Sokal Michener](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-sokalmichener.png)
 
 
-### Rogers Tanimoto
+#### Rogers Tanimoto
 
 
 ```python
@@ -415,7 +415,7 @@ tsne.poof()
 ![Rogers Tanimoto](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-01-rogerstanimoto.png)
 
 
-### Hamming
+#### Hamming
 
 [Hamming distance](https://en.wikipedia.org/wiki/Hamming_distance) between two strings of equal length is the number of positions at which the corresponding symbols are different. In other words, it measures the minimum number of substitutions required to change one string into the other, or the minimum number of errors that could have transformed one string into the other. In a more general context, the Hamming distance is one of several string metrics for measuring the edit distance between two sequences.
 
