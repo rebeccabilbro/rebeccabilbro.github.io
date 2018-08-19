@@ -1,0 +1,38 @@
+---
+layout: post
+title:  A System Health Check in Go
+date:   2018-08-19 17:52
+---
+
+Recently I was talking to a friend who works in the distributed computing space. He is doing research on how messages travel between geographically distributed servers, and his experiments rely on those servers being active and healthy (if they're not, the experiment may actually run but produce no usable results, wasting my friend's valuable time!). So I wondered if I could write a little script in Go that could do a simple machine health status report.
+
+## Requirements
+
+My friend had a few requests;
+
+ (1) information about the operating system running on the virtual machine,
+ (2) details about the virtual memory (RAM) on that machine so that he knows how much has been used and how much is available,
+ (3) disk usage information
+ (4) CPU details (e.g. number of cores)
+ (5) Go version
+
+## Preliminary Implementation
+
+Here's a very rough preliminary implementation, which leverages the [`gopsutil` library](https://github.com/shirou/gopsutil) for most of the information, as well as [`check-go-version`](https://github.com/opalmer/check-go-version) for the Go version details:
+
+<script src="https://gist.github.com/rebeccabilbro/2c3b2811e78aef880998ba38aad01f86.js"></script>
+
+## Next Steps
+
+While the reporting functionalities were useful to me (since I'm still learning about systems stuff), ideally, `doctor` should be converted into a package that exposes a struct called something like `Status`, which included all of the above details, as well as a method (e.g. `getMachineStatus`) that returns a `Status` struct with all the fields populated.
+
+## Resources
+
+Here are some of the very helpful resources and readings I looked at during the experimentation:
+
+- [`gopsutil`](https://github.com/shirou/gopsutil)
+- [`gosigar`](https://github.com/cloudfoundry/gosigar/)
+- [`go-ps`](https://github.com/mitchellh/go-ps)
+- [`psutil`](https://github.com/giampaolo/psutil)
+- [df(Unix)](https://en.wikipedia.org/wiki/Df_(Unix))
+- [ps(Unix)](https://en.wikipedia.org/wiki/Ps_(Unix))
