@@ -4,13 +4,13 @@ title:  The Actor Model, for Actors and Models
 date:   2018-08-23 10:37
 ---
 
-Lately I've been thinking a lot about use cases for parallelism and concurrency, which has led me to thinking about models of computation that can make operations happen faster and more tolerant of large amounts of data throughput. In this post, I'll attempt to describe the Actor Model at a very high level, at the expense of much detail and some precision of language, but hopefully in a simple enough way for a layperson to understand.
+Lately I've been thinking a lot about use cases for parallelism and concurrency, which has led me to thinking about models of computation that can make operations happen faster and be more tolerant to large amounts of data throughput. In this post, I'll attempt to describe the Actor Model at a very high level, at the expense of much detail and some precision of language, but hopefully in a simple enough way for a layperson to understand.
 
 ## Turning Big Problems into Small Problems
 
 At a really high level, computer programming is about breaking up big computation tasks into smaller ones. There are a number of different frameworks for thinking about computation, and there are a number of different paradigms for how to break it down (e.g. functional programming, object-oriented programming). These frameworks and paradigms have different benefits and tradeoffs.
 
-For instance, object-oriented programming features the combining of data and methods (aka encapsulation) in a way that makes it easy to mathematically model the behavior of everyday things like cars and calculators. Cars have data, like mileage, and can also do things, like go forward and stop. Calculators have data, constants like the values of $\pi$ or $\e$, and can also do things, like add and exponentiate.
+For instance, object-oriented programming features the combining of data and methods (aka encapsulation) in a way that makes it easy to mathematically model the behavior of everyday things like cars and calculators. Cars have data, like mileage, and can also do things, like go forward and stop. Calculators have data, constants like the value of pi, and can also do things, like add and exponentiate.
 
 However, sometimes storing data together with methods can be problematic, like when there's a lot of data, or when certain methods need to get used a lot more than others (which button of your calculator are you most likely to wear out first?).
 
