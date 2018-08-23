@@ -51,5 +51,4 @@ Some of the things I read/watched while musing on this post:
  - [Race Conditions and the Actor Model (video)](https://youtu.be/un-pSOlTaY0?t=1m)
  - [Pulsar: The Actor Model implemented in Python](https://github.com/quantmind/pulsar)
  - [Introduction to the Actor Model for Concurrent Computation](https://www.youtube.com/watch?v=lPTqcecwkJg)
-
  - [Using the Actor Model with Domain-Driven Design (DDD) in Reactive Systems](https://www.youtube.com/watch?v=rMv4sul0RwU)
