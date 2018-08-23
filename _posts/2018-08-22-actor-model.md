@@ -24,7 +24,7 @@ To perform more complex series of computations, it would be most natural for the
 
 ![object-oriented vs. actor model](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2018-08-23-actor-model-example.png)
 
-However, if we imagine a context where there is a lot of data flowing through our calculation system, one nice advantage of the actor model approach is that the different actors don't each need to hold data the way the `Calculator` class might, or even need to know much about the full data picture at all. They only need to know what numbers were in the most recent message they received, and they are only responsible for doing one kind of computation on those numbers. Moreover, if certain kinds of operations need to happen a lot more than others (say, adding), it would be pretty easy to just clone the `Adder` to distribute the work to multiple `Adders` and speed up the computation process.
+However, if we imagine a context where there is a lot of data flowing through our calculation system, one nice advantage of the actor model approach is that the different actors don't each need to hold data the way the `Calculator` class might, or even need to know much about the full data picture at all. They only need to know what numbers were in the most recent message they received, and they are only responsible for doing one kind of computation on those numbers. Moreover, if certain kinds of operations need to happen a lot more than others (say, adding), it would be pretty easy to just clone the `Adder` to distribute the work to multiple `Adders` and speed up the computation process. Now imagine that we also have a lot of people who want to use the calculator at the same time; sometimes their calculations will affect each other's, but not always. The actor model gives us a way to cleverly perform computations concurrently when possible, and out-of-order whenever that's an option.
 
 
 ## Plan for Implementing a Simple Version of the Actor Model
@@ -46,9 +46,10 @@ So here's an idea for how we might go about implementing the actor model approac
 Some of the things I read/watched while musing on this post:
 
  - [The Actor Model](https://bbengfort.github.io/snippets/2018/08/03/actor-model.html)
+  - [Programming Actors with Akka](https://www.safaribooksonline.com/videos/programming-actors-with/9781491990247/9781491990247-video313673)
  - [The Actor Model Explained (video)](https://finematics.com/actor-model-explained/)
  - [Race Conditions and the Actor Model (video)](https://youtu.be/un-pSOlTaY0?t=1m)
  - [Pulsar: The Actor Model implemented in Python](https://github.com/quantmind/pulsar)
  - [Introduction to the Actor Model for Concurrent Computation](https://www.youtube.com/watch?v=lPTqcecwkJg)
- - [Programming Actors with Akka](https://www.safaribooksonline.com/videos/programming-actors-with/9781491990247/9781491990247-video313673)
+
  - [Using the Actor Model with Domain-Driven Design (DDD) in Reactive Systems](https://www.youtube.com/watch?v=rMv4sul0RwU)
