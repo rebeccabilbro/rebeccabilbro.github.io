@@ -41,9 +41,6 @@ It's clear though from Helland's writing that these two conceptualizations are s
 > "By watching and monitoring the read usage of a DataSet, you may
 realize new optimizations (e.g. new indices) are possible." - Pat Helland
 
-## Versions
-
-
 
 ## Vocab & Acronyms
 
