@@ -59,4 +59,17 @@ Notes on the first half [here](https://rebeccabilbro.github.io/effective-go-pt-1
  - For example, if you create a type `Z` and want to be able to sort it, you have to implement each of the required functions for the sort interface; telling sort what `len`, `less`, and `swap` mean in the context of a `Z`.
  - A type can implement multiple interfaces.
 
-More soon ...
+## Blank Identifier in Multiple Assignment
+ - Always check error returns; it is bad practice to discard the error value in order to ignore the error.
+
+
+## Concurrency
+
+> Do not communicate by sharing memory; instead, share memory by communicating.
+
+ - A goroutine is a function executing concurrently with other goroutines in the same address space.
+ - Function literals make sure the variables referred to by the function survive as long as they are active.
+ - Unbuffered channels give a way to exchange values while guaranteeing that two goroutines are in a known state.
+ - Receivers block until there is data to receive. If the channel is unbuffered, the sender blocks until the receiver has received the value.
+ - If the channel is buffered, the sender blocks only until the value has been copied to the buffer; if the buffer is full, this means waiting until some receiver has retrieved a value.
+ - If the calculation can be broken into separate pieces that can execute independently, it can be parallelized, with a channel to signal when each piece completes.
