@@ -73,3 +73,10 @@ Notes on the first half [here](https://rebeccabilbro.github.io/effective-go-pt-1
  - Receivers block until there is data to receive. If the channel is unbuffered, the sender blocks until the receiver has received the value.
  - If the channel is buffered, the sender blocks only until the value has been copied to the buffer; if the buffer is full, this means waiting until some receiver has retrieved a value.
  - If the calculation can be broken into separate pieces that can execute independently, it can be parallelized, with a channel to signal when each piece completes.
+
+## Errors
+
+ - The built-in function `panic` creates a run-time error that will stop the program.
+ - Real library functions should avoid panic. If the problem can be masked or worked around, it's always better to let things continue to run rather than taking down the whole program.
+ - A call to `recover` stops the unwinding and returns the argument passed to panic.
+ - `recover` always returns nil unless called directly from a deferred function; deferred code can call library routines that themselves use `panic`, and `recover` without failing.
