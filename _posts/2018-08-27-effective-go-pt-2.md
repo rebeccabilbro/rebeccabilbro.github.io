@@ -58,3 +58,5 @@ Notes on the first half [here](https://rebeccabilbro.github.io/effective-go-pt-1
  - Interfaces in Go provide a way to specify the behavior of an object; if the object can do `X`, then it can be used in `Y`.
  - For example, if you create a type `Z` and want to be able to sort it, you have to implement each of the required functions for the sort interface; telling sort what `len`, `less`, and `swap` mean in the context of a `Z`.
  - A type can implement multiple interfaces.
+
+More soon ...
