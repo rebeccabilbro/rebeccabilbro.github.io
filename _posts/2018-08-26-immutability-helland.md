@@ -41,7 +41,7 @@ In particular, the above line struck me. While we may accept as best practice th
 
 ##  The Truth is the Log
 
-> " The truth is the log. The database is a cache of a subset of the log." - Pat Helland
+> "The truth is the log. The database is a cache of a subset of the log." - Pat Helland
 
 Append-only computing describes a general approach and comprises multiple strategies, including ones that seem like they may have outlived their usefulness for a lot of modern applications (like single master computing, which has been superseded by distributed single master like Paxos).
 
