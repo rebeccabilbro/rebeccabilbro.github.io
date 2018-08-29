@@ -13,34 +13,37 @@ In my post on the [Actor Model](https://rebeccabilbro.github.io/actor-model/), I
 
 ## What is Immutability?
 
-In programming discussions, immutability generally refers to objects; mutable objects are ones that can change (e.g. have their values reassigned, be appended to, etc); immutable objects can't change after they're created. In general, primitives tend to be immutable while container-like types tend to be mutable, though this isn't a hard and fast rule in every language. For instance, in Python, the primitives `int`, `float`, `str`, and `bool` are immutable, while `list`, `dict`, and `set` are all mutable. On the other hand, Python `tuples` (non-primitive) are immutable. On the other hand, in Go data structures are not immutable, except for strings.
+Probably like most programmers, when I think about immutability I’m generally thinking at a higher level of abstraction; e.g. objects that can and can’t change. In general, primitives tend to be immutable while container-like types tend to be mutable, though this isn't a hard and fast rule in every language. For instance, in Python, the primitives `int`, `float`, `str`, and `bool` are immutable, while `list`, `dict`, and `set` are all mutable. On the other hand, Python `tuples` (non-primitive) are immutable. On the other hand, in Go data structures are not immutable, except for strings.
 
-In the context of Helland's paper though, the term *immutability* is used a bit more generally, to describe large-scale data storage. In this sense, immutability means that data inside a database does not change except to accumulate. This is convenient for distributed databases, because discrepancies between copies of the database can be easily rectified via updates, which will only ever come in the form of new writes, never re-writes or deletions. This works even better when we maintain redundant copies of the database around, just in case something goes wrong with the ones we're depending on.
+Of course in the sense that Helland is using in his piece, immutability means that data inside a transactional database does not change — except to accumulate.
 
 > "We can now afford to keep immutable copies of lots of data, and
 one payoff is reduced coordination challenges." - Pat Helland
 
 In other words, coordination is now a lot more expensive than keeping more copies and adopting the practice of not deleting things.
 
+### Append-only
+
+I wish this were how people actually used RDBMS in practice! It would certainly make the kind of analytics I do a bit more straightforward. But from an infrastructure perspective, I can see how this is a robust strategy for distributed databases, particularly as the velocity of transactions increases. Using this append-only strategy, discrepancies between copies of the database can be easily rectified via updates, which will only ever come in the form of new writes, never re-writes or deletions. Maintaining additional redundant copies of the database can also increase our confidence level.
+
+### NoSQL
+
+One of the things that stood out to me most about Helland’s piece is that he calls himself a "database old timer" in the sense that he came up thinking of RDBMS as the only type of database. And yet he takes a fairly open-minded perspective towards the “DataSet” as he calls it. He defines a "DataSet" as a snapshot or extract from a database; it’s conceived as a fixed and immutable set of tables, including both schema information and metadata (e.g. version) as well as the data. However, I take this to mean a “DataSet” can really be any downstream database view, including one that might get used to populate something like a Neo4J graph or ElasticSearch index.
+
+Helland still frames relational databases as the source of truth (the "Data on the Inside"), casting these secondary data products (reports, flat files, NoSQL stores) as "Data on the Outside". Thinking of these data (or DBs) as "outside" allows us to treat them with different expectations than we would of a traditional transactional database; because they’re understood to be immutable, they take a lot less work in terms of management (e.g. we don't have to worry about locking or controlling updates).
+
+His view seems somewhat different from the tack that [other traditionalists](https://cacm.acm.org/magazines/2010/1/55743-mapreduce-and-parallel-dbmss-friends-or-foes/fulltext) in the community took during the ‘NoSQL revolution’.
+
+> "By watching and monitoring the read usage of a DataSet, you may
+realize new optimizations (e.g. new indices) are possible." - Pat Helland
+
+In particular, the above line struck me. While we may accept as best practice that downstream data products are immutable, and thus should not directly impact the original data store (though I’ve observed this more than once!), they are nonetheless informed by the analytic needs of downstream consumers. As such these data products can help anticipate large-scale changes in transactional patterns happening in the underlying RDBMS, potentially even informing the design, architecture, and deployment of RDBMS, or potentially of their underlying server communication or log update protocols.
+
 ##  The Truth is the Log
 
 > " The truth is the log. The database is a cache of a subset of the log." - Pat Helland
 
 Append-only computing describes a general approach and comprises multiple strategies, including ones that seem like they may have outlived their usefulness for a lot of modern applications (like single master computing, which has been superseded by distributed single master like Paxos).
-
-Helland calls himself a "database old timer" in the sense that he came up thinking of relational databases as the only type of database (i.e. before the NoSQL revolution). But interestingly, Helland still frames relational databases as the source of truth (the "Data on the Inside"), casting "Data on the Outside" as secondary data products (messages, files, documents, web pages). This "outside" data is conceptualized as unlocked, immutable, uniquely identifiable, and versioned.
-
-## DataSet vs. Database
-
-Helland defines a "DataSet" as a snapshot or extract from a database. It's conceived as a fixed and immutable set of tables, including both schema information and metadata as well as data. It is created, consumed for reading, then deleted. They might be relational or not -- potentially as graph, a hierarchy (JSON), a set of key-value pairs, etc. Moreover, it doesn't take any management; because it is immutable, we don't have to worry about locking or controlling updates.
-
-Databases, by contrast, are mutable (except when we're taking a snapshot of them or doing analytics, when we might freeze things).
-
-It's clear though from Helland's writing that these two conceptualizations are somewhat outdated, not necessarily because they are not correct, but because people are using DataSets and databases in new ways (including in unsystematic, incorrect, and dangerous ways, though he doesn't say that explicitly). Based on what I have observed in my work as a data scientists, DataSets are sometimes joined with database tables, are sometimes treated as sources of truth, and are sometimes even treated as mutable!
-
-> "By watching and monitoring the read usage of a DataSet, you may
-realize new optimizations (e.g. new indices) are possible." - Pat Helland
-
 
 ## Vocab & Acronyms
 
