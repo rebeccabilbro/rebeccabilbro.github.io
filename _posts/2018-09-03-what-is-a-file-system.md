@@ -9,7 +9,7 @@ What is a filesystem? In this post we'll explore userspace filesystems, discuss 
 
 ## What is a Filesystem?
 
-A [filesystem](https://en.wikipedia.org/wiki/File_system) is a set of abstract data types implemented for storing and interacting with data. More specifically, it is a Linux kernel module used to access files and directories.
+A [filesystem](https://en.wikipedia.org/wiki/File_system) is a set of abstract data types implemented for storing and interacting with data. As it relates to this post, a filesystem is a kernel module used to access files and directories.
 
 A filesystem provides access to data for applications and system programs via consistent, standard interfaces exported by the virtual file system (VFS), and enables access to data that may be stored persistently on local media or on remote network servers/devices, or even transient data (such as debug data or kernel status) stored temporarily in RAM or special devices.
 
