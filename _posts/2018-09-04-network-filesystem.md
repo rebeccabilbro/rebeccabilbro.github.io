@@ -4,7 +4,7 @@ title:  A Low-Bandwidth Network Filesystem
 date:   2018-09-04 19:24
 ---
 
-A network file system (NFS) is a protocol for writing distributed file systems protocol. It gives me (for example) and my co-worker a way to access the same files from our local machines. While this is convenient, it can cause availability (lag) issues for really interactive applications. This post contains my notes from reading "A Low-bandwidth Network File System," by Muthitacharoen, Chen, and Mazieres, who present a solution to this problem.
+A network file system (NFS) is a protocol for writing distributed file systems. It gives me (for example) and my co-worker a way to access the same networked files from our local machines. While this is convenient, it can cause availability (lag) issues for really interactive applications. This post contains my notes from reading "A Low-bandwidth Network File System," by Muthitacharoen, Chen, and Mazieres, who present a solution to this problem.
 
 ## First, What is a Network Filesystem?
 
@@ -18,13 +18,14 @@ In "A Low-bandwidth Network File System," Muthitacharoen, Chen, and Mazieres pre
 
 One of the unique ideas in the Muthitacharoen, et al. paper is that it is better to used variable-sized chunks than fixed-size blocks (though they do set a lower and upper bound to ensure that we don't break a file down into single words, say, or into a single massive chunk).
 
-While this variable-sized chunking can lead to some problems, as the authors suggest, the worst case scenario "is that LBFS will perform no better than an ordinary file system." But is that really true?
+While this variable-sized chunking can lead to some problems, as the authors suggest, the worst case scenario "is that LBFS will perform no better than an ordinary file system." But is that really true? But is that really true?
 
 ## Consistency
 
-What happens if my colleague and I edit the file at the same time (or nearly the same time)? Whose changes stick? The LBFS authors address this possibility by defaulting to atomicity. When I modify a file, it isn't actually written back to the server until I close it. If my computer crashes while I'm working on a file, my changes will all go away, and when my colleague opens the file later, he'll see the old version without any of my changes. If he and I write to the same file at the same time, the last one of us to close the file "wins", meaning their changes will overwrite our colleague's.
+What happens if my colleague and I edit the file at the same time (or nearly the same time)? Whose changes stick? The LBFS authors address this possibility by defaulting to atomicity. When I modify a file, it isn't actually written back to the server until I close it. If my computer crashes while I'm working on a file, my changes will all go away, and when my colleague requests the file later, he'll see the old version without any of my changes. If he and I write to the same file at the same time, the last one of us to close the file "wins", meaning that if Dave closes the file after me, his changes will overwrite mine.
 
-While the LBFS solution is attractive in the sense that it will produce a much more responsive experience (particularly if I'm more likely to be reading than writing), it seems a bit conservative. I also wonder if it will become increasingly problematic as a file system is increasingly geographically distributed.
+While the LBFS solution is attractive in the sense that it will produce a much more responsive experience (particularly convenient if I'm more likely to be reading than writing), it seems a bit conservative. I also wonder if it will become increasingly problematic as a file system is increasingly geographically distributed?
+
 
 ## Further Reading
 
