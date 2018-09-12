@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  GFS: Everything Old is New Again
+title:  Everything Old is New Again
 date:   2018-09-11 20:26
 ---
 
