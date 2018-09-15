@@ -13,9 +13,9 @@ owner:
   avatar:         rebeccabilbro.jpg
   bio:            "Data scientist, programmer, adventurer"
   # Social networking links used in footer.
-  twitter:        https://twitter.com/rebeccabilbro
-  github:         https://github.com/rebeccabilbro
-  linkedin:       https://www.linkedin.com/in/rebeccabilbro/
+  twitter:        rebeccabilbro
+  github:         rebeccabilbro
+  linkedin:       rebeccabilbro
 
 # Background image to be tiled on all pages
 background:
