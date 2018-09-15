@@ -1,7 +1,8 @@
 ---
 layout: post
 title:  Hello World
-date:   2017-01-01 11:43
+description: "First post!"
+tags: programming
 ---
 
 Welcome to Capsicum, my development journal.

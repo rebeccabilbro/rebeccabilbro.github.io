@@ -1,7 +1,8 @@
 ---
 layout: post
 title:  Making Interactive Visualizations with Python Using Bokeh
-date:   2017-01-01 13:07
+description: "interactive visualizations"
+tags: programming
 ---
 
 [Bokeh](http://bokeh.pydata.org/en/latest/) is an interactive Python library for visualizations that targets modern web browsers for presentation. Its goal is to provide elegant, concise construction of novel graphics in the style of D3.js, and to extend this capability with high-performance interactivity over very large or streaming datasets. Bokeh can help anyone who would like to quickly and easily create interactive plots, dashboards, and data applications.

@@ -1,7 +1,8 @@
 ---
 layout: post
 title:  Comparing machine learning models with Scikit-Learn and Yellowbrick
-date:   2017-02-01 16:56
+description: "model selection"
+tags: programming
 ---
 
 In this tutorial, we are going to look at scores for a variety of [Scikit-Learn](http://scikit-learn.org) models and compare them using visual diagnostic tools from [Yellowbrick](http://www.scikit-yb.org) in order to select the best model for our data.
