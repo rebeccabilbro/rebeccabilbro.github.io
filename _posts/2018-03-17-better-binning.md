@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Creating Categorical Values from Continuous Values
+tags:   programming
 date:   2018-03-17 11:51
 ---
 

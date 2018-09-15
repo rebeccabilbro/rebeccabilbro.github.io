@@ -2,6 +2,7 @@
 layout: post
 title:  RDF Basics
 date:   2018-07-02 18:14
+tags:   programming
 ---
 
 The Resource Description Framework, or RDF, is a standard model for data interchange that allows structured and semi-structured data to be shared across different applications. RDF expresses relationships between entities as triples; essentially a graph that links unique URIs via edges that describe their relationships. In this post, we'll use the Python library `rdflib` to build a graph from RDF data about products and to extract information about individual products.

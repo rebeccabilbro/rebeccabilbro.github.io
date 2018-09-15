@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Notes on Immutability
+tags:   class_readings
 date:   2018-08-26 09:04
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Lessons Learned from Effective Go, Part 1
+tags:   class_notes
 date:   2018-08-25 19:07
 ---
 

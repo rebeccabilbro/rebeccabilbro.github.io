@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Getting Started with Go
+tags:   programming
 date:   2018-07-12 11:09
 ---
 
@@ -37,7 +38,7 @@ Some commands include (in the below examples, imagine that `add.go` is an exampl
 
 ## Code Organization in Go
 
-The next step is to establish your Go "workspace". But... what's a workspace? The idea of a workspace is one of the things that makes the practice of writing Go code a bit different than with other languages. When I'm writing Python code, it can go anywhere. 
+The next step is to establish your Go "workspace". But... what's a workspace? The idea of a workspace is one of the things that makes the practice of writing Go code a bit different than with other languages. When I'm writing Python code, it can go anywhere.
 
 So maybe I'll have something like:
 
@@ -51,21 +52,21 @@ So maybe I'll have something like:
 |    |    └── yellowbrick
 |    |    |    └── __init__.py
 |    |    |    └── anscombe.py
-|    |    |    └── base.py	
-|    |    |    └── bestfit.py	
-|    |    |    └── classifier	
-|    |    |    |    └── __init__.py	
-|    |    |    |    └── base.py	
-|    |    |    |    └── boundaries.py	
+|    |    |    └── base.py
+|    |    |    └── bestfit.py
+|    |    |    └── classifier
+|    |    |    |    └── __init__.py
+|    |    |    |    └── base.py
+|    |    |    |    └── boundaries.py
 |    |    |    └── ...
 |    |    └── ...
-|    └── ... 
+|    └── ...
 | ...
 ```
 
 My `.py` files are all over the place - some in standalone scripts and others in packages with `__init__.py` files, and everything still runs fine!
 
-Go imagines a different approach to code organization, the workspace. 
+Go imagines a different approach to code organization, the workspace.
 
 ### Your Go Workspace (GOPATH)
 
@@ -79,10 +80,10 @@ Let's create a workspace called `goplaces` inside my `Projects` directory:
 ~$ mkdir goplaces                                           # create workspace dir
 ~$ export GOPATH=/Users/rebeccabilbro/Projects/goplaces     # make Go tool aware of workspace
 ```
- 
+
 ### Where to Put Your Source Code
- 
-Now let's create a folder to store the source code (`src`) for my Go projects. By convention, we create a subfolder for the remote version control system we will be using to host the code, which theoretically for me might include both personal projects hosted on GitHub and work projects hosted on Gitlab, e.g.: 
+
+Now let's create a folder to store the source code (`src`) for my Go projects. By convention, we create a subfolder for the remote version control system we will be using to host the code, which theoretically for me might include both personal projects hosted on GitHub and work projects hosted on Gitlab, e.g.:
 
 ```bash
 ~$ cd goplaces
@@ -94,10 +95,10 @@ We create folders with the same names as my Github and Gitlab usernames because 
 
 ### Where Go Puts Things
 
-Remember in the part above where we were talking about `go install`? Assuming the package we're installing is package `main`, `go install` compiles it and produces an executable that it will put in  $GOPATH/bin. So let's create a directory to store those executable commands: 
+Remember in the part above where we were talking about `go install`? Assuming the package we're installing is package `main`, `go install` compiles it and produces an executable that it will put in  $GOPATH/bin. So let's create a directory to store those executable commands:
 
 ```bash
-~$ mkdir bin 
+~$ mkdir bin
 ```
 
 And also add the GOBIN to our path, which will tell Go explicitly where to put the results of `go install`:
@@ -106,7 +107,7 @@ And also add the GOBIN to our path, which will tell Go explicitly where to put t
 ~$ export GOBIN=/Users/rebeccabilbro/Projects/goplaces/bin      
 ```
 
-Lastly, we'll create a directory to store package objects 
+Lastly, we'll create a directory to store package objects
 
 ```bash
 ~$ mkdir pkg   

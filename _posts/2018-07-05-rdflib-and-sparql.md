@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  SPARQL Queries for Local RDF Data
+tags:   programming
 date:   2018-07-05 19:32
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  SPARQL from Python
+tags:   programming
 date:   2018-07-05 14:42
 ---
 

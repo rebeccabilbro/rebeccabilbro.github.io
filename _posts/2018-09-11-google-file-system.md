@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Everything Old is New Again
+tags:   class_readings
 date:   2018-09-11 20:26
 ---
 

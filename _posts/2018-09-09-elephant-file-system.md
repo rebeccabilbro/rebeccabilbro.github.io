@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  The Elephant file system
+tags:   class_readings
 date:   2018-09-09 15:02
 ---
 

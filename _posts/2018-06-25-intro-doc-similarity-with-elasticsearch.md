@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Introduction to Document Similarity with Elasticsearch
+tags:   programming
 date:   2018-06-25 15:42
 ---
 
@@ -12,12 +13,12 @@ In this post I'll be focusing mostly on getting started with Elasticsearch and c
 
 Essentially, to represent the distance between documents, we need two things: first, a way of encoding text as vectors, and second, a way of measuring distance.
 
- 1. The bag-of-words (BOW) model enables us to represent document similarity with respect to vocabulary and is easy to do. Some common options for BOW encoding include one-hot encoding, frequency encoding, TF-IDF, and distributed representations. 
+ 1. The bag-of-words (BOW) model enables us to represent document similarity with respect to vocabulary and is easy to do. Some common options for BOW encoding include one-hot encoding, frequency encoding, TF-IDF, and distributed representations.
  2. How should we measure distance between documents in space? Euclidean distance is often where we start, but is not always the best choice for text. Documents encoded as vectors are sparse; each vector could be as long as the number of unique words across the full corpus.  That means that two documents of very different lengths (e.g. a single recipe and a cookbook), could be encoded with the same length vector, which might overemphasize the magnitude of the book's document vector at the expense of the recipe's document vector. Cosine distance helps to correct for variations in vector magnitudes resulting from uneven length documents, and enables us to measure the distance between the book and recipe.
 
 For more about vector encoding, you can check out Chapter 4 of [our book](https://www.amazon.com/Applied-Text-Analysis-Python-Language-Aware/dp/1491963042), and for more about different distance metrics check out Chapter 6. In Chapter 10, we prototype a kitchen chatbot that, among other things, uses a [nearest neigbor](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) search to recommend recipes that are similar to the ingredients listed by the user. You can also poke around in the code for the book [here](https://github.com/foxbook/atap).
 
-One of my observations during the prototyping phase for that chapter is how slow vanilla nearest neighbor search is. This led me to think about different ways to optimize the search, from using variations like [ball tree](https://en.wikipedia.org/wiki/Ball_tree), to using other Python libraries like [Spotify's Annoy](https://github.com/spotify/annoy), and also to other kind of tools altogether that attempt to deliver a similar results as quickly as possible. 
+One of my observations during the prototyping phase for that chapter is how slow vanilla nearest neighbor search is. This led me to think about different ways to optimize the search, from using variations like [ball tree](https://en.wikipedia.org/wiki/Ball_tree), to using other Python libraries like [Spotify's Annoy](https://github.com/spotify/annoy), and also to other kind of tools altogether that attempt to deliver a similar results as quickly as possible.
 
 I tend to come at new text analytics problems non-deterministically (e.g. a __machine learning perspective__), where the assumption is that similarity is something that will (at least in part) be _learned_ through the training process. However, this assumption often requires a not insignificant amount of data to begin with to support that training. In an application context where little training data may be available to begin with, Elasticsearch's similarity algorithms (e.g. an __engineering approach__)seem like a potentially valuable alternative.
 
@@ -54,7 +55,7 @@ curl -X PUT "localhost:9200/cooking " -H 'Content-Type: application/json' -d'
 ```
 
  And the response:
- 
+
 ```bash
 {"acknowledged":true,"shards_acknowledged":true,"index":"cooking"}
 ```
@@ -99,10 +100,10 @@ $ curl -X PUT "localhost:9200/cooking/_doc/3?pretty" -H 'Content-Type: applicati
 '
 ```    
 
-At a very basic level, we can think of Elasticsearch's basic search functionality as a kind of similarity search, where we are essentially comparing the bag-of-words formed by the search query with that of each of our documents. This allows Elasticsearch not only to return results that explicitly mention the desired search terms, but also to surface a score that conveys some measure of relevance. 
+At a very basic level, we can think of Elasticsearch's basic search functionality as a kind of similarity search, where we are essentially comparing the bag-of-words formed by the search query with that of each of our documents. This allows Elasticsearch not only to return results that explicitly mention the desired search terms, but also to surface a score that conveys some measure of relevance.
 
 We now have three breakfast-related documents in our cooking index; let's use the basic search function to find documents that explicitly mention "breakfast":
-    
+
 ```bash
 $ curl -XGET 'localhost:9200/cooking/_search?q=description:breakfast&pretty'
 ```
@@ -238,12 +239,12 @@ With the following results:
 
 ## Searching a Real Corpus
 
-In order to really appreciate the differences and nuances of different similarity measures, we need more than three documents! For convenience, we'll use the sample text corpus that comes with the machine learning visualization library [Yellowbrick](http://www.scikit-yb.org/en/latest/) (which you can install via `pip`). 
+In order to really appreciate the differences and nuances of different similarity measures, we need more than three documents! For convenience, we'll use the sample text corpus that comes with the machine learning visualization library [Yellowbrick](http://www.scikit-yb.org/en/latest/) (which you can install via `pip`).
 
 Yellowbrick hosts several datasets wrangled from the UCI Machine Learning Repository or built by District Data Labs to present the examples used throughout this documentation, one of which is a text corpus of news documents collected from different domain area RSS feeds. If you haven't downloaded the data, you can do so by running:
 
     $ python -m yellowbrick.download
-    
+
 This should create a folder named data in your current working directory that contains all of the datasets. You can load a specified dataset as follows:
 
 <script src="https://gist.github.com/rebeccabilbro/a9a3143ff0b20a51f17b65de6284890e.js"></script>
@@ -291,10 +292,10 @@ print("First result:\n")
 pprint(result['hits']['hits'][0])
 ```
 
-    30 hits 
-    
+    30 hits
+
     First result:
-    
+
     {'_id': 'nNmYOGQB7PzBcXb-nYux',
      '_index': 'cooking',
      '_score': 1.0,
@@ -321,10 +322,10 @@ print("First result:\n")
 pprint(result['hits']['hits'][0])
 ```
 
-    8 hits 
-    
+    8 hits
+
     First result:
-    
+
     {'_id': 'ntmYOGQB7PzBcXb-nYux',
      '_index': 'cooking',
      '_score': 2.5346222,
@@ -339,7 +340,7 @@ pprint(result['hits']['hits'][0])
      '_type': '_doc'}
 
 
-### More Like This 
+### More Like This
 Elasticsearch exposes a convenient way of doing more advanced querying based on document similarity, which is called "More Like This" ([MLT](https://www.elastic.co/guide/en/elasticsearch/reference/1.6/query-dsl-mlt-query.html)). Given an input document or set of documents, MLT wraps all of the following behavior:
 
  - extraction of a set of representative terms from the input
@@ -347,8 +348,8 @@ Elasticsearch exposes a convenient way of doing more advanced querying based on 
  - formation of a disjunctive query using these terms
  - query execution
  - results returned
- 
-*_Note: this is done using term frequency-inverse document frequency (TF-IDF). Term frequency-inverse document frequency is an encoding method that normalizes term frequency in a document with respect to the rest of the corpus. As such, TF-IDF measures the relevance of a term to a document by the scaled frequency of the appearance of the term in the document, normalized by the inverse of the scaled frequency of the term in the entire corpus. This has the effect of selecting terms that make the input document or documents the most unique._ 
+
+*_Note: this is done using term frequency-inverse document frequency (TF-IDF). Term frequency-inverse document frequency is an encoding method that normalizes term frequency in a document with respect to the rest of the corpus. As such, TF-IDF measures the relevance of a term to a document by the scaled frequency of the appearance of the term in the document, normalized by the inverse of the scaled frequency of the term in the entire corpus. This has the effect of selecting terms that make the input document or documents the most unique._
 
 We can now build an MLT query in much the same way as we did the `"fuzzy"` search above. The Elasticsearch MLT query exposes many [search parameters](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-mlt-query.html#_document_input_parameters), but the only required one is `"like"`, to which we can specify a string, a document, or multiple documents.
 
@@ -357,22 +358,22 @@ Let's see if we can find any documents from our corpus that are similar to a New
 
 ```python
 red_sauce_renaissance = """
-    Ever since Rich Torrisi and Mario Carbone began rehabilitating chicken Parm and 
-    Neapolitan cookies around 2010, I’ve been waiting for other restaurants to carry 
-    the torch of Italian-American food boldly into the future. This is a major branch 
-    of American cuisine, too important for its fate to be left to the Olive Garden. 
-    For the most part, though, the torch has gone uncarried. I have been told that 
-    Palizzi Social Club, in Philadelphia, may qualify, but because Palizzi is a 
-    veritable club — members and guests only, no new applications accepted — I don’t 
-    expect to eat there before the nation’s tricentennial. Then in October, a place 
-    opened in the West Village that seemed to hit all the right tropes. It’s called 
-    Don Angie. Two chefs share the kitchen — Angela Rito and her husband, Scott 
-    Tacinelli — and they make versions of chicken scarpariello, antipasto salad and 
-    braciole. The dining room brings back the high-glitz Italian restaurant décor of 
-    the 1970s and ’80s, the period when Formica and oil paintings of the Bay of Naples 
-    went out and mirrors with gold pinstripes came in. The floor is a black-and-white 
-    checkerboard. The bar is made of polished marble the color of beef carpaccio. 
-    There is a house Chianti, and it comes in a straw-covered bottle. There is hope 
+    Ever since Rich Torrisi and Mario Carbone began rehabilitating chicken Parm and
+    Neapolitan cookies around 2010, I’ve been waiting for other restaurants to carry
+    the torch of Italian-American food boldly into the future. This is a major branch
+    of American cuisine, too important for its fate to be left to the Olive Garden.
+    For the most part, though, the torch has gone uncarried. I have been told that
+    Palizzi Social Club, in Philadelphia, may qualify, but because Palizzi is a
+    veritable club — members and guests only, no new applications accepted — I don’t
+    expect to eat there before the nation’s tricentennial. Then in October, a place
+    opened in the West Village that seemed to hit all the right tropes. It’s called
+    Don Angie. Two chefs share the kitchen — Angela Rito and her husband, Scott
+    Tacinelli — and they make versions of chicken scarpariello, antipasto salad and
+    braciole. The dining room brings back the high-glitz Italian restaurant décor of
+    the 1970s and ’80s, the period when Formica and oil paintings of the Bay of Naples
+    went out and mirrors with gold pinstripes came in. The floor is a black-and-white
+    checkerboard. The bar is made of polished marble the color of beef carpaccio.
+    There is a house Chianti, and it comes in a straw-covered bottle. There is hope
     for a red-sauce renaissance, after all.
 """
 ```
@@ -396,10 +397,10 @@ print("First result:\n")
 pprint(result['hits']['hits'][0])
 ```
 
-    25 hits 
-    
+    25 hits
+
     First result:
-    
+
     {'_id': 's9mYOGQB7PzBcXb-nYux',
      '_index': 'cooking',
      '_score': 3.680807,
@@ -440,10 +441,10 @@ print("First result:\n")
 pprint(result['hits']['hits'][0])
 ```
 
-    4 hits 
-    
+    4 hits
+
     First result:
-    
+
     {'_id': 'r9mYOGQB7PzBcXb-nYux',
      '_index': 'cooking',
      '_score': 0.88742733,
@@ -482,10 +483,10 @@ print("First result:\n")
 pprint(result['hits']['hits'][0])
 ```
 
-    17 hits 
-    
+    17 hits
+
     First result:
-    
+
     {'_id': 'YtmYOGQB7PzBcXb-nYyy',
      '_index': 'sports',
      '_score': 2.463918,
@@ -504,18 +505,18 @@ pprint(result['hits']['hits'][0])
 
 ## Advanced Similarity
 
-So far we've explored how to get started with Elasticsearch and to perform basic search and fuzzy search. These search tools all use the [practical scoring function](https://www.elastic.co/guide/en/elasticsearch/guide/current/practical-scoring-function.html) to compute the relevance score for search results. This scoring function is a variation of TF-IDF that also takes into account a few other things, including the length of the query and the field that's being searched. 
+So far we've explored how to get started with Elasticsearch and to perform basic search and fuzzy search. These search tools all use the [practical scoring function](https://www.elastic.co/guide/en/elasticsearch/guide/current/practical-scoring-function.html) to compute the relevance score for search results. This scoring function is a variation of TF-IDF that also takes into account a few other things, including the length of the query and the field that's being searched.
 
 Now we will look at some of the more advanced tools implemented in Elasticsearch. Similarity algorithms can be set on a per-index or per-field basis. The available similarity computations include:
 
- - BM25 similarity (`BM25`): currently the default setting in Elasticsearch, BM25 is a TF-IDF based similarity that has built-in tf normalization and supposedly works better for short fields (like names). 
+ - BM25 similarity (`BM25`): currently the default setting in Elasticsearch, BM25 is a TF-IDF based similarity that has built-in tf normalization and supposedly works better for short fields (like names).
  - Classic similarity (`classic`): TF-IDF
  - Divergence from Randomness (`DFR`): Similarity that implements the divergence from randomness framework.
  - Divergence from Independence (`DFI`): Similarity that implements the divergence from independence model.
  - Information Base Model (`IB`): Algorithm that presumes the content in any symbolic 'distribution' sequence is primarily determined by the repetitive usage of its basic elements.
  - LMDirichlet Model (`LMDirichlet`): Bayesian smoothing using Dirichlet priors.
  - LM Jelinek Mercer (`LMJelinekMercer`): Attempts to capture important patterns in the text but leave out the noise.
- 
+
 ### Changing the Default Similarity
 If you want to change the default similarity after creating an index you must close your index, send the following request and open it again afterwards:
 
@@ -534,7 +535,7 @@ curl -X PUT "localhost:9200/cooking/_settings" -H 'Content-Type: application/jso
 '
 curl -X POST "localhost:9200/cooking/_open"
 
-``` 
+```
 
 #### Classic TF-IDF
 
@@ -560,10 +561,10 @@ print("First result:\n")
 pprint(result['hits']['hits'][0])
 ```
 
-    4 hits 
-    
+    4 hits
+
     First result:
-    
+
     {'_id': 'r9mYOGQB7PzBcXb-nYux',
      '_index': 'cooking',
      '_score': 0.19453105,
@@ -604,10 +605,10 @@ print("First result:\n")
 pprint(result['hits']['hits'][0])
 ```
 
-    4 hits 
-    
+    4 hits
+
     First result:
-    
+
     {'_id': 'L_XaOGQBFKlACkFk94GK',
      '_index': 'cooking',
      '_score': 1.3233942,
@@ -648,10 +649,10 @@ print("First result:\n")
 pprint(result['hits']['hits'][0])
 ```
 
-    4 hits 
-    
+    4 hits
+
     First result:
-    
+
     {'_id': 'L_XaOGQBFKlACkFk94GK',
      '_index': 'cooking',
      '_score': 4.9410186,
@@ -687,4 +688,3 @@ From these simple experiments, we can clearly see that document similarity is no
  - [Similarity Algorithms Implemented in Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules-similarity.html)
  - [How to Change Similarity Algorithm in Elasticsearch](https://www.elastic.co/guide/en/elasticsearch/guide/current/changing-similarities.html)
  - [Writing a Custom Similarity Measure for Elasticsearch](http://stefansavev.com/blog/custom-similarity-for-elasticsearch/)
- 

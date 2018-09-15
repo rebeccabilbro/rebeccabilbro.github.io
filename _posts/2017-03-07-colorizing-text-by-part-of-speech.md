@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  Colorizing text based on part-of-speech tags
+tags:   programming
 date:   2017-03-07 18:00
 ---
 

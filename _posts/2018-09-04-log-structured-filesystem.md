@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  A Log-Structured Filesystem
+tags:   class_readings
 date:   2018-09-04 17:38
 ---
 
