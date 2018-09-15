@@ -1,77 +1,63 @@
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
-    <title>{{ page.title }}</title>
+<meta charset="utf-8">
+<title>{% if page.title %}{{ page.title }} &#8211; {% endif %}{{ site.title }}</title>
+<meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+{% if page.tags %}<meta name="keywords" content="{{ page.tags | join: ', ' }}">{% endif %}
 
-    <!-- Open Graph Meta -->
-    <meta content="{{ site.title }}" property="og:site_name">
-    {% if page.title %}
-      <meta content="{{ page.title }}" property="og:title">
-    {% else %}
-      <meta content="{{ site.title }}" property="og:title">
-    {% endif %}
-    {% if page.title %}
-      <meta content="article" property="og:type">
-    {% else %}
-      <meta content="website" property="og:type">
-    {% endif %}
-    {% if page.description %}
-      <meta content="{{ page.description }}" property="og:description">
-    {% else %}
-      <meta content="{{ site.description }}" property="og:description">
-    {% endif %}
-    {% if page.url %}
-      <meta content="{{ site.url }}{{ page.url }}" property="og:url">
-    {% endif %}
-    {% if page.date %}
-      <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
-      <meta content="{{ site.url }}/about/" property="article:author">
-    {% endif %}
-    {% if page.image %}
-      <meta content="{{ site.url }}/assets/img/{{ page.image }}" property="og:image">
-    {% else %}
-      <meta content="{{ '/assets/img/pepper.png' | prepend: site.url }}" property="og:image">
-    {% endif %}
+{% if site.owner.twitter %}<!-- Twitter Cards -->
+{% if page.image.feature %}<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{ site.url }}/images/{{ page.image.feature }}">
+{% else %}<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="{% if page.image.thumb %}{{ site.url }}/images/{{ page.image.thumb }}{% else %}{{ site.url }}/images/{{ site.logo }}{% endif %}">{% endif %}
+<meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+<meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+<meta name="twitter:creator" content="@{{ site.owner.twitter }}">{% endif %}
 
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@{{ site.social.twitter }}">
-    <meta name="twitter:creator" content="@{{ site.social.twitter }}">
-    {% if page.title %}
-      <meta name="twitter:title" content="{{ page.title }}">
-    {% else %}
-      <meta name="twitter:title" content="{{ site.title }}">
-    {% endif %}
-    {% if page.url %}
-      <meta name="twitter:url" content="{{ site.url }}{{ page.url }}">
-    {% endif %}
-    {% if page.description %}
-      <meta name="twitter:description" content="{{ page.description }}">
-    {% else %}
-      <meta name="twitter:description" content="{{ site.description }}">
-    {% endif %}
-    {% if page.image %}
-      <meta name="twitter:image:src" content="{{ site.url }}/assets/img/{{ page.image }}">
-    {% else %}
-      <meta name="twitter:image:src" content="{{ '/assets/img/pepper.png' | prepend: site.url }}">
-    {% endif %}
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+<meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta property="og:site_name" content="{{ site.title }}">
 
+{% if site.google_verify %}<meta name="google-site-verification" content="{{ site.google_verify }}">{% endif %}
+{% if site.bing_verify %}<meta name="msvalidate.01" content="{{ site.bing_verify }}">{% endif %}
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ "/assets/img/favicon.ico" | prepend: site.baseurl }}" />
+{% capture canonical %}{{ site.url }}{% if site.permalink contains '.html' %}{{ page.url }}{% else %}{{ page.url | remove:'index.html' | strip_slash }}{% endif %}{% endcapture %}
+<link rel="canonical" href="{{ canonical }}">
+<link href="{{ site.url }}/feed.xml" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
 
-    <!-- Come and get me RSS readers -->
-    <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="{{ "/assets/css/style.css" | prepend: site.baseurl }}">
-    <!--[if IE 8]><link rel="stylesheet" href="{{ "/assets/css/ie.css" | prepend: site.baseurl }}"><![endif]-->
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+<!-- For all browsers -->
+<link rel="stylesheet" href="{{ site.url }}/assets/css/main.css">
+<!-- Webfonts -->
+<link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">
 
-    <!-- Modernizr -->
-    <script src="{{ "/assets/js/modernizr.custom.15390.js" | prepend: site.baseurl }}" type="text/javascript"></script>
+<meta http-equiv="cleartype" content="on">
 
-    {% if site.google_analytics %} {% include google_analytics.html %} {% endif %}
-</head>
+<!-- Load Modernizr -->
+<script src="{{ site.url }}/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="{{ site.url }}/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="{{ site.url }}/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="{{ site.url }}/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ site.url }}/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ site.url }}/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ site.url }}/images/apple-touch-icon-144x144-precomposed.png">
+
+{% if page.image.background or site.background %}
+{% capture background %}{% if page.image.background %}{{ page.image.background }}{% else %}{{ site.background }}{% endif %}{% endcapture %}
+{% unless background contains 'http://' or background contains 'https://' %}{% capture background %}{{ site.url }}/images/{{ background }}{% endcapture %}{% endunless %}
+<style type="text/css">body {background-image:url({{ background }});}</style>
+{% endif %}
