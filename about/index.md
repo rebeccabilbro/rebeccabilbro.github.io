@@ -1,12 +1,8 @@
 ---
 layout: page
-title: About the Jekyll Theme
-image:
-  feature: abstract-5.jpg
-  credit: dargadgetz
-  creditlink: http://www.dargadgetz.com/ios-7-abstract-wallpaper-pack-for-iphone-5-and-ipod-touch-retina/
+title: About
 comments: false
-modified: 2016-02-01
+modified: 2018-09-15
 ---
 
 Welcome to my development journal! This is where I come to keep track of the things I'm doing and learning.
