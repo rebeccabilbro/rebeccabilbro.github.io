@@ -11,7 +11,7 @@ Protocol buffers are a way of serializing data so that it can be efficiently sen
 
 ## Sending data back and forth
 
-When we serialize data, we translate it into a format that is better for storage or transmittal. For example, when we [pickle](http://scikit-learn.org/stable/modules/model_persistence.html) a fitted scikit-learn pipeline or store a neural network model as an [HDF5](https://support.hdfgroup.org/HDF5/), we're serializing the data structures (matrices, graphs, etc.) of the models along with their hyperparameters, weights, and state. Just a you can load a sklearn model (`pickle.load(open(saved_model.pkl, 'rb'))` or `joblib.load(saved_model.pkl)`) or a Keras model (`load_model('saved_model.h5')`), any serialized data can be used to restore the original objects.
+When we serialize data, we translate it into a format that is better for storage or transmittal. For example, when we [pickle](http://scikit-learn.org/stable/modules/model_persistence.html) a fitted scikit-learn pipeline or store a neural network model as an [HDF5](https://support.hdfgroup.org/HDF5/), we're serializing the data structures (matrices, graphs, etc.) of the models along with their hyperparameters, weights, and state. Just as you can load a sklearn model (`pickle.load(open(saved_model.pkl, 'rb'))` or `joblib.load(saved_model.pkl)`) or a Keras model (`load_model('saved_model.h5')`), any serialized data can be used to restore the original objects.
 
 > "This process of serializing an object is also called marshalling an object. The opposite operation, extracting a data structure from a series of bytes, is deserialization (which is also called Unmarshalling)." - ["Serialization," Wikipedia](https://en.wikipedia.org/wiki/Serialization)
 
@@ -69,7 +69,7 @@ message Person {
 
 ```
 
-Finally, we'll add a message type to our `.proto` that defines an `AddressBook` as simply a collection of `Person`
+Finally, we'll add a message type to our `.proto` that defines an `AddressBook` as simply a collection of `Persons`
 
 ```
 message AddressBook {
