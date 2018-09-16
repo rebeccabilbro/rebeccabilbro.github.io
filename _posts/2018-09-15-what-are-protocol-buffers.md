@@ -196,3 +196,4 @@ $ ./list_people_python addressbook.data
  - [An Introduction to Protobufs by Ten Loh](https://youtu.be/72mPlAfHIjs)
  - [justforfunc #30: The Basics of Protocol Buffers](https://youtu.be/_jQ3i_fyqGA)
  - [Installing the Protobuf Compiler on a Mac by Erika Dike](https://medium.com/@erika_dike/installing-the-protobuf-compiler-on-a-mac-a0d397af46b8)
+ - [JSON vs XML vs Protobufs on Stackoverflow](https://stackoverflow.com/questions/14028293/google-protocol-buffers-vs-json-vs-xml)
