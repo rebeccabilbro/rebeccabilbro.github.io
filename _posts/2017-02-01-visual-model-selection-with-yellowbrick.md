@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  Comparing machine learning models with Scikit-Learn and Yellowbrick
+image:
+  feature: pepper_crop.png
 description: "model selection"
 tags: programming
 ---

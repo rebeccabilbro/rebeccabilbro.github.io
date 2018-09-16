@@ -2,6 +2,8 @@
 layout: post
 title:  Making Interactive Visualizations with Python Using Bokeh
 description: "interactive visualizations"
+image:
+  feature: pepper_crop.png
 tags: programming
 ---
 

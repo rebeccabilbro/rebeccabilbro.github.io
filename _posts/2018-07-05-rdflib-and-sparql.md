@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  SPARQL Queries for Local RDF Data
+image:
+  feature: pepper_crop.png
 tags:   programming
 date:   2018-07-05 19:32
 ---

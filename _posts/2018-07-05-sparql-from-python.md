@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  SPARQL from Python
+image:
+  feature: pepper_crop.png
 tags:   programming
 date:   2018-07-05 14:42
 ---

@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  Visualizing High-Performance Gradient Boosting with XGBoost and Yellowbrick
+image:
+  feature: pepper_crop.png
 tags:   programming
 date:   2018-06-13 09:40
 ---

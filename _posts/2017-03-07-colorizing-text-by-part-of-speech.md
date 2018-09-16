@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  Colorizing text based on part-of-speech tags
+image:
+  feature: pepper_crop.png
 tags:   programming
 date:   2017-03-07 18:00
 ---

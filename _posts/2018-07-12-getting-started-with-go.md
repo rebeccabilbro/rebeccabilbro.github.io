@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  Getting Started with Go
+image:
+  feature: pepper_crop.png
 tags:   programming
 date:   2018-07-12 11:09
 ---

@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  The Actor Model, for Actors and Models
+image:
+  feature: pepper_crop.png
 tags:   programming
 date:   2018-08-23 10:37
 ---

@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  Hello World
+image:
+  feature: pepper_crop.png
 description: "First post!"
 tags: programming
 ---

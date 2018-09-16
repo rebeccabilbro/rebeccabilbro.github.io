@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  What is a Filesystem?
+image:
+  feature: pepper_crop.png
 tags:   programming
 date:   2018-09-03 17:45
 ---

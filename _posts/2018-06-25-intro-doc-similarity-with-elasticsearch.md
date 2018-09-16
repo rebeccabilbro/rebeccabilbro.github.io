@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  Introduction to Document Similarity with Elasticsearch
+image:
+  feature: pepper_crop.png
 tags:   programming
 date:   2018-06-25 15:42
 ---

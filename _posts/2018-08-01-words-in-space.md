@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  Words in Space
+image:
+  feature: pepper_crop.png
 tags:   programming
 date:   2018-08-01 17:32
 ---

@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  RDF Basics
+image:
+  feature: pepper_crop.png
 date:   2018-07-02 18:14
 tags:   programming
 ---

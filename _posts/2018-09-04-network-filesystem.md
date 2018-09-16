@@ -1,6 +1,8 @@
 ---
 layout: post
 title:  A Low-Bandwidth Network Filesystem
+image:
+  feature: pepper_crop.png
 tags:   class_readings
 date:   2018-09-04 19:24
 ---
