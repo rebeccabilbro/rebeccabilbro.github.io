@@ -1,13 +1,28 @@
 ---
 layout: post
-title:  Modular Hashing with Rabin-Karp
+title:  Content-Based Chunking with Rabin-Karp
 image:
   feature: pepper_crop.png
-date:   2018-09-16 16:49
+date:   2018-09-25 13:14
 categories: programming
 ---
 
 > "Algorithms are methods for solving problems; data structures store the information associated with those problems. " - Bob Sedgewick
+
+# What is Content-Based Chunking?
+
+## Make Buckets for Hashing
+(with multiples of the prime)
+
+## Chunk Text Based on Content
+
+## Map Chunks to Buckets
+
+## Next Steps!
+
+### How to Hash Chunks with SHAx
+
+### Create ASCII Representation of Hash
 
 ## Further Reading/Watching
 
