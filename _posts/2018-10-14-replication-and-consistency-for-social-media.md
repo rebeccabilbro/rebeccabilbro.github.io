@@ -24,3 +24,13 @@ The authors reason that most of the deletes will happen when blobs are hot, so m
 ## So Many Copies
 
 The thing that really struck me about the f4 paper is the extreme degree of replication; across datacenters, servers, stacks, etc. The f4's buddy blocks were particularly interesting, providing erasure coding (which I don't know very much about but understand has to do with bit-level redundancy) via the Reed-Solomon encoding technique. That's a lot of copies, which seems rather expensive for a free application...
+
+## Weak but not *that* Weak Consistency
+
+The "Existential Consistency" paper describes the Facebook team's development of a new real-time consistency health check measure. In production, this metric is designed to quantify just how weak Facebook's weakly consistent system is at any given moment. 
+
+One of the first things that caught my attention is the authors' claim that there was no other means of quantifying eventual consistency to date for a large social media application -- yet as I recall, Bailis' "Quantifying Eventual Consistency" paper did just that for LinkedIn (much later in the paper they say they were inspired by Bailis' work on probabilistically-bounded staleness). Their phi-consistency measure does seem unique, however, in so far as it is possible to compute it in real time and therefore using it in realtime monitoring.
+
+Another thing that occurred to me while reading this paper is that this is the first time we have formally encountered sharding. Presumably the fact that Facebook uses sharding (which doesn't come with the same fault-tolerance guarantees) is the reason for all the extra copying described in the f4 paper. I think it would help to have a more explicit conversation about the impact of sharding on guarantees and expectations for consistency, fault-tolerance, and availability.
+
+Although it is framed as a paper "quantifying the benefits of stronger consistency," it almost seems to make the inverse economic argument, that the costs of other-than-strong consistency are neglible in the case of Facebook; in their experiments (which were naturally somewhat constrained since they're working on a production database), they found that inconsistencies, mostly stale reads, only happened about 0.0004% of the time. By their estimations, stronger consistency models would only eliminate a very small of these anomalies (many of which the authors go on to attribute to human error). 
