@@ -8,10 +8,10 @@ tags:   class_readings
 ---
 
 
-## Ethereum
-
 I have to admit that as an applications developer who is living through the age of the blockchain mania, having to explain on a routine basis [why blockchain is not relevant
 to a problem](https://twitter.com/arnabdotorg/status/1049116699927171077?lang=en), I was not properly enthused about reading the [Ethereum paper](https://github.com/ethereum/wiki/wiki/White-Paper) for class this week. Having now read through it, I remain unconvinced about the current frenzy to eschew RDBMS and nice, simple NoSQL solutions for trendy blockchain implementations. However, I can certainly see the appeal, both from a decentralized consensus perspective, and from a (probably FinTech) applications developer perspective.
+
+## Ethereum
 
 One thing we have observed over and over in the distributed systems papers we've read for [class](http://triffid.cs.umd.edu/818/) is that transactions are usually an afterthought. "Should we implement transactions?" ask many of the authors, meaning I assume, "will they be worth the effort it will take us to implement them?" From an academic novelty perspective, transactions apparently don't seem very compelling, and they take a lot of work. For this reason, one thing that stands out about the Ethereum paper (aside from it's stated goal of exposing an API for doing distributed consensus with blockchain) is the support for robust transactions as a first-class feature, inside an API that allows developers to write their own "contracts" to decide how objects should react to messages about those transactions.
 
