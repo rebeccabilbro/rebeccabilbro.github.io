@@ -10,7 +10,7 @@ tags:   class_readings
 In this post we'll explore [Obladi](https://www.cs.cornell.edu/~ethan/papers/obladi.pdf), a distributed system that aims to deliver high performance transactions while masking access patterns.
 
 ## Obladi
-In theory, replication is great because increases availability. However, replicating some data, like PII increases the risk of exposure. 
+In theory, replication is great because it increases availability. However, replicating some data, like PII increases the risk of exposure. 
 
 Obladi's solution is to mask access patterns, hiding the frequency of access to keys, in addition to their values. Unfortunately, ACID transactions often make pretty heavy use of these accesses under the hood to reliably order reads and writes. 
 
