@@ -7,7 +7,7 @@ date:   2018-12-09 14:17
 tags:   class_readings
 ---
 
-While batching in distributed systems is great for performance, it adds complexity and can make diagnostics tough. For example, trying to find a small error inside a file inside a commit that has been aggregated together with many other commits is a needle-in-haystack problem. [Orca](https://www.usenix.org/conference/osdi18/presentation/bhagwan) is a search engine for finding such needles. 
+While batching in distributed systems is great for performance, it adds complexity and can make diagnostics tough. For example, trying to find a small error inside a file inside a commit that has been aggregated together with many other commits is a needle-in-haystack problem. [Orca](https://www.microsoft.com/en-us/research/uploads/prod/2018/10/Orca-OSDI.pdf) is a search engine for finding such needles. 
 
 Orca is designed to take as input the text describing the symptoms of the bug, and to return as output a list of potentially offending commits, ranked in order of the predicted probability that the commit contains the bug. 
 
