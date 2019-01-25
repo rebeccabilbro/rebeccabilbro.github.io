@@ -72,10 +72,14 @@ More on this [here](https://stackoverflow.com/questions/42960637/python-3-5-dill
 
 ## From the Command Line
 
+Here's a little command line application I use for quickly converting these legacy pickles over to Python 3:
+
 <script src="https://gist.github.com/rebeccabilbro/2c7bb4d1acfbcdcf9156e7b9b7577cba.js"></script>
 
 
-## Scikit-Learn-Specific Issues
+## Gotchas and Addenda
+
+### Scikit-Learn-Specific Issues
 
 Be warned that you may still get library-specific warnings, for instance when we try to unpickle an old version of a Scikit-Learn estimator using a newer version of the library:
 
@@ -84,7 +88,7 @@ Be warned that you may still get library-specific warnings, for instance when we
   UserWarning)
 ```
 
-## Spyder-Specific Issues
+### Spyder-Specific Issues
 
 Additionally, if you're dealing with a case where you're extracting pickles from a pickled Spyder session, you'll have to use `dill` to load the session first, then load the individual pickles, then save those pickles individually, so that they can be used outside of a Spyder console:
 
@@ -109,3 +113,5 @@ with open("tfidf_transformer_p2.pkl", "wb") as z:
     pickle.dump(tfidf_transformer, z)
 
 ```
+
+Once you've done this, you can go ahead and convert the individual Python 2 pickles over to Python 3.
