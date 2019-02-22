@@ -10,13 +10,15 @@ date:   2019-02-22 10:54
 
 Recently I joined a new team, which consists of a mixture of Python and Clojure programmers. While this has caused me to spend a little time thinking about [Clojure and it's application to the kind of work I do](https://www.amazon.com/Clojure-Data-Science-Henry-Garner/dp/1784397180), I'm still mainly using Python. Python and all the 3rd party libraries available via PyPI make a particularly good tool for building NLP, video processing, and machine learning prototypes and microservices in the service of my company's larger application. But, even though I'm primarily writing Python and reviewing code from data scientists who write in Python, the position change has definitely required some time for mutual acclimation!
 
-## Lessons from The Writing Center
+## Write and Wrong: Lessons from The Writing Center
 
 I believe that writing, whether you're writing prose, poetry, or code, is fundamentally a creative act. One thing I always think about when working with a new team is the importance of acclimating to other team members' writing styles, and learning to respect and appreciate their creative choices. 
 
 A long time ago, when I was in college, I had a job working at the [Writing Center](https://www.skidmore.edu/writingcenter/). The Writing Center held regular hours during which time other students, faculty, and staff could drop by to get help with things they were writing &mdash; essays, resumes, theses, even book manuscripts. It paid ok, and I was a lot better at it than I had been at making sandwiches (my previous gig), so I ended up continuing the job into graduate school. 
 
 One of the most valuable things I learned from my years working at the Writing Center is that while there are some "rules" about writing that are more or less hard and fast (though, honestly, these too are debatable, contextual, and always evolving), most of the way we choose to write is just that &mdash; a *choice*.
+
+When people come to the Writing Center to have their writing reviewed, it's tempting to change everything to the way you would write it. But just because you write differently from me doesn't mean that one of us is writing the correct way, and the other way is wrong. In a surprising number of cases, there isn't a clearly defined **correct way**.
 
 
 ## Rules, Algorithms, Conventions
