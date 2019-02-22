@@ -59,6 +59,8 @@ with open(READ_PATH) as file_1, open(WRITE_PATH, 'w') as file_2:
     file_2.write(file_1.read())
 ```
 
+The rule of thumb I like to use is [Trey Hunner's, that line length is about readability, not length](https://youtu.be/knMg6G9_XCg?t=201).
+
 ### I'm Still Not Always Sure...
 ...where to break lines. In particular, I've recently encountered a lot of code that had very complex if/else control flows that depended on many conditions. In the example from PEP8, I think my preference is for this style: 
 
@@ -201,7 +203,7 @@ dogs = "man's best friend"
 
 I like class names to sound like they would make sense as the subject of a sentence (e.g. "The `QueenBee` is in charge of making more bees.") 
 
-For variable names, I like them to be expressive and distinct but also short and with as few underscores as possible (e.g. instead of `df` or `test_df` or `scores_df_with_bad_vals_dropped`, something like `scores` or `test_scores` or `clean_scores`). This is also helpful for maintaining shorter line lengths!
+For variable names, I like them to be descriptive and distinct but also short and with as few underscores as possible (e.g. instead of `df` or `test_df` or `scores_df_with_bad_vals_dropped`, something like `scores` or `test_scores` or `clean_scores`). This is also helpful for maintaining shorter line lengths!
 
 This also goes for function names, which I think of as being mainly just conjugations of verbs (e.g. just `writer` rather than `file_writer` unless you also have `db_writer`. Definitely not `csv_file_writer` unless you also have `excel_file_writer` &mdash; but in this case I'd probably just re-write the function to take a filetype parameter, e.g. `def writer(ftype)`). 
 
@@ -210,5 +212,6 @@ This also goes for function names, which I think of as being mainly just conjuga
 One of the best ways to learn Pythonic conventions *and* develop a personal style is to read other people's code! Here are some resources I like:
 
 - [PEP 257 - Docstring Conventions](https://www.python.org/dev/peps/pep-0257/)
-- [Raymond Hettinger - Beyond PEP 8: Best practices for beautiful intelligible code](https://youtu.be/wf-BqAjZb8M)
-- [Trey Hunner - Readability Counts](https://youtu.be/knMg6G9_XCg)
+- [Trey Hunner - Readability Counts (video)](https://youtu.be/knMg6G9_XCg)
+- [Trey Hunner - Craft Your Python Like Poetry](https://treyhunner.com/2017/07/craft-your-python-like-poetry/)
+- [Raymond Hettinger - Beyond PEP 8: Best practices for beautiful intelligible code (video)](https://youtu.be/wf-BqAjZb8M)
