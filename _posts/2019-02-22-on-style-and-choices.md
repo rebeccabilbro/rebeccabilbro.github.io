@@ -172,7 +172,7 @@ Boolean comparisons:
 Note that all of PEP 8 still leaves a surprising amount of detail open to choice! Here are some of my own personal preferences
 
 #### Imports
-Some people list imports alphabetically, other people just do it randomly. I really, really like to organize imports so that they taper, either up or down (I don't really care)"
+Some people list imports alphabetically, other people just do it randomly. I really, really like to organize imports so that they taper, either up or down (I don't really care):
 
 ```python
 
