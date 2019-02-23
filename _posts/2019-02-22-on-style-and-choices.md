@@ -234,10 +234,12 @@ This also goes for function names, which I think of as being mainly just conjuga
 
 One of the best ways to learn Pythonic conventions *and* develop a personal style is to read other people's code! Here are some resources I like:
 
+- [PEP 8](https://www.python.org/dev/peps/pep-0008/)
+- [PEP 484 - Type Hints](https://www.python.org/dev/peps/pep-0484/)
+- [PEP 526 - Variable Annotations](https://www.python.org/dev/peps/pep-0526/)
 - [PEP 257 - Docstring Conventions](https://www.python.org/dev/peps/pep-0257/)
 - [Trey Hunner - Readability Counts (video)](https://youtu.be/knMg6G9_XCg)
 - [Trey Hunner - Craft Your Python Like Poetry](https://treyhunner.com/2017/07/craft-your-python-like-poetry/)
-- [Raymond Hettinger - Transforming Code into Beautiful, Idiomatic Python](https://github.com/JeffPaine/beautiful_idiomatic_python)
 - [Jacob Burch - The Other Hard Problem: Lessons and Advice on Naming Things (video)](https://youtu.be/bg1wdbKBRKg)
 - [Raymond Hettinger - Beyond PEP 8: Best practices for beautiful intelligible code (video)](https://youtu.be/wf-BqAjZb8M)
 - [Lacey Williams Henschel - Jane Austen on PEP8: Tips from an English Major on Writing Better Code](https://youtu.be/55gXwFviOuQ)
