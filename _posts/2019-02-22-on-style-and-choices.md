@@ -111,7 +111,7 @@ But with multiline strings, we have to be a little careful about injecting newli
 
 ```python
 
-poem =  """
+poem = """
 Whose woods these are I think I know.   
 His house is in the village though;   
 He will not see me stopping here   
@@ -135,7 +135,26 @@ And miles to go before I sleep.
 
 ```
 
-### I Never Really Absorbed...
+When in doubt, or when I have to break a really weird line, I'll sometimes add extra parenthesis to allow for implicit line continuations.
+
+```python
+s = ("Area: {0}, Estimated ({1}): {2}"
+    .format(area, points, estimate(radius, points))
+    )
+
+print(
+    ("""And miles to go before I sleep, """
+     """And miles to go before I sleep.""")
+)   
+```
+
+### One Thing that Stood Out to Me on This Read...
+
+Boolean comparisons:
+ - empty strings, lists, and tuples evaluate to `False` (perhaps I noticed it this time since I've been working in Go, which has [zero values](https://tour.golang.org/basics/12))
+ - comparing boolean values to `True` or `False` using `==` or `!=` or `is` is a no-no!
+
+### I Never Fully Absorbed...
 
 ...how to use blank lines. Even though I've read through PEP 8 several times now over the years, I don't think I ever really absorbed the guidance on blank lines before now. Summary:
 
@@ -201,7 +220,9 @@ two  = 1 + 1
 dogs = "man's best friend"
 ```
 
-#### Variable, Function, and Class Names
+#### Naming Things
+
+The PEP8 guidance on module and function names is that they should have short, all-lowercase names, and that underscores are to be avoided. I really don't care for using underscores in names in general; they look clunky to me and make lines longer. 
 
 I like class names to sound like they would make sense as the subject of a sentence (e.g. "The `QueenBee` is in charge of making more bees.") 
 
@@ -216,4 +237,7 @@ One of the best ways to learn Pythonic conventions *and* develop a personal styl
 - [PEP 257 - Docstring Conventions](https://www.python.org/dev/peps/pep-0257/)
 - [Trey Hunner - Readability Counts (video)](https://youtu.be/knMg6G9_XCg)
 - [Trey Hunner - Craft Your Python Like Poetry](https://treyhunner.com/2017/07/craft-your-python-like-poetry/)
+- [Raymond Hettinger - Transforming Code into Beautiful, Idiomatic Python](https://github.com/JeffPaine/beautiful_idiomatic_python)
+- [Jacob Burch - The Other Hard Problem: Lessons and Advice on Naming Things (video)](https://youtu.be/bg1wdbKBRKg)
 - [Raymond Hettinger - Beyond PEP 8: Best practices for beautiful intelligible code (video)](https://youtu.be/wf-BqAjZb8M)
+- [Lacey Williams Henschel - Jane Austen on PEP8: Tips from an English Major on Writing Better Code](https://youtu.be/55gXwFviOuQ)
