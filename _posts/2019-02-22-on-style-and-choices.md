@@ -33,10 +33,10 @@ Then there are **"cultural" conventions**, such as *case* (e.g. snakecase, camel
 
 In the interest of facilitating a discussion with my team about Pythonic conventions and personal stylistic choices, and with an eye toward developing a shared team style, I asked my teammates to reread or read (we have some brand-new programmers) PEP 8 and consider a few questions:
 
-1. "A Python style question I always wondered about was ____ according to the PEP 8 guide, the convention is ____"
-2. "One thing I never knew about Python style that I learned from PEP 8 was ____"
-3. "One question the PEP 8 guide didn't answer for me was what to do about ____"
-4. "One thing that PEP 8 says that I disagree with is ____ because ____."
+1. "A Python style question I always wondered about was `{ }`  according to the PEP 8 guide, the convention is `{ }`"
+2. "One thing I never knew about Python style that I learned from PEP 8 was `{ }`"
+3. "One question the PEP 8 guide didn't answer for me was what to do about `{ }`"
+4. "One thing that PEP 8 says that I disagree with is `{ }` because `{ }`."
 
 For now, I'll just record my own responses, though later I'll try to come back and integrate some additional thoughts and reactions from the team.
 
