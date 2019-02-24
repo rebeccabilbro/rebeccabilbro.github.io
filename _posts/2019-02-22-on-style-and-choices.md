@@ -1,7 +1,6 @@
 ---
 layout: post
-title:  On Style and Choices
-subtitle: PEP8 and Beyond
+title:  On Style and Choices - PEP8 and Beyond
 image:
   feature: pepper_crop.png
 tags:   programming
