@@ -7,7 +7,7 @@ tags:   programming
 date:   2019-02-22 10:54
 ---
 
-Recently I joined a new team, which consists of a mixture of Python and Clojure programmers. While this has caused me to spend a little time thinking about [Clojure and it's application to the kind of work I do](https://www.amazon.com/Clojure-Data-Science-Henry-Garner/dp/1784397180), I'm still mainly using Python. Python and all the 3rd party libraries available via PyPI make a particularly good tool for building NLP, video processing, and machine learning prototypes and microservices in the service of my company's larger application. But, even though I'm primarily writing Python and reviewing code from data scientists who write in Python, the position change has definitely required some time for mutual acclimation!
+Recently I joined a new team, which consists of a mixture of Python and Clojure programmers. While this has caused me to spend a little time thinking about [Clojure and it's application to the kind of work I do](https://www.amazon.com/Clojure-Data-Science-Henry-Garner/dp/1784397180), I'm still mainly using Python. Python (and all the 3rd party libraries available via [PyPI](https://pypi.org/)) make it a particularly good tool for building NLP, video processing, and machine learning prototypes and microservices in the service of my company's larger application. But, even though I'm primarily writing Python and reviewing code from data scientists who write in Python, the position change has definitely required some time for mutual acclimation!
 
 ## Write and Wrong: Lessons from The Writing Center
 
