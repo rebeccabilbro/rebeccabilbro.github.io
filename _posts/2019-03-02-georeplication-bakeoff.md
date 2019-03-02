@@ -11,7 +11,6 @@ In this post, I'll present a comparison of the experimental results of several p
 
 ## ePaxos
 
-### Citation
 Iulian Moraru, David G. Andersen, and Michael Kaminsky. [_There is more consensus in egalitarian parliaments._](https://www.cs.cmu.edu/~dga/papers/epaxos-sosp2013.pdf) In Proceedings of the Twenty-Fourth ACM Symposium on Operating Systems Principles, pages 358–372. ACM, 2013.
 
 [Slides](http://sigops.org/s/conferences/sosp/2013/talks/moraru_epaxos_se07_03.pdf)
@@ -33,7 +32,7 @@ There is no designated leader, and there are no leader elections. Each command g
 
 ### Results
 
-#### Latency
+*Latency*
 
  - 3 replicas w/ 100% interference: median execution latencies of 125-139 ms (depending on site).
  - 5 replicas w/ 100% interference: median execution latencies of 304-319 ms (depending on site).
@@ -42,7 +41,7 @@ There is no designated leader, and there are no leader elections. Each command g
 
 ![latency tables](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-epaxos-latency-tables.png)
 
-#### Throughput
+*Throughput*
 
  - 3 replica, 0% interference, 16 B commands: ~53,000 reqs/sec 
  - 3 replica, 2% interference, 16 B commands: ~46,250 reqs/sec   
@@ -73,17 +72,16 @@ There is no designated leader, and there are no leader elections. Each command g
 
 ![throughput vs latency](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-epaxos-latency-v-throughput.png)
 
-### Notes
+*Notes*
 For ePaxos, execution latency differs from commit latency because a replica must delay executing a command until it receives commit confirmations for the command’s dependencies.
 
 ## Calvin
 
-### Citation
 Alexander Thomson, Thaddeus Diamond, Shu-Chun Weng, Kun Ren, Philip
 Shao, and Daniel J Abadi. [_Calvin: Fast distributed transactions for partitioned database systems._](http://cs.yale.edu/homes/thomson/publications/calvin-sigmod12.pdf) In Proceedings of the 2012 ACM SIGMOD International Conference on Management of Data, pages 1–12. ACM, 2012
 
 ### Abstract
-> Many distributed storage systems achieve high data access throughput via partitioning and replication, each system with its own advantages and tradeoffs. In order to achieve high scalability, however, today’s systems generally reduce transactional support, disallowing single transactions from spanning multiple partitions. Calvin is a practical transaction scheduling and data replication layer that uses a deterministic ordering guarantee to significantly reduce the normally prohibitive contention costs associated with distributed transactions. Unlike previous deterministic database system prototypes, Calvin supports disk-based storage, scales near-linearly on a cluster of commodity machines, and has no single point of failure. By replicating transaction inputs rather than effects, Calvin is also able to support multiple consistency levels—including Paxosbased strong consistency across geographically distant replicas—at no cost to transactional throughput.
+> Many distributed storage systems achieve high data access throughput via partitioning and replication, each system with its own advantages and tradeoffs. In order to achieve high scalability, however, today’s systems generally reduce transactional support, disallowing single transactions from spanning multiple partitions. Calvin is a practical transaction scheduling and data replication layer that uses a deterministic ordering guarantee to significantly reduce the normally prohibitive contention costs associated with distributed transactions. Unlike previous deterministic database system prototypes, Calvin supports disk-based storage, scales near-linearly on a cluster of commodity machines, and has no single point of failure. By replicating transaction inputs rather than effects, Calvin is also able to support multiple consistency levels &mdash; including Paxos-based strong consistency across geographically distant replicas &mdash; at no cost to transactional throughput.
 
 ### Leadership Style
 
@@ -111,14 +109,13 @@ node), 10% of which were multipartition
 ![Contention factor](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-calvin-contention.png)
 
 
-### Notes
+*Notes*
 
 The more machines there are, the more likely at any given time there will be at least one that is slightly behind for
 some reason. The fewer machines there are in the cluster, the more each additional machine will increase skew. The higher the contention rate, the more likely a machine’s random slowdown will slow others. Not all EC2 instances yield equivalent performance, and sometimes an EC2 user gets stuck with a slow instance &mdash; a slightly slow machine was added when they went from 6 nodes to 8 nodes.
 
 ## MDCC
 
-### Citation
 Tim Kraska, Gene Pang, Michael J. Franklin, Samuel Madden, and Alan
 Fekete. [_MDCC: Multi-Data Center Consistency._](http://mdcc.cs.berkeley.edu/mdcc.pdf) In Proceedings of the 8th
 ACM European Conference on Computer Systems, pages 113–126. ACM, 2013.
@@ -136,11 +133,10 @@ any node in any data center.
 
 <!---### Results--->
 
-<!---### Notes--->
+<!---*Notes*--->
 
 ## Boxwood
 
-### Citation
 John MacCormick, Nick Murphy, Marc Najork, Chandramohan A. Thekkath,
 and Lidong Zhou. [_Boxwood: Abstractions as the Foundation for Storage Infrastructure._](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.134.8940&rep=rep1&type=pdf) In OSDI, volume 4, pages 8–8, 2004.
 
@@ -157,11 +153,10 @@ that changes the identity of the current master. New master recovers lease state
 
 <!---### Results--->
 
-<!---### Notes--->
+<!---*Notes*--->
 
 ## Niobe
 
-### Citation
 John MacCormick, Chandramohan A. Thekkath, Marcus Jager, Kristof
 Roomp, Lidong Zhou, and Ryan Peterson. [_Niobe: A practical replication protocol._](https://scholar.dickinson.edu/cgi/viewcontent.cgi?article=1694&context=faculty_publications) 3(4):1, 2008.
 
@@ -177,11 +172,10 @@ consensus service (Paxos) to reliably store critical global state used by storag
 
 <!---### Results--->
 
-<!---### Notes--->
+<!---*Notes*--->
 
 ## Mencius
 
-### Citation
 Yanhua Mao, Flavio Paiva Junqueira, and Keith Marzullo. [_Mencius: Building efficient replicated state machines for WANs._](http://www.sysnet.ucsd.edu/~yamao/pub/mencius-osdi.pdf) In OSDI, volume 8, pages 369–384, 2008.
 
 ### Abstract
@@ -195,16 +189,15 @@ Implements a multi-leader state machine replication protocol derived from Paxos.
 
 <!---### Results--->
 
-<!---### Notes--->
+<!---*Notes*--->
 
 ## Corfu
 
-### Citation
 Mahesh Balakrishnan, Dahlia Malkhi, Vijayan Prabhakaran, Ted Wobber,
 Michael Wei, and John D Davis. [_CORFU: A Shared Log Design for Flash Clusters._](http://www.cs.yale.edu/homes/mahesh/papers/corfumain-final.pdf) In NSDI, pages 1–14, 2012.
 
 ### Abstract
-> CORFU1 organizes a cluster of flash devices as a single, shared log that can be accessed concurrently by multiple clients over the network. The CORFU shared log makes it easy to build distributed applications that require strong consistency at high speeds, such as databases, transactional key-value stores, replicated state machines, and metadata services. CORFU can be viewed as a distributed SSD, providing advantages over conventional SSDs such as distributed wear-leveling, network locality, fault tolerance, incremental scalability and geodistribution. A single CORFU instance can support up to 200K appends/sec, while reads scale linearly with cluster size. Importantly, CORFU is designed to work directly over network-attached flash devices, slashing cost, power consumption and latency by eliminating storage servers.
+> CORFU organizes a cluster of flash devices as a single, shared log that can be accessed concurrently by multiple clients over the network. The CORFU shared log makes it easy to build distributed applications that require strong consistency at high speeds, such as databases, transactional key-value stores, replicated state machines, and metadata services. CORFU can be viewed as a distributed SSD, providing advantages over conventional SSDs such as distributed wear-leveling, network locality, fault tolerance, incremental scalability and geodistribution. A single CORFU instance can support up to 200K appends/sec, while reads scale linearly with cluster size. Importantly, CORFU is designed to work directly over network-attached flash devices, slashing cost, power consumption and latency by eliminating storage servers.
 
 ### Leadership Style
 
@@ -216,7 +209,7 @@ Chain replication
 
 <!---### Results--->
 
-<!---### Notes--->
+<!---*Notes*--->
 
 ## Previous Write-ups on Consensus Research
 - [ePaxos writeup](https://rebeccabilbro.github.io/the-pains-of-bureaucracy/)
