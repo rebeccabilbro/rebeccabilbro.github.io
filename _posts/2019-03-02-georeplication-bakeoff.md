@@ -281,11 +281,17 @@ Chain replication
 
 > When a client wants to write to a replica set of flash pages, it updates them in a deterministic order, waiting for each flash unit to respond before moving to the next one. The write is successfully completed when the last flash unit in the chain is updated. As a result, if two clients attempt to concurrently update the same replica set of flash pages, one of them will arrive second at the first unit of the chain and receive an error overwrite. This ensures safety-under-contention.
 
-<!---### Experiments--->
+### Results
 
-<!---### Results--->
+*Latency*
+![Corfu Latency](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-corfu-latency.png)
 
-<!---*Notes*--->
+![Corfu Latency and Throughput](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-corfu-latency-and-throughput.png)
+
+![Corfu Recovery and Scaling](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-corfu-recovery-and-scaling.png)
+
+![Corfu State Machine Replication](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-corfu-smr.png)
+
 
 ## Previous Write-ups on Consensus Research
 - [ePaxos writeup](https://rebeccabilbro.github.io/the-pains-of-bureaucracy/)
