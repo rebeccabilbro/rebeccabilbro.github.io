@@ -185,15 +185,34 @@ and Lidong Zhou. [_Boxwood: Abstractions as the Foundation for Storage Infrastru
 
 ### Leadership Style
 
-Uses a single master. Lock service w/ single master server and 1+ slave servers. Only master hands out leases. Master's identity is part of the global state. Lock service keeps the
-list of clerks as state. If master dies, slave takes over after passing a Paxos decree
-that changes the identity of the current master. New master recovers lease state by reading Paxos state to get list of clerks & gets lease state from them.
+Uses a single master. Lock service w/ single master server and 1+ slave servers. Only master hands out leases. Master's identity is part of the global state. Lock service keeps the list of clerks as state. If master dies, slave takes over after passing a Paxos decree that changes the identity of the current master. New master recovers lease state by reading Paxos state to get list of clerks & gets lease state from them.
 
-<!---### Experiments--->
+### Experiments
 
-<!---### Results--->
+ - Deployed on cluster of eight machines connected by a Gigabit Ethernet switch. Each
+machine is a Dell PowerEdge 2650 server with a single 2.4 GHz Xeon processor, 1GB of RAM, with an Adaptec AIC-7899 dual SCSI adapter, and 5 SCSI drives. One of these, a 36GB 15K RPM (Maxtor Atlas15K) drive, is used as the system disk. The remaining four 18GB 15K RPM drives (Seagate Cheetah 15K.3 ST318453LC) store data.
+ - Boxwood runs as a user-level process on a Windows Server 2003 kernel.
+ - Networking subsystem can transmit data at 115 MB/sec using TCP. RPC system can deliver ~110 MB/sec.
 
-<!---*Notes*--->
+### Results
+
+*Throughput*
+![Boxwood throughput](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-boxwood-throughput.png)
+
+![Boxwood scaling](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-boxwood-scaling.png)
+
+*Latency*
+
+(Effect of batching on allocations)
+
+ - batch size 1: 24 ms
+ - batch size 10: 3.3 ms
+ - batch size 100: 1.0 ms
+ - batch size 1000: 1.0 ms
+
+*B-Tree*
+
+![Boxwood B-tree](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-boxwood-b-tree.png)
 
 ## Niobe
 
