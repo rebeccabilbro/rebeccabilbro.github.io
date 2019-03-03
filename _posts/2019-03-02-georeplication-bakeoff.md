@@ -128,12 +128,52 @@ ACM European Conference on Computer Systems, pages 113–126. ACM, 2013.
 No strong leader required. Needs only a single wide-area message round-trip to commit a transaction in the common case. Is "master-bypassing" &mdash; can read or update from
 any node in any data center.
 
-<!---### Experiments
- - Quorum size: 5--->
+### Experiments
+ - Amazon EC2: US West (N. California), US East (Virginia), EU (Ireland), Asia Pacific (Singapore), and Asia Pacific (Tokyo). 
+ - m1.large instances (4 cores, 7.5GB memory)
+ - 2 benchmarks: TPC-W (e-commerce transactions) and micro-benchmark
+     - TPC-W scale factor of 10,000 items, w/ data evenly partitioned and replicated to 4 storage nodes per data center. 100 evenly geo-distributed clients (on separate machines) each ran the TPC-W benchmark for 2 minutes, after a 1 minute warm-up period.
+ - compared MDCC to other transactional and other non-transactional, eventually consistent protocols.
+ - Quorum size: 
+     - Write quorum: 3/5 replicas ("QW-3") and 4/5 replicas ("QW-4") 
+     - Read quorum: 1/5 replicas
+ - scale-out experiment: 50 clients w/ 5,000 items => 100 clients w/ 10,000 items => 200 clients w/ 20,000 items
+ (fixed amount of data per storage node to a TPC-W scale-factor of 2,500 items; scaled the number of nodes accordingly) 
 
-<!---### Results--->
+### Results
 
-<!---*Notes*--->
+*Median response times for TPC-W*
+
+  - 188ms for QW-3 (non-transactional)
+  - 260ms for QW-4 (non-transactional)
+  - 278ms for MDCC (transactional) 
+  - 668ms for 2-phase commit (transactional)
+  - 17,810ms for Megastore (transactional)
+
+*Throughput*
+
+ - 50 concurrent clients: ~250 txns per sec
+ - 100 concurrent clients: ~575 txns per sec
+ - 200 concurrent clients: ~1075 txns per sec (within 10% of throughput of QW-4)
+ - MDCC has higher throughput than 2-phase commit and Megastore.
+ - QW protocols scale almost linearly; similar scaling for MDCC and 2PC.
+
+![MDCC latency and throughput](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-mdcc-latency.png)
+
+*Median response times for micro-benchmark*
+
+ - 245ms for MDCC (full protocol)
+ - 276ms for Fast (without commutative update support)
+ - 388ms for Multi (all instances Multi-Paxos so a stable master can skip Phase 1)
+ - 543ms for 2-phase commit
+
+![Microbenchmark response](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-mdcc-microbenchmark-response.png)
+
+*Failure Scenario*
+
+ - 173.5 ms avg response time before data center failure
+ - 211.7 ms avg response time after data center failure
+
 
 ## Boxwood
 
