@@ -224,14 +224,18 @@ Roomp, Lidong Zhou, and Ryan Peterson. [_Niobe: A practical replication protocol
 
 ### Leadership Style
 
-Uses the "primary-backup" or "primary copy" paradigm for fault-tolerance &mdash; primary receives an update from client, sends it to one or more secondaries, and then replies to client. Some machines (less than 10) run a global state manager (GSM) module, which uses a
-consensus service (Paxos) to reliably store critical global state used by storage and policy manager subsystems. Technique of using the GSM to kill and reincarnate secondaries, while using all live replicas (but not the GSM) for performing updates, is mathematically equivalent to the "wheel" quorum system.
+Uses the "primary-backup" or "primary copy" paradigm for fault-tolerance &mdash; primary receives an update from client, sends it to one or more secondaries, and then replies to client. Some machines (less than 10) run a global state manager (GSM) module, which uses a consensus service (Paxos) to reliably store critical global state used by storage and policy manager subsystems. Technique of using the GSM to kill and reincarnate secondaries, while using all live replicas (but not the GSM) for performing updates, is mathematically equivalent to the "wheel" quorum system.
 
-<!---### Experiments--->
+### Experiments & Results
 
-<!---### Results--->
+*Note: these aren't framed exactly as experiment s& results so much as observations of the deployed system*
 
-<!---*Notes*--->
+ - Typical server-class rack-mounted machines, connected by a combination of 100 Mb and Gigabit ethernet in a data center. Each machine has multiple processors, a "modest amount" of memory, several terabytes of attached storage in one or two disk arrays.
+ - 2 hardware configurations: RAID-5 and JBOD
+ - Quorum size: N = 2, 3, "or more"
+
+![Niobe](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-niobe.png)
+
 
 ## Mencius
 
