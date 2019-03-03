@@ -248,11 +248,24 @@ Yanhua Mao, Flavio Paiva Junqueira, and Keith Marzullo. [_Mencius: Building effi
 
 Implements a multi-leader state machine replication protocol derived from Paxos.
 
-<!---### Experiments--->
+### Experiments
 
-<!---### Results--->
+ - parameters: 20 messages, 50 ms, 100,000 instances.
+ - 3-server clique simulating 3 data centers (A, B and C) connected by dedicated links. Each site had one server node running the replicated register service, and one client node that generated all the client requests from that site. Each node was a 3.0 GHz Dual-Xeon PC with 2.0 GB memory running Fedora 6. 
+ - Each client generated requests at either a fixed rate or with inter-request delays chosen randomly from a uniform distribution. 0 or 4, 000 byte payload, w 5/ 50% read requests and 50% write requests. Each client generated requests at a constant rate of 100 ops. 
 
-<!---*Notes*--->
+### Results
+
+ - When `ρ = 4,000`, the system was network-bound: all four Mencius variants had a fixed throughput of about 1,550 operations per sec (ops). This corresponds to 99.2 Mbps, or 82.7% utilization of the total bandwidth, not counting the TCP/IP and MAC header overhead. Paxos had a throughput of about 540 ops, or one third of Mencius’s throughput.
+ - When `ρ = 0`, the system is CPU-bound. Paxos presents a throughput of 6,000 ops, with 100% CPU utilization at the leader and 50% at the other servers.
+ - Site C eventually saturated its outgoing links first; and from that point on committed requests at a maximum throughput of 285 ops. Throughput at both A and B increased until site B saturated its outgoing links at 420 ops. Finally site A saturated its outgoing links at 530 ops. Maximum throughput at each site is proportional to the outgoing bandwidth.
+ - Site A, B and C initially committed requests with throughput of about 450 ops, 300 ops, and 150 ops respectively, reflecting the bandwidth available to them.
+ 
+![Mencius Throughput](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-mencius-throughput.png)
+
+![Mencius Throughput and Latency](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-mencius-throughput-latency.png)
+
+![Mencius Latency](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-02-mencius-latency.png)
 
 ## Corfu
 
