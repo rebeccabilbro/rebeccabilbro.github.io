@@ -7,7 +7,7 @@ tags:   programming
 date:   2019-03-07 11:01
 ---
 
-It's no secret that the Data Science community is a fan of [scikit-learn](https://scikit-learn.org/stable/), *the* Python machine learning library that provides a common interface to dozens of machine learning models (well, hundreds of thousands, if you include all the hyperparameter options). But aside from the API, the useful feature extraction tools, and the sample datasets, two of the best things that scikit-learn has to offer are pipelines and (model-specific) pickles. Unfortunately, using pipelines and pickles together can be a bit tricky. I n this post I'll present a common problem that occurs when serializing and restoring scikit-learn pipelines, as well as a solution that I've found to be both practical and not hacky.
+It's no secret that data scientists like [scikit-learn](https://scikit-learn.org/stable/), *the* Python machine learning library that provides a common interface to hundreds of machine learning models. But aside from the API, the useful feature extraction tools, and the sample datasets, two of the best things that scikit-learn has to offer are pipelines and (model-specific) pickles. Unfortunately, using pipelines and pickles together can be a bit tricky. In this post I'll present a common problem that occurs when serializing and restoring scikit-learn pipelines, as well as a solution that I've found to be both practical and not hacky.
 
 ## Pipelines
 
@@ -148,7 +148,7 @@ if __name__ == "__main__":
     normalizer.save("normalizer.pkl")
 ```
 
-However, in the context of a complex and most automated pipeline-building library like the ones that I build, this feels like a less that satisfying answer.
+However, in the context of a complex and mostly automated pipeline-building library like the ones that I build, this feels like a less that satisfying answer.
 
 ## Better Plumbing
 
