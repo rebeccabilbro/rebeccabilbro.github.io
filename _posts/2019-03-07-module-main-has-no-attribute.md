@@ -158,7 +158,7 @@ My eventual solution was instead inspired by Matthew Plourde's response to the q
 
 I like his response because it helps us understand the underlying issue, which is that when you serialize an object with `pickle` or `joblib`, those libraries don't only serialize the object, they store information about how to import the libraries and modules necessary for interpreting the object. Thus the solution is to make `TextNormalizer` and `identity` things that can, during the training phase, be imported by the `build_library`'s `model_maker` module, and later be imported from `build_library` by the `serve_library`:
 
-![Solved pipeline pickling](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-07-fixed-pickle-pipeline.png)
+![Solved pipeline pickling](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2019-03-07-fixed-pickle-pipeline_2.png)
 
 Note that this requires `build_library` be importable by `serve_library`; if `build_library` is a local/custom library and not `pip install`-able via [PyPI](https://pypi.org/), you can do either of the following:
 
