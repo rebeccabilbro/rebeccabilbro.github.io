@@ -7,7 +7,7 @@ tags:   programming
 date:   2019-03-07 11:01
 ---
 
-It's no secret that data scientists like [scikit-learn](https://scikit-learn.org/stable/), *the* Python machine learning library that provides a common interface to hundreds of machine learning models. But aside from the API, the useful feature extraction tools, and the sample datasets, two of the best things that scikit-learn has to offer are pipelines and (model-specific) pickles. Unfortunately, using pipelines and pickles together can be a bit tricky. In this post I'll present a common problem that occurs when serializing and restoring scikit-learn pipelines, as well as a solution that I've found to be both practical and not hacky.
+It's no secret that data scientists love [scikit-learn](https://scikit-learn.org/stable/), *the* Python machine learning library that provides a common interface to hundreds of machine learning models. But aside from the API, the useful feature extraction tools, and the sample datasets, two of the best things that scikit-learn has to offer are pipelines and (model-specific) pickles. Unfortunately, using pipelines and pickles together can be a bit tricky. In this post I'll present a common problem that occurs when serializing and restoring scikit-learn pipelines, as well as a solution that I've found to be both practical and not hacky.
 
 ## Pipelines
 
@@ -148,11 +148,11 @@ if __name__ == "__main__":
     normalizer.save("normalizer.pkl")
 ```
 
-However, in the context of a complex and mostly automated pipeline-building library like the ones that I build, this feels like a less that satisfying answer.
+However, this felt like a less than satisfying answer.
 
 ## Better Plumbing
 
-My solution is instead inspired by Matthew Plourde's response to the question, [How to save a custom transformer in sklearn?](https://stackoverflow.com/questions/46077793/how-to-save-a-custom-transformer-in-sklearn)...
+My eventual solution was instead inspired by Matthew Plourde's response to the question, [How to save a custom transformer in sklearn?](https://stackoverflow.com/questions/46077793/how-to-save-a-custom-transformer-in-sklearn)...
 
 > `sklearn.preprocessing.StandardScaler` works because the class definition is available in the `sklearn` package installation, which `joblib` will look up when you load the pickle. You'll have to make your `CustomTransformer` class available in the new session, either by re-defining or importing it. `pickle` and `joblib` work the same way in this regard. Import information is stored with the pickled object, which is why you can screw things up when you unpickle an object made with a different version of a module than the one that's currently installed. 
 
