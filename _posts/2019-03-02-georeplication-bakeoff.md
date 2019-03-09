@@ -111,8 +111,7 @@ node), 10% of which were multipartition
 
 *Notes*
 
-The more machines there are, the more likely at any given time there will be at least one that is slightly behind for
-some reason. The fewer machines there are in the cluster, the more each additional machine will increase skew. The higher the contention rate, the more likely a machine’s random slowdown will slow others. Not all EC2 instances yield equivalent performance, and sometimes an EC2 user gets stuck with a slow instance &mdash; a slightly slow machine was added when they went from 6 nodes to 8 nodes.
+The more machines there are, the more likely at any given time there will be at least one that is slightly behind for some reason. The fewer machines there are in the cluster, the more each additional machine will increase skew. The higher the contention rate, the more likely a machine’s random slowdown will slow others. Not all EC2 instances yield equivalent performance, and sometimes an EC2 user gets stuck with a slow instance &mdash; a slightly slow machine was added when they went from 6 nodes to 8 nodes.
 
 ## MDCC
 
@@ -178,10 +177,10 @@ any node in any data center.
 ## Boxwood
 
 John MacCormick, Nick Murphy, Marc Najork, Chandramohan A. Thekkath,
-and Lidong Zhou. [_Boxwood: Abstractions as the Foundation for Storage Infrastructure._](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.134.8940&rep=rep1&type=pdf) In OSDI, volume 4, pages 8–8, 2004.
+and Lidong Zhou. [_Boxwood: Abstractions as the Foundation for Storage Infrastructure._](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.134.8940&rep=rep1&type=pdf) In OSDI, volume 4, pages 105–120, 2004.
 
 ### Abstract
-> Writers of complex storage applications such as distributed file systems and databases are faced with the challenges of building complex abstractions over simple storage devices like disks. These challenges are exacerbated due to the additional requirements for faulttolerance and scaling. This paper explores the premise that high-level, fault-tolerant abstractions supported directly by the storage infrastructure can ameliorate these problems. We have built a system called Boxwood to explore the feasibility and utility of providing high-level abstractions or data structures as the fundamental storage infrastructure. Boxwood currently runs on a small cluster of eight machines. The Boxwood abstractions perform very close to the limits imposed by the processor, disk, and the native networking subsystem. Using these abstractions directly, we have implemented an NFSv2 file service that demonstrates the promise of our approach.
+> Writers of complex storage applications such as distributed file systems and databases are faced with the challenges of building complex abstractions over simple storage devices like disks. These challenges are exacerbated due to the additional requirements for fault tolerance and scaling. This paper explores the premise that high-level, fault-tolerant abstractions supported directly by the storage infrastructure can ameliorate these problems. We have built a system called Boxwood to explore the feasibility and utility of providing high-level abstractions or data structures as the fundamental storage infrastructure. Boxwood currently runs on a small cluster of eight machines. The Boxwood abstractions perform very close to the limits imposed by the processor, disk, and the native networking subsystem. Using these abstractions directly, we have implemented an NFSv2 file service that demonstrates the promise of our approach.
 
 ### Leadership Style
 
@@ -228,7 +227,7 @@ Uses the "primary-backup" or "primary copy" paradigm for fault-tolerance &mdash;
 
 ### Experiments & Results
 
-*Note: these aren't framed exactly as experiment s& results so much as observations of the deployed system*
+*Note: these aren't framed exactly as experiments & results so much as observations of the deployed system*
 
  - Typical server-class rack-mounted machines, connected by a combination of 100 Mb and Gigabit ethernet in a data center. Each machine has multiple processors, a "modest amount" of memory, several terabytes of attached storage in one or two disk arrays.
  - 2 hardware configurations: RAID-5 and JBOD
@@ -252,7 +251,7 @@ Implements a multi-leader state machine replication protocol derived from Paxos.
 
  - parameters: 20 messages, 50 ms, 100,000 instances.
  - 3-server clique simulating 3 data centers (A, B and C) connected by dedicated links. Each site had one server node running the replicated register service, and one client node that generated all the client requests from that site. Each node was a 3.0 GHz Dual-Xeon PC with 2.0 GB memory running Fedora 6. 
- - Each client generated requests at either a fixed rate or with inter-request delays chosen randomly from a uniform distribution. 0 or 4, 000 byte payload, w 5/ 50% read requests and 50% write requests. Each client generated requests at a constant rate of 100 ops. 
+ - Each client generated requests at either a fixed rate or with inter-request delays chosen randomly from a uniform distribution. 0 or 4,000 byte payload, w 5/ 50% read requests and 50% write requests. Each client generated requests at a constant rate of 100 ops. 
 
 ### Results
 
