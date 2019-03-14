@@ -297,5 +297,6 @@ Chain replication
 - [ePaxos class notes](https://rebeccabilbro.github.io/cmsc-818e-day-10/)
 - [Calvin writeup](https://rebeccabilbro.github.io/calvin/)
 - [Corfu writeup](https://rebeccabilbro.github.io/the-shared-log-abstraction/)
+- [Eris writeup](https://rebeccabilbro.github.io/laissez-faire-systems/)
 
 
