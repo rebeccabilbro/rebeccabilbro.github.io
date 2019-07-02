@@ -29,7 +29,7 @@ _NOTE: The YB version of the mushrooms data differs from the mushroom dataset fr
 
 The data include descriptions of hypothetical samples corresponding to 23 species of gilled mushrooms in the Agaricus and Lepiota Family. Each species was identified as definitely edible, definitely poisonous, or of unknown edibility and not recommended (this latter class was combined with the poisonous one).
 
-Our file, "agaricus-lepiota.txt," contains information for 3 nominally valued attributes and a target value from 8124 instances of mushrooms (4208 edible, 3916 poisonous).
+Our data contains information for 3 nominally valued attributes and a target value from 8124 instances of mushrooms (4208 edible, 3916 poisonous).
 
 Let's load the data:
 
@@ -167,7 +167,7 @@ from sklearn.pipeline import Pipeline
 from yellowbrick.classifier import ClassificationReport
 
 
-def visualize_model(X, y, estimator):
+def visualize_model(X, y, estimator, **kwargs):
     """
     Test various estimators.
     """ 
@@ -180,7 +180,7 @@ def visualize_model(X, y, estimator):
     # Instantiate the classification model and visualizer
     visualizer = ClassificationReport(
         model, classes=['edible', 'poisonous'], 
-        cmap="YlGn", size=(600, 360)
+        cmap="YlGn", size=(600, 360), **kwargs
     )
     visualizer.fit(X, y)  
     visualizer.score(X, y)
