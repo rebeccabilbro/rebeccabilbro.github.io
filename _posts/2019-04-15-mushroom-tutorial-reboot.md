@@ -1,3 +1,11 @@
+---
+layout: post
+title:  Model Selection Tutorial with Yellowbrick
+image:
+  feature: pepper_crop.png
+tags:   programming
+date:   2019-04-05 18:22
+---
 
 # Model Selection Tutorial with Yellowbrick
 
