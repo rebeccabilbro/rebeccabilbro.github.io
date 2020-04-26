@@ -1,0 +1,24 @@
+---
+layout: post
+title:  The Music and Mayhem of Machine Translation
+image:
+  feature: pepper_crop.png
+tags:   class_readings
+date:   2020-04-26 07:09
+---
+
+Conversational context is more important than the precision of the generalized translation model. Leveraging conversation history requires a model that can "remember" what the speakers have been talking about, making it an ideal task for sequence-to-sequence models.
+
+Most sequence-to-sequence models are conceived in fairly idealized ways &mdash; construct a summary given a paragraph of text from a book, or produce relevant answers to incoming questions given a clean bank of information. While these problems are nonetheless challenging to solve with machine learning, real-world language modeling tasks often introduce additional complexities that will require additional creativity in our construction of effective seq-to-seq model architectures.
+
+Translation is particularly complex because requires navigating the cultural components of both languages, such as gender, pronouns, register, honorifics, and idiom. _Note: One of my favorite books is Doug Hofstadter's ["Le Ton Beau de Marot"](https://www.amazon.com/Ton-Beau-Marot-Praise-Language/dp/0465086454), which dives deeply into some of these intricacies._
+
+This semester my friend Allen is taking a class on Neural Machine Translation with [Marine Carpuat](http://www.cs.umd.edu/~marine/), which tracks the state-of-the-art in techniques for designing, training, and using sequence-to-sequence models to generate natural language, with a focus on machine translation. The reading list is interesting because includes papers that detail nuanced modeling tasks that begin to enter the territory of the messiness of read-world machine learning, and the ways in which creative model architectures can be used to develop insightful solutions.
+
+In ["Contextual Neural Model for Translating Bilingual Multi-Speaker Conversations"](https://www.aclweb.org/anthology/W18-6311.pdf) by Mauruf, Martins, and Haffari (2018) the authors consider an even more complex task; translating a conversation between two  speakers, where Speaker A is using one language and Speaker B is conversing in another. In this case, the challenge is not only that the model must learn or gloss the correct cultural context, but that it must do this while also maintaining a history of the conversation, which consists of utterances in both languages.
+
+Mauruf et al. break the problem of learning/maintain context into three parts: remembering what Speaker A said (in Language #1) so far during all their turns, remembering what Speaker B said (in Language #2) so far during all their turns, and remembering what was said in the last turn. Their model incorporates all three using source, target or dual conversation histories into the base model. As such, their model architecture consists of two models, one for each translation direction, and incorporates *hierarchical gating* (to forget context the further back in the conversation it's from), *language-specific attention* (to produce relevant words in the target language), *combined attention* (to maintain the context of the overall conversation, without respect for the languages), and *language-specific sentence-level attention* (to remember what was just said earlier in the sentence). The experimental results suggest that some of these model components are much more important for translating conversations between certain languages than others; translations between English and German, for instance, were better with language-specific sentence-level attention (presumably because of typical word orders in these languages?).
+
+Evaluating language models often requires creativity as well, and I was particularly interested in the evaluation measures in this paper. The authors evaluate their model with respect to *pronoun correctness* (e.g. "their" vs. "his"), *discourse connectives* (e.g. "however" vs. "in addition"), and *prepositions* ("of", "for", "by") as proxies for the model's ability to maintain both conversational and linguistic context. The pronouns are good ways of measuring the model's ability to track context over larger conversational arch, the connectives help to measure how well the context of the specific sentence is being tracked, and the prepositions are a good measure of the grammatical correctness of the translation.
+
+While it is a fairly intuitive conclusion from a human conversation point of view, an important insight in the paper is that meaning is something that is jointly constructed by the speakers over the course of a conversation. From an NMT perspective, this means that sentence-based NMT models alone are likely to perform poorly in the context of a conversation between two speakers, and even moreso when it must account for alternating languages.
