@@ -7,9 +7,9 @@ tags:   class_readings
 date:   2020-04-26 07:09
 ---
 
-Conversational context is more important than the precision of the generalized translation model. Leveraging conversation history requires a model that can "remember" what the speakers have been talking about, making it an ideal task for sequence-to-sequence models.
+Conversational context is more important than the precision of the generalized translation model. Leveraging conversation history requires a model that can "remember" what the speakers have been talking about, making it an ideal task for sequence-to-sequence models. But what about conversations that traverse two (or more) languages?
 
-Most sequence-to-sequence models are conceived in fairly idealized ways &mdash; construct a summary given a paragraph of text from a book, or produce relevant answers to incoming questions given a clean bank of information. While these problems are nonetheless challenging to solve with machine learning, real-world language modeling tasks often introduce additional complexities that will require additional creativity in our construction of effective seq-to-seq model architectures.
+Perhaps it's a personal bias as an applied NLP developer, but it seems that sequence-to-sequence models in academia are often conceived for fairly idealized tasks &mdash; construct a summary given a paragraph of text from a book, or produce relevant answers to incoming questions given a clean bank of information. While these problems are nonetheless challenging to solve with machine learning, real-world language modeling tasks often introduce additional complexities that will require additional creativity in our construction of effective seq-to-seq model architectures.
 
 Translation is particularly complex because requires navigating the cultural components of both languages, such as gender, pronouns, register, honorifics, and idiom. _Note: One of my favorite books is Doug Hofstadter's ["Le Ton Beau de Marot"](https://www.amazon.com/Ton-Beau-Marot-Praise-Language/dp/0465086454), which dives deeply into some of these intricacies._
 
