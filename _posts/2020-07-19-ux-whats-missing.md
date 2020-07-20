@@ -36,7 +36,7 @@ The recent failures of companies like [Trivia HQ](https://slidebean.com/blog/wha
 Pokémon Go was plagued with similar UX challenges that were also caused by underlying problems with the app's distributed data storage. Akhil Dakinedi [wrote](https://medium.theuxblog.com/an-honest-ux-critique-of-pok%C3%A9mon-go-from-a-longtime-fan-and-mobile-designer-76156c9cdc0c):
 > It seems fine on paper, but once you see the extremely fast pace at which these battles take place, you start to notice the problems. The app, in its launch state, isn’t very responsive or fluid. It’s being plagued by constant server issues and unstable location tracking.
 
-People wanted to like the game, but it's not fun to play a game that laggy and slow, especially one that relies on interactivity and AR. Wrote [Amber Stechyshyn](https://usabilitygeek.com/pokemon-go-user-experience/):
+People wanted to like the game, but it's not fun to play a game that's laggy and slow, especially one that relies on interactivity and AR. Wrote [Amber Stechyshyn](https://usabilitygeek.com/pokemon-go-user-experience/):
 > Pokémon Go is exciting and fun and the biggest new thing, but you will find people describing it just as often as slow, frustrating, and buggy. It was released quickly, hacked even quicker to allow for those outside the US to play it ahead of time, and has had server issues ever since.
 
 Ultimately while the failures of apps like Trivia HQ and Pokémon Go may *manifest* in the UI, they come down to problems with commerical cloud storage offerings. As Dr. Benjamin Bengfort [writes](https://drum.lib.umd.edu/bitstream/handle/1903/21968/Bengfort_umd_0117E_19718.pdf?sequence=2&isAllowed=y),
@@ -61,7 +61,7 @@ In Iowa the result was mistrust, conspiracy theories, and a general lack of conf
 
 # Linux, but Make It Distributed
 
-We've begun to confront the systemic racism, sexism, classism, ableism, and heteronormativity baked into our favorite applications, our approaches to hiring, and our industry best practices.
+We've begun to confront the systemic racism, sexism, classism, ableism, and heteronormativity baked into our favorite applications, our approaches to tech hiring, and our industry best practices.
 
 We also need to agree that [user experience is inextricably linked to the backend](https://css-tricks.com/consistent-backends-and-ux:-why-should-you-care/), or as Tyler Treat [puts it](https://bravenewgeek.com/distributed-systems-are-a-ux-problem/), "Distributed systems are a UX problem". People who are geographically further away from where we make our apps are going to have a worse UX.
 
