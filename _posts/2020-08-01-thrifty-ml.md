@@ -21,6 +21,6 @@ Times are tough, jobs are getting cut, VC funding is drying up, and we're all go
 4. *Be objective*: Let your data decide which model is best, not Twitter/LinkedIn/Medium/arxiv.
 5. *Start local*: Build on your laptop first, downsampling the data if necessary. Use cloud for production only.
 6. *Serialize everything*: Don't just pickle the model, pickle engineered features, lexicons, and other artifacts, too. Save diagnostic plots and other metadata together with the models.
-7. *Define done*: Whether that's determining if an F1>0.7 is realistic, or a 20% reduction in MSE is possible, or knowing when to fold; establish clear limits and action points to decide when (or whether) to keep tuning.
+7. *Define done*: Whether that's determining if an accuracy score greater than 0.7 is realistic, or a 20% reduction in MSE is possible, or knowing when to (k)fold; establish clear limits and action points to decide how (or whether) to keep tuning.
 
-Remember, it's necessity, not abundance, who is the mother of invention; when we shift our collective mindset toward model thriftiness rather than just model performance, there's no telling what new things we'll discover...
+Remember, it's necessity, not abundance, who is the mother of invention; when we shift our collective mindset toward model thriftiness instead of the relentless pursuit of a tiny bit more F1, there's no telling what new things we'll discover...
