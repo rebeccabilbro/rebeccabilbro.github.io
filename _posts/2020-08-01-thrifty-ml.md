@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Thrify Machine Learning
+title:  Thrifty Machine Learning
 image:
   feature: pepper_crop.png
 tags:   proposals
