@@ -40,8 +40,6 @@ import numpy as np
 import pandas as pd
 
 from bokeh.layouts import layout
-from bokeh.layouts import widgetbox
-
 from bokeh.embed import file_html
 
 from bokeh.io import show
@@ -75,15 +73,15 @@ bokeh.sampledata.download()
 
 The location that the sample data is stored can be configured. By default, data is downloaded and stored to a directory `$HOME/.bokeh/data`, which is created if it does not already exist (e.g. `$/Users/rebeccabilbro/.bokeh/data`). It will take a couple minutes for the data to download.
 
-### Prepare the data    
+### Prepare the data
 
-In order to create an interactive plot in Bokeh, we need to animate snapshots of the data over time from 1964 to 2013. In order to do this, we can think of each year as a separate static plot. We can then use a JavaScript `Callback` to change the data source that is driving the plot.    
+In order to create an interactive plot in Bokeh, we need to animate snapshots of the data over time from 1964 to 2013. In order to do this, we can think of each year as a separate static plot. We can then use a JavaScript `Callback` to change the data source that is driving the plot.
 
 #### JavaScript Callbacks
 
 Bokeh exposes various [callbacks](http://bokeh.pydata.org/en/latest/docs/user_guide/interaction/callbacks.html#userguide-interaction-callbacks), which can be specified from Python, that trigger actions inside the browser’s JavaScript runtime. This kind of JavaScript callback can be used to add interesting interactions to Bokeh documents without the need to use a Bokeh server (but can also be used in conjuction with a Bokeh server). Custom callbacks can be set using a [`CustomJS` object](http://bokeh.pydata.org/en/latest/docs/user_guide/interaction/callbacks.html#customjs-for-widgets) and passing it as the callback argument to a `Widget` object.
 
-As the data we will be using today is not too big, we can pass all the datasets to the JavaScript at once and switch between them on the client side using a slider widget.    
+As the data we will be using today is not too big, we can pass all the datasets to the JavaScript at once and switch between them on the client side using a slider widget.
 
 This means that we need to put all of the datasets together build a single data source for each year. First we will load each of the datasets with the `process_data()` function and do a bit of clean up:
 
@@ -227,7 +225,7 @@ yaxis = LinearAxis(
     ticker     = SingleIntervalTicker(interval=20),
     axis_label = "Life expectancy at birth (years)",
     **AXIS_FORMATS
-)   
+)
 
 plot.add_layout(xaxis, 'below')
 plot.add_layout(yaxis, 'left')
@@ -258,7 +256,7 @@ Recall that the API we are using will add elements incrementally, layer by layer
 
 
 ### Add the bubbles and hover
-Next we will add the bubbles using Bokeh's [`Circle`](http://bokeh.pydata.org/en/latest/docs/reference/plotting.html#bokeh.plotting.figure.Figure.circle) glyph. We start from the first year of data, which is our source that drives the circles (the other sources will be used later).    
+Next we will add the bubbles using Bokeh's [`Circle`](http://bokeh.pydata.org/en/latest/docs/reference/plotting.html#bokeh.plotting.figure.Figure.circle) glyph. We start from the first year of data, which is our source that drives the circles (the other sources will be used later).
 
 
 ```python
@@ -323,7 +321,7 @@ Once we've added our legend, our plot will look like this:
 
 
 ### Add the slider and callback
-Next we add the slider widget and the JavaScript callback code, which changes the data of the `renderer_source` (powering the bubbles / circles) and the data of the `text_source` (powering our background text). After we've `set()` the data we need to `trigger()` a change. `slider`, `renderer_source`, `text_source` are all available because we add them as args to `Callback`.    
+Next we add the slider widget and the JavaScript callback code, which changes the data of the `renderer_source` (powering the bubbles / circles) and the data of the `text_source` (powering our background text). After we've `set()` the data we need to `trigger()` a change. `slider`, `renderer_source`, `text_source` are all available because we add them as args to `Callback`.
 
 It is the combination of `sources = %s % (js_source_array)` in the JavaScript and `Callback(args = sources...)` that provides the ability to look-up, by year, the JavaScript version of our Python-made `ColumnDataSource`.
 
@@ -339,14 +337,17 @@ code = """
 """ % js_source_array
 
 callback = CustomJS(args=sources, code=code)
-slider   = Slider(
-              start=years[0], end=years[-1],
-              value=1, step=1, title="Year",
-              callback=callback
-              )
+slider = Slider(
+    start=years[0],
+    end=years[-1],
+    value=1,
+    step=1,
+    title="Year"
+)
 callback.args["renderer_source"] = renderer_source
 callback.args["text_source"] = text_source
 callback.args["slider"] = slider
+slider.js_on_change("value", callback)
 ```
 
 In order to see what our slider widget looks like by itself, we can call `show(widgetbox(slider))`:
