@@ -29,7 +29,7 @@ It would appear that more data alone is not the answer.
 
 ## Cold Start Expectations
 
-For the language tasks I work on, there are often two competing needs &mdash; the need for some degree of general language awareness as well as the need for a nuanced understanding of the specific context. The general awareness is important because it helps my models encode things like sentence structure or the concept of an antonym. The contextual understanding is important because it allows my models to perform accurately and appropriately _in situ_, faced with highly domain-specific dialogue.
+For the language tasks I work on, there are often two competing needs &mdash; the need for some degree of general language awareness as well as the need for a nuanced understanding of the specific context. The general awareness is important because it helps my models encode things like sentence structure or the concept of a hyponym. The contextual understanding is important because it allows my models to perform accurately and appropriately _in situ_, faced with highly domain-specific dialogue.
 
 For such projects, I have historically used the data product approach, training the best model I can given the domain-specific corpus I have, however small. Generally this means deploying models that are initially a bit naive, but that have the capacity to improve as new data flows into the application. I have found this approach to be very effective once deployed in a production system.
 
