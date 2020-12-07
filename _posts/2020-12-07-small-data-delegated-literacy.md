@@ -7,7 +7,7 @@ tags:   machine_learning
 date:   2020-12-07 10:03
 ---
 
-In this series on multilingual models, we'll construct a pipeline that leverages a transfer learning model to train a text classifier using text in *one* language, and then apply that trained model to predictions for text in *another* language. In this first post, we'll look at the trajectory in expectations about data size over the last 10-15 years and talk about how that informs the model architecture for our text classifier.
+In this series on multilingual models, we'll construct a pipeline that leverages a transfer learning model to train a text classifier using text in *one* language, and then apply that trained model to predictions for text in *another* language. In this first post, we'll look at the trajectory in expectations about data size over the last two decades, and talk about how that informs the model architecture for our text classifier.
 
 ## The Rise of Small Data
 
@@ -41,10 +41,11 @@ In this series on multilingual modeling, we're going to design a system capable 
 
 ![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2020-12-07-mbert-overview.png)
 
-The goal is to train a model able to detect criticism in book reviews in a number of different languages. Traditionally, this would require a massive labeled dataset containing book reviews and ratings in each of the desired languages for the application. Instead, we are going to delegate the general awareness portion &mdash; in this case, the capacity to understand multiple languages &mdash; to a transfer learning model.
+The goal is to train a model able to detect criticism in book reviews in a number of different languages. Traditionally, this would require a massive labeled dataset containing book reviews and ratings in each of the desired languages for the application. Instead, we are going to delegate the general awareness portion, in this case, the capacity to understand multiple languages, to a transfer learning model.
 
 ---
 A **transfer learning** model is a deep learning model that has been pre-trained, usually on a very large dataset, and has encoded information from that original training dataset, but is still capable of learning.
+
 ---
 
 
