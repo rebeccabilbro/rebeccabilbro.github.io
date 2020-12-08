@@ -554,7 +554,13 @@ test_model(hindi_reviews)
     Accuracy: 0.9507053004396678
 
 
-## References
+## Resources
 
-
-
+- emarkou, [WIP Text classification using multilingual BERT (mBert)](https://github.com/emarkou/multilingual-bert-text-classification)
+- Google Research, [BERT](https://github.com/google-research/bert)
+- Hugging Face, [BERT multilingual base model (cased)](https://huggingface.co/bert-base-multilingual-cased)
+- Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova, [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
+- Jindřich Libovický, Rudolf Rosa, Alexander Fraser, [How Language-Neutral is Multilingual BERT?](https://arxiv.org/abs/1911.03310)
+- Shijie Wu and Mark Dredze, [Beto, Bentz, Becas: The Surprising Cross-Lingual Effectiveness of BERT](https://www.aclweb.org/anthology/D19-1077.pdf)
+- Shijie Wu, Mark Dredze, [Are All Languages Created Equal in Multilingual BERT?](https://arxiv.org/abs/2005.09093)
+- Wikipedia, [Domain Adaptation](https://en.wikipedia.org/wiki/Domain_adaptation)

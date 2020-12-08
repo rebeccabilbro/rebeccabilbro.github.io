@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  The Rise of Small Data and Delegated Literacy
+title:  The Rise of Small Data (aka Delegated Literacy)
 image:
   feature: pepper_crop.png
 tags:   machine_learning
@@ -51,7 +51,7 @@ The goal is to train a model able to detect criticism in book reviews in a numbe
 ---
 
 
-In the next post, we'll dive into the general language awareness part of the pipeline using Multilingual BERT. We will then apply *further* supervised learning to this transfer learning model so that it is attuned to our specific corpus, in this case a labeled dataset of English-language book reviews. This additional training should attune the existing model to the notion of criticism in the context of book reviews. Finally, we'll test the efficacy of our bootstrapped criticism-detection model by applying it to non-English book reviews, to assess whether the model is able to identify criticism in Hindi-language reviews.
+In the [next post](https://rebeccabilbro.github.io/tailored-learning/), we'll dive into the general language awareness part of the pipeline using Multilingual BERT. We will then apply *further* supervised learning to this transfer learning model so that it is attuned to our specific corpus, in this case a labeled dataset of English-language book reviews. This additional training should attune the existing model to the notion of criticism in the context of book reviews. Finally, we'll test the efficacy of our bootstrapped criticism-detection model by applying it to non-English book reviews, to assess whether the model is able to identify criticism in Hindi-language reviews.
 
 ## References
 
