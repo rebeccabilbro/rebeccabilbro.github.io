@@ -33,18 +33,20 @@ For the language tasks I work on, there are often two competing needs &mdash; th
 
 For such projects, I have historically used the data product approach, training the best model I can given the domain-specific corpus I have, however small. Generally this means deploying models that are initially a bit naive, but that have the capacity to improve as new data flows into the application. I have found this approach to be very effective once deployed in a production system.
 
-However, I have also noticed that people's thresholds for the model's initial naivete are shrinking. Sometimes a low initial accuracy score is enough to stop a project in its tracks and shut the project down, even when it is presented in the context of a continuous learning system. We are, I think, entering a new phase of the data product revolution where the expectation is for cold-start, domain-aware models that are performant from the very beginning.
+However, I have also noticed that people's thresholds for the model's initial naivete are shrinking. Sometimes a low initial accuracy score is enough to stop a project in its tracks and shut the project down, even when it is presented in the context of a continuous learning system. We are, I think, entering a new phase of the data product revolution where the expectation is for cold-start (aka ["zero-shot"](https://en.wikipedia.org/wiki/Zero-shot_learning)), domain-aware models that are performant from the very beginning.
 
 ## Delegated Literacy
 
-In this series on multilingual modeling, we're going to design a system capable of what I think of as "delegated literacy". Our delegated literacy approach will combine a transfer learning model together with a small domain-specific dataset in the interest of producing a final bootstrapped model that is capable of balancing between general language awareness and context-specific language understanding.
+In this series on multilingual modeling, we're going to design a system capable of what I think of as "delegated literacy". Our approach will combine a transfer learning model together with a small domain-specific dataset in the interest of producing a final bootstrapped model that is capable of balancing between general language awareness and context-specific language understanding.
 
 ![png](https://raw.githubusercontent.com/rebeccabilbro/rebeccabilbro.github.io/master/images/2020-12-07-mbert-overview.png)
 
-The goal is to train a model able to detect criticism in book reviews in a number of different languages. Traditionally, this would require a massive labeled dataset containing book reviews and ratings in each of the desired languages for the application. Instead, we are going to delegate the general awareness portion, in this case, the capacity to understand multiple languages, to a transfer learning model.
+The goal is to train a model able to detect criticism in book reviews in a number of different languages. Traditionally, this would require a massive labeled dataset containing book reviews and ratings in each of the desired languages for the application. Instead, we are going to "delegate" the general awareness portion, in this case, the capacity to understand multiple languages, to a transfer learning model.
+
 
 ---
-A **transfer learning** model is a deep learning model that has been pre-trained, usually on a very large dataset, and has encoded information from that original training dataset, but is still capable of learning.
+
+**NOTE**: A **transfer learning** model is a deep learning model that has been pre-trained, usually on a very large dataset, and has encoded information from that original training dataset, but is still capable of learning via [domain adaptation](https://en.wikipedia.org/wiki/Domain_adaptation).
 
 ---
 
