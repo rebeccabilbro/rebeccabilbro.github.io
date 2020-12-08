@@ -4,7 +4,7 @@ title:  Tailored Learning
 image:
   feature: pepper_crop.png
 tags:   machine_learning
-date:   2020-12-08 14:35
+date:   2020-12-08 8:27
 ---
 
 In this series on multilingual models, we'll construct a pipeline that leverages a transfer learning model to train a text classifier using text in *one* language, and then apply that trained model to predictions for text in *another* language. In our [first post](https://rebeccabilbro.github.io/small-data-delegated-literacy/), we considered the rise of small data and the role of transfer learning in delegated literacy. In this post, we'll prepare our domain-specific training corpus and construct our tailored learning pipeline using Multilingual BERT.
