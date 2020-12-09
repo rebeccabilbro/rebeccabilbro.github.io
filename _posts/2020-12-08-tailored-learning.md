@@ -11,7 +11,7 @@ In this series on multilingual models, we'll construct a pipeline that leverages
 
 ## Language, Forwards and Backwards
 
-The transfer learning model we'll be using to bootstrap our multilingual complaint detector is based on an LSTM transformer model architecture called [BERT, or Bidirectional Encoder Representations from Transformers](https://arxiv.org/abs/1810.04805), which was originally published in 2018.
+The transfer learning model we'll be using to bootstrap our multilingual complaint detector is based on a transformer model architecture called [BERT, or Bidirectional Encoder Representations from Transformers](https://arxiv.org/abs/1810.04805), which was originally published in 2018.
 
 BERT models learn all sentences in the corpus twice &mdash; first left-to-right as we typically read most romance languages, and then with the order of all sentences reversed. They do so in a so-called "self-supervised" fashion using (1) attention masks, where the model masks 15% of the input words at random, and then iteratively learns to predict the missing words and (2) next sentence prediction, where the sentences are reordered at random and the model learns to predict the sentences which actually preceed each other.
 
