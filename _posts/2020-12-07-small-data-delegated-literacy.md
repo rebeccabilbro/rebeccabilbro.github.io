@@ -19,7 +19,7 @@ We find ourselves now in a technological landscape where many models have been t
 
 ## Mega-Models with No Manners
 
-And yet, there is some doubt about the results of these mega-models. Image recognition models that are trained on massive datasets containing mostly white, male faces unsurprisingly continue to have [extremely high error rates when applied to portraits of brown-skinned women](http://gendershades.org/). GPT-3, tauted as being the language model to end all language models, is trained largely on Western news stories and appears to suffer from [deeply encoded Islamophobia](https://twitter.com/abidlabs/status/1291165311329341440).
+And yet, there is some doubt about the results of these mega-models. Image recognition models that are trained on massive datasets containing mostly white, male faces unsurprisingly continue to have [extremely high error rates when applied to portraits of brown-skinned women](http://gendershades.org/). GPT-3, touted as being the language model to end all language models, is trained largely on Western news stories and appears to suffer from [deeply encoded Islamophobia](https://twitter.com/abidlabs/status/1291165311329341440).
 
 Impressive and informed as they may be about the language used in news reporting, dictionaries, or on social media, mega-models are also constrained by the knowledge captured by their training corpora. As data scientists, we most commonly encounter these weaknesses when a model fails to correctly differentiate domain-specific documents. In a recent project, I realized that my model was erroneously conflating social media messages about the police with ones about studio art &mdash; both had a particularly high proportion of the word "canvas".
 
