@@ -553,6 +553,9 @@ test_model(hindi_reviews)
 
     Accuracy: 0.9507053004396678
 
+## Conclusion
+
+That's a pretty high score, and in terms of next steps, we should take a look at the predictions coming out of our newly bootstrapped model for both English and Hindi-language reviews, and see if they make sense. For that, I'll have to check with some of my colleagues in India, but will plan to circle back in a future post to discuss the results, including issues such as overfit or imbalance, and next steps for model tuning and deployment.
 
 ## Resources
 
