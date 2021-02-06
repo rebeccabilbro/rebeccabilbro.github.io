@@ -16,7 +16,7 @@ As it turns out, there are a lot of options!
 This package converts any file into Go source code, including for embedding binary data into a Go program. The file data is optionally gzip compressed before being converted to a raw byte slice. It comes with a command line tool in the `go-bindata` sub directory. The converted file(s) is/are embedded in a new Go source file, along with a table of contents and an `Asset` function, which allows quick access to the asset, based on its name.
 
 ## [kevinburke/go-bindata](https://github.com/kevinburke/go-bindata)
-As of the time of this writing, the most recenting updated fork of the original `go-bindata/go-bindata`. This fork is also apparently the version trusted by Homebrew. Changes from the original package include:
+As of the time of this writing, the most recently updated fork of the original `go-bindata/go-bindata`. This fork is also apparently the version trusted by Homebrew. Changes from the original package include:
 - Atomic writes; generated file cannot be read while partially complete.
 - Better encoding of files that contain characters in the Unicode format range.
 - Generated file reports file sizes.
@@ -28,7 +28,7 @@ As of the time of this writing, the most recenting updated fork of the original 
 - File modes are stored in octal (0644) instead of nonsensical decimal (420)
 
 # [pkger](https://github.com/markbates/pkger)
-`pkger` is a tool for embedding static files into Go binaries and was intended as a replacement for [gobuffalo/packr](https://github.com/gobuffalo/packr)). Use the `pkger` command to package files and the `parser` tool to access them after packaging. The API is modeled on the `os` package in the Go standard lib.
+`pkger` is a tool for embedding static files into Go binaries and was intended as a replacement for [gobuffalo/packr](https://github.com/gobuffalo/packr). Use the `pkger` command to package files and the `parser` tool to access them after packaging. The API is modeled on the `os` package in the Go standard lib.
 
 # [esc](https://github.com/mjibson/esc/)
 `esc` embeds files into Go programs and provides `http.FileSystem` interfaces to them. It adds all named files or files recursively under named directories at the path specified. The output file provides an `http.FileSystem` interface with zero dependencies on packages outside the Go standard lib. After producing an output file, the assets may be accessed with the `FS()` function. `esc` appears to have had a very loyal following but has not been updated for over a year.
