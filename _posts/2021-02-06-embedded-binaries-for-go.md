@@ -22,8 +22,8 @@ As of the time of this writing, the most recenting updated fork of the original 
 - Generated file reports file sizes.
 - Generated code is run through go fmt.
 - SHA256 hashes are computed for all files and stored in the binary. You can use this to detect in-memory corruption and to provide easy cache-busting mechanisms.
-- Added AssetString and MustAssetString functions.
-- ByName is not public.
+- Added `AssetString` and `MustAssetString` functions.
+- `ByName` is not public.
 - Some errors in file writes were unchecked, but are now checked.
 - File modes are stored in octal (0644) instead of nonsensical decimal (420)
 
@@ -31,7 +31,10 @@ As of the time of this writing, the most recenting updated fork of the original 
 `pkger` is a tool for embedding static files into Go binaries and was intended as a replacement for [gobuffalo/packr](https://github.com/gobuffalo/packr)). Use the `pkger` command to package files and the `parser` tool to access them after packaging. The API is modeled on the `os` package in the Go standard lib.
 
 # [esc](https://github.com/mjibson/esc/)
-`esc` embeds files into Go programs and provides http.FileSystem interfaces to them. It adds all named files or files recursively under named directories at the path specified. The output file provides an http.FileSystem interface with zero dependencies on packages outside the standard library. After producing an output file, the assets may be accessed with the FS() function.
+`esc` embeds files into Go programs and provides `http.FileSystem` interfaces to them. It adds all named files or files recursively under named directories at the path specified. The output file provides an `http.FileSystem` interface with zero dependencies on packages outside the Go standard lib. After producing an output file, the assets may be accessed with the `FS()` function. `esc` appears to have had a very loyal following but has not been updated for over a year.
+
+
+At the time of this writing the original `go-bindata` and `pckgr` libraries have the most stars on Github, though given that it is the trust choice of Homebrew, I'd recommend using the [kevinburke/go-bindata](https://github.com/kevinburke/go-bindata) package.
 
 
 ## References
