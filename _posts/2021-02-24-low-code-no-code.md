@@ -51,7 +51,7 @@ Moreover, she says:
 
 One of the areas that is quite close to my own work, and where LCNC can be really dangerous is in AI/ML. When I started out building ML models at work, there was a definite the-robots-are-coming-to-steal-our-jobs backlash. My assurance to my colleagues and clients was that very few ML use cases are improved by completely removing thoughtful humans from the loop. Unfortunately, LCNC ML seems increasingly enthusiastic to try anyway.
 
-There are already a shocking number of data scientists who are not incentivized to unpack the choices implicit in their ML pipelines. Does our imputation or normalization strategy make sense for this data? Have we applied cross validation in a way that protects us from data leakage? Might multicollinearity or heterskedasticity be unexpectedly influencing our model's performance metrics?
+There are already a shocking number of data scientists who are not incentivized to unpack the choices implicit in their ML pipelines. Does our imputation or normalization strategy make sense for this data? Have we applied cross validation in a way that protects us from data leakage? Might multicollinearity or heteroskedasticity be unexpectedly influencing our model's performance metrics?
 
 Now imagine that some non-trivial percentage of those data scientists do not even have the *option* to unpack those choices, because they have been made at the platform level and fully abstracted away from the user.
 
