@@ -14,7 +14,7 @@ Recently a good friend asked me why it is that developers don't give much creden
 
 One of the reasons that developers don't like low-code/no-code (I'm going to abbreviate as LCNC from here on out) is because they make us feel like we are building with our hands tied behind our backs. As a coder, I have my own highly personalized ways of breaking problems down into pieces, building components against each of those problems, and then orchestrating those components together into a solution. It might not be for everyone, but it's my process. With LCNC, I have to use someone else's process, and it makes me feel awkward and constrained. I can't use the shortcuts and mental gynastics I'm used to and instead have to belly flop through someone else's jungle gym.
 
-In [The No Code Delusion](https://www.alexhudson.com/2020/01/13/the-no-code-delusion/),Alex Hudson writes:
+In [The No Code Delusion](https://www.alexhudson.com/2020/01/13/the-no-code-delusion/), Alex Hudson writes:
 
 > At the heart of the issue is the concept that “computer programming” - which is to say, writing code - is a constraint on the development of software. That there is some “higher level” on which people can operate, where development is much simpler but the end results in some way the same.
 
@@ -29,15 +29,15 @@ In [The Rise and Fall of Visual Basic](https://developers.slashdot.org/story/19/
 
 VB made a lot of things easier, but it wasn't perfect. Bruce McKinney, author of [Hardcore Visual Basic](https://www.worldcat.org/title/hardcore-visual-basic/oclc/36841494) is famously credited with saying "Visual Basic makes 95% of your task easy and the other 5% impossible".
 
-The issue is that with LCNC, progress becomes untenable as soon as you need to do something the framework hasn't anticipated that you'll want to do:
+The issue isn't specific to Visual Basic. With LCNC, progress becomes untenable as soon as you need to do something the framework hasn't anticipated that you'll want to do:
 
-Alexander Ilg [Low Code / No-Code Solutions for SAP — or: Why Low Code sucks](https://medium.com/alexander-ilg/):
+Alexander Ilg [writes](https://medium.com/alexander-ilg/):
 > With low-code, you are a prisoner of the framework or tool you use.
 
-Devetry [Why Hasn’t Low-Code Revolutionized App Development Yet?](https://devetry.com/blog/why-hasnt-low-code-revolutionized-app-development-yet/):
+Devetry [writes](https://devetry.com/blog/why-hasnt-low-code-revolutionized-app-development-yet/):
 > [The easy...] functionality comes at a price, which is namely an absence of customization.
 
-Whether that absense of customization means that you have to miss out on certain features you wanted, or it just means that your app looks just like everyone else's &mdash; there's a clear opportunity cost involved in choosing LCNC.
+Whether that absence of customization means that you have to miss out on certain features you wanted, or it just means that your app looks just as basic as everyone else's &mdash; there's a clear opportunity cost involved in choosing LCNC.
 
 ## Black boxes with bad things inside
 
@@ -57,7 +57,7 @@ Now imagine that some non-trivial percentage of those data scientists do not eve
 
 ## CloudLock
 
-Another thing that keeps me up at night about LCNC is the cost. On the surface, LCNC seems like a clear cost-saving homerun. Maybe you don't need to worry about hiring any engineers to build your website, or you can get away with not hiring a devOps team to deploy your app. LCNC cloud offerings, including things like CloudFormation, Serverless, and Kubernetes do seem to offer a method to scale on a budget. But is that really the case?
+Another thing that keeps me up at night about LCNC is the cost. On the surface, LCNC seems like a clear cost-saving homerun. Maybe you don't need to worry about hiring any engineers to build your website, or you can get away with not hiring a devOps team to deploy your app. Cloud offerings, including things like CloudFormation, Serverless, and Kubernetes do seem to offer a LCNC method to scale on a budget (this has even become a [joke](https://github.com/kelseyhightower/nocode)). But is that really the case?
 
 Think about something like Ikea. Ikea furniture seems cost effective; it's easy to find, easy to get through your front door, and you can (theoretically) put it together yourself once you're home. But it ages quickly, and then you have to get a new bookcase. Fortunately with Ikea, you probably haven't made a 3-year commitment to buy all your furniture there.
 
