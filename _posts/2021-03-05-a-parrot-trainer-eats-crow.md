@@ -3,7 +3,7 @@ layout: post
 title:  A Parrot Trainer Eats Crow
 image:
   feature: pepper_crop.png
-date:   2021-3-5 08:31:49
+date:   2021-3-10 18:42:34
 tags:   machine_learning
 ---
 
