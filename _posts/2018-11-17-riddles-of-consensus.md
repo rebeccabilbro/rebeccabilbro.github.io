@@ -7,9 +7,9 @@ date:   2018-11-17 12:35
 tags:   class_readings
 ---
 
-The Byzantine General's Problem, introduced in [Lamport et al's 1982 paper](https://people.eecs.berkeley.edu/~luca/cs174/byzantine.pdf), presented one of the key problems in distributed consensus; namely that in a distributed system, we can't always trust other system components. The solution to the problem is terrifically complex, and involved an immense amount of round trip communications between the participating replicas. 
+The Byzantine General's Problem, introduced in [Lamport et al's 1982 paper](https://lamport.azurewebsites.net/pubs/byz.pdf), presented one of the key problems in distributed consensus; namely that in a distributed system, we can't always trust other system components. The solution to the problem is terrifically complex, and involved an immense amount of round trip communications between the participating replicas.
 
-It is essentially in the vein of the Liar and the Truth Teller riddle, when you know that one of the two guards you'll be speaking with will lie to you and the other will tell the truth, but not which is which: 
+It is essentially in the vein of the Liar and the Truth Teller riddle, when you know that one of the two guards you'll be speaking with will lie to you and the other will tell the truth, but not which is which:
 
 >>> You are a prisoner in a room with two doors and two guards. One door leads to Freedom and  the other to Death – but which is which? One guard always tells the truth; the other only lies. Which is the truth-teller and which the liar? Unfortunately you do not know this either. You must choose a door, and you can ask only one single question, of only one of the guards. What (and who) do you ask to find your way to Freedom?
 
